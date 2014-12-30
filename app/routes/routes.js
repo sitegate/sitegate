@@ -8,13 +8,20 @@ var home = require('../controllers/home'),
 	signup = require('../controllers/signup'),
 	signout = require('../controllers/signout'),
 	users = require('../controllers/users'),
+	settings = require('../controllers/settings'),
 	resetPassword = require('../controllers/reset-password'),
 	passport = require('passport'),
 	isAuthenticated = require('../middlewares/is-authenticated'),
 	isGuest = require('../middlewares/is-guest');
 
 module.exports = function(app) {
+	app.use(function(req, res, next) {
+	  res.locals.url = req.url;
+	  next();
+	});
+
 	app.use('/signout', isAuthenticated);
+	app.use('/settings', isAuthenticated);
 	app.use('/signin', isGuest);
 	app.use('/signup', isGuest);
 	app.use('/reset-password', isGuest);
@@ -32,6 +39,18 @@ module.exports = function(app) {
 
 	app.route('/signout')
 		.get(signout.get);
+
+	app.route('/settings')
+		.get(settings.profile);
+
+	app.route('/settings/profile')
+		.get(settings.profile);
+
+	app.route('/settings/accounts')
+		.get(settings.accounts);
+
+	app.route('/settings/password')
+		.get(settings.password);
 
 	app.route('/reset-password')
 		.get(resetPassword.get);
