@@ -11,7 +11,7 @@
 </head>
 <body>
 	<div class="main container">
-		{% block content %}{% endblock %}
+		{% block coreContent %}{% endblock %}
 	</div>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script type="text/javascript" src="/components/semantic-ui/dist/semantic.js"></script>

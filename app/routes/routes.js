@@ -6,6 +6,7 @@
 var home = require('../controllers/home'),
 	signin = require('../controllers/signin'),
 	signup = require('../controllers/signup'),
+	signout = require('../controllers/signout'),
 	users = require('../controllers/users'),
 	resetPassword = require('../controllers/reset-password'),
 	passport = require('passport'),
@@ -13,13 +14,13 @@ var home = require('../controllers/home'),
 	isGuest = require('../middlewares/is-guest');
 
 module.exports = function(app) {
-	app.use('/', isAuthenticated);
+	app.use('/signout', isAuthenticated);
 	app.use('/signin', isGuest);
 	app.use('/signup', isGuest);
 	app.use('/reset-password', isGuest);
 
 	app.route('/')
-		.get(home.get);
+		.get(isAuthenticated, home.get);
 
 	app.route('/signin')
 		.get(signin.get)
@@ -28,6 +29,9 @@ module.exports = function(app) {
 	app.route('/signup')
 		.get(signup.get)
 		.post(signup.post);
+
+	app.route('/signout')
+		.get(signout.get);
 
 	app.route('/reset-password')
 		.get(resetPassword.get);

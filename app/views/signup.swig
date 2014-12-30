@@ -1,4 +1,4 @@
-{% extends 'layout.swig' %}
+{% extends 'public-layout.swig' %}
 
 {% block content %}
   <h1 id="sign-header" class="ui icon center aligned header">
