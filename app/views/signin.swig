@@ -1,7 +1,13 @@
 {% extends 'layout.swig' %}
 
 {% block content %}
-  <h1 class="ui center aligned header">Sigin In</h1>
+  <h1 id="sign-header" class="ui icon center aligned header">
+    <i class="sign in icon"></i>
+    <div class="content">
+      Sign In
+      <div class="sub header">Don't have an account? <a href="/signup">Sign up now</a></div>
+    </div>
+  </h1>
   <div class="signin options ui two column middle aligned relaxed fitted stackable grid">
   <div class="column">
     <h2>Using your credentials</h2>
@@ -22,6 +28,7 @@
       </div>
       <button class="ui blue submit button" type="submit">Login</button>
       <div class="ui button">Cancel</div>
+      <a href="">Can't access your account?</a>
     </form>
   </div>
   <div class="ui vertical divider">

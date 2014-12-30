@@ -10,14 +10,6 @@
   <script src="http://localhost:35729/livereload.js"></script>
 </head>
 <body>
-  	<div class="ui menu">
-	  <a class="active item" href="/signin">
-	    <i class="sign in icon"></i> Sign In
-	  </a>
-	  <a class="item" href="/signup">
-	    <i class="signup icon"></i> Sign Up
-	  </a>
-	</div>
 	<div class="main container">
 		{% block content %}{% endblock %}
 	</div>
