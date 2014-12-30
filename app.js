@@ -3,15 +3,15 @@ var express = require('express'),
   glob = require('glob'),
   mongoose = require('mongoose');
 
-mongoose.connect(config.db);
-var db = mongoose.connection;
-db.on('error', function () {
-  throw new Error('unable to connect to database at ' + config.db);
+// Bootstrap db connection
+var db = mongoose.connect(config.db, function(err) {
+	if (err) {
+		console.error('\x1b[31m', 'Could not connect to MongoDB!');
+		console.log(err);
+	}
 });
 
-var app = express();
-
-require('./config/express')(app, config);
+var app = require('./config/express')(db);
 
 // Bootstrap passport config
 require('./config/passport')();

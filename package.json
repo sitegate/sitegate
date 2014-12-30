@@ -22,7 +22,10 @@
     "passport-facebook": "~1.0.3",
     "passport-google-oauth": "~0.1.5",
     "passport-local": "~1.0.0",
-    "passport-twitter": "~1.0.2"
+    "passport-twitter": "~1.0.2",
+    "express-session": "~1.9.3",
+    "connect-mongo": "~0.5.2",
+    "helmet": "~0.5.4"
   },
   "devDependencies": {
     "gulp": "~3.8.10",

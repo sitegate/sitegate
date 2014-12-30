@@ -6,13 +6,13 @@ var path = require('path'),
 module.exports = {
 	root: rootPath,
 	app: {
-		title: 'MEAN',
+		title: 'ssoApp',
 		description: 'Full-Stack JavaScript with MongoDB, Express, AngularJS, and Node.js',
 		keywords: 'MongoDB, Express, AngularJS, Node.js'
 	},
 	port: process.env.PORT || 3000,
 	templateEngine: 'swig',
-	sessionSecret: 'MEAN',
+	sessionSecret: 'ssoApp',
 	sessionCollection: 'sessions',
 	assets: {
 		lib: {

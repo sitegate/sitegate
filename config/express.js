@@ -1,15 +1,23 @@
 var express = require('express'),
+  logger = require('morgan'),
+  bodyParser = require('body-parser'),
+  session = require('express-session'),
+  methodOverride = require('method-override'),
+  cookieParser = require('cookie-parser'),
+  helmet = require('helmet'),
+  passport = require('passport'),
+  MongoStore = require('connect-mongo')(session),
   glob = require('glob'),
   favicon = require('serve-favicon'),
-  logger = require('morgan'),
-  cookieParser = require('cookie-parser'),
-  bodyParser = require('body-parser'),
   compress = require('compression'),
-  methodOverride = require('method-override'),
   swig = require('swig'),
-  passport = require('passport');
+  config = require('./config');
 
-module.exports = function(app, config) {
+module.exports = function(db) {
+  // Initialize express app
+  var app = express();
+
+  // Globbing model files
   var models = glob.sync(config.root + '/app/models/**/*.js');
   models.forEach(function (model) {
     require(model);
@@ -25,10 +33,35 @@ module.exports = function(app, config) {
   app.use(bodyParser.urlencoded({
     extended: true
   }));
+  app.use(methodOverride());
+
+  // CookieParser should be above session
   app.use(cookieParser());
+
+  // Express MongoDB session storage
+  app.use(session({
+    saveUninitialized: true,
+    resave: true,
+    secret: config.sessionSecret,
+    store: new MongoStore({
+      mongooseConnection: db.connection,
+      collection: config.sessionCollection
+    })
+  }));
+
+  // use passport session
+  app.use(passport.initialize());
+  app.use(passport.session());
+
+  // Use helmet to secure Express headers
+  app.use(helmet.xframe());
+  app.use(helmet.xssFilter());
+  app.use(helmet.nosniff());
+  app.use(helmet.ienoopen());
+  app.disable('x-powered-by');
+
   app.use(compress());
   app.use(express.static(config.root + '/public'));
-  app.use(methodOverride());
 
   var routes = glob.sync(config.root + '/app/routes/*.js');
   routes.forEach(function (route) {
@@ -61,8 +94,5 @@ module.exports = function(app, config) {
     });
   });
 
-  // use passport session
-  app.use(passport.initialize());
-  app.use(passport.session());
-
+  return app;
 };

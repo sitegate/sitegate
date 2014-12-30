@@ -42,18 +42,18 @@
   </div>
   <div class="center aligned column">
     <h2>Using your social account</h2>
-    <div class="ui facebook button">
+    <a class="ui facebook button" href="/auth/facebook">
       <i class="facebook icon"></i>
       Facebook
-    </div>
-    <div class="ui twitter button">
+    </a>
+    <a class="ui twitter button" href="/auth/twitter">
       <i class="twitter icon"></i>
       Twitter
-    </div>
-    <div class="ui google plus button">
+    </a>
+    <a class="ui google plus button" href="/auth/google">
       <i class="google plus icon"></i>
       Google Plus
-    </div>
+    </a>
   </div>
 </div>
 {% endblock %}
