@@ -62,5 +62,5 @@
 <link rel="stylesheet" href="/css/signin.css">
 {% endblock %}
 {% block scripts %}
-<script type="text/javascript" src="/js/signin.js"></script>
+<script type="text/javascript" src="/js/signup.js"></script>
 {% endblock %}

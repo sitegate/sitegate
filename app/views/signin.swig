@@ -28,7 +28,7 @@
       </div>
       <button class="ui blue submit button" type="submit">Login</button>
       <div class="ui button">Cancel</div>
-      <a href="">Can't access your account?</a>
+      <a href="/reset-password">Can't access your account?</a>
     </form>
   </div>
   <div class="ui vertical divider">

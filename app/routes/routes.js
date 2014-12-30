@@ -4,7 +4,8 @@
  * Module dependencies.
  */
 var signin = require('../controllers/signin'),
-	signup = require('../controllers/signup');
+	signup = require('../controllers/signup'),
+	resetPassword = require('../controllers/reset-password');
 
 module.exports = function(app) {
 	app.route('/')
@@ -15,4 +16,7 @@ module.exports = function(app) {
 
 	app.route('/signup')
 		.get(signup.get);
+
+	app.route('/reset-password')
+		.get(resetPassword.get);
 };
