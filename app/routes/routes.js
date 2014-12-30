@@ -3,15 +3,23 @@
 /**
  * Module dependencies.
  */
-var signin = require('../controllers/signin'),
+var home = require('../controllers/home'),
+	signin = require('../controllers/signin'),
 	signup = require('../controllers/signup'),
 	users = require('../controllers/users'),
 	resetPassword = require('../controllers/reset-password'),
-	passport = require('passport');
+	passport = require('passport'),
+	isAuthenticated = require('../middlewares/is-authenticated'),
+	isGuest = require('../middlewares/is-guest');
 
 module.exports = function(app) {
+	app.use('/', isAuthenticated);
+	app.use('/signin', isGuest);
+	app.use('/signup', isGuest);
+	app.use('/reset-password', isGuest);
+
 	app.route('/')
-		.get(signin.get);
+		.get(home.get);
 
 	app.route('/signin')
 		.get(signin.get)
