@@ -11,7 +11,7 @@ router.get('/', function (req, res, next) {
 
   Article.find(function (err, articles) {
     if (err) return next(err);
-    res.render('index', {
+    res.render('signin', {
       title: 'Generator-Express MVC',
       articles: articles
     });

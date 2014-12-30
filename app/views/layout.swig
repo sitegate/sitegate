@@ -5,9 +5,23 @@
   <meta name="viewport" content="width=device-width">
   <title>{{ title }}</title>
   <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/components/semantic-ui/dist/semantic.css">
+  {% block styles %}{% endblock %}
   <script src="http://localhost:35729/livereload.js"></script>
 </head>
 <body>
-  {% block content %}{% endblock %}
+  	<div class="ui menu">
+	  <a class="active item">
+	    <i class="sign in icon"></i> Sign In
+	  </a>
+	  <a class="item">
+	    <i class="signup icon"></i> Sign Up
+	  </a>
+	</div>
+	<div class="main container">
+		{% block content %}{% endblock %}
+	</div>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script type="text/javascript" src="/components/semantic-ui/dist/semantic.js"></script>
 </body>
 </html>
