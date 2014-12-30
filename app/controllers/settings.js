@@ -1,7 +1,12 @@
 exports.profile = function (req, res, next) {
     res.render('settings/profile', {
-      title: 'Generator-Express MVC'
+      username: req.user.username,
+      email: req.user.email
     });
+};
+
+exports.updateProfile = function (req, res, next) {
+	throw 'Not implemented yet!';
 };
 
 exports.accounts = function (req, res, next) {

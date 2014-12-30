@@ -1,18 +1,18 @@
 {% extends '../settings-layout.swig' %}
 
 {% block settingsContent %}
-<form class="ui form">
+<form class="ui form" method="post">
 	<div class="field">
         <label>Username</label>
         <div class="ui left icon input">
-          <input type="text" placeholder="Username" name="username">
+          <input type="text" placeholder="Username" name="username" value="{{username}}">
           <i class="user icon"></i>
         </div>
       </div>
       <div class="field">
         <label>Email</label>
         <div class="ui left icon input">
-          <input type="text" placeholder="Email" name="email">
+          <input type="text" placeholder="Email" name="email" value="{{email}}">
           <i class="mail icon"></i>
         </div>
       </div>

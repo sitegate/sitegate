@@ -12,9 +12,12 @@ var home = require('../controllers/home'),
 	resetPassword = require('../controllers/reset-password'),
 	passport = require('passport'),
 	isAuthenticated = require('../middlewares/is-authenticated'),
-	isGuest = require('../middlewares/is-guest');
+	isGuest = require('../middlewares/is-guest'),
+	saveCallbackUrl = require('../middlewares/save-callback-url');
 
 module.exports = function(app) {
+	app.use(saveCallbackUrl);
+
 	app.use(function(req, res, next) {
 	  res.locals.url = req.url;
 	  next();
@@ -41,10 +44,12 @@ module.exports = function(app) {
 		.get(signout.get);
 
 	app.route('/settings')
-		.get(settings.profile);
+		.get(settings.profile)
+		.post(settings.updateProfile);
 
 	app.route('/settings/profile')
-		.get(settings.profile);
+		.get(settings.profile)
+		.post(settings.updateProfile);
 
 	app.route('/settings/accounts')
 		.get(settings.accounts);

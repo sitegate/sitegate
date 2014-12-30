@@ -43,9 +43,13 @@ exports.post = function (req, res, next) {
 			req.login(user, function(err) {
 				if (err) {
 					res.status(400).send(err);
-				} else {
-					res.send('Successfully registered!');
-				}
+				} else if (req.session.callbackUrl) {
+		          var callbackUrl = req.session.callbackUrl;
+		          req.session.callbackUrl = null;
+		          res.redirect(callbackUrl + '?username=' + user.username + '&email=' + user.email);
+		        } else {
+		          res.redirect('/');
+		        }
 			});
 		}
 	});

@@ -1,15 +1,11 @@
 var express = require('express'),
   mongoose = require('mongoose'),
-  Article = mongoose.model('Article'),
   passport = require('passport');
 
 exports.get = function (req, res, next) {
-  Article.find(function (err, articles) {
-    if (err) return next(err);
     res.render('signin', {
       title: 'Generator-Express MVC'
     });
-  });
 };
 
 /**
@@ -27,8 +23,12 @@ exports.post = function(req, res, next) {
       req.login(user, function(err) {
         if (err) {
           res.status(400).send(err);
+        } else if (req.session.callbackUrl) {
+          var callbackUrl = req.session.callbackUrl;
+          req.session.callbackUrl = null;
+          res.redirect(callbackUrl + '?username=' + user.username + '&email=' + user.email);
         } else {
-          res.send('Successfully signed in');
+          res.redirect('/');
         }
       });
     }
