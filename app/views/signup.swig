@@ -1,7 +1,7 @@
 {% extends 'layout.swig' %}
 
 {% block content %}
-  <h1 class="ui center aligned header">Sigin In</h1>
+  <h1 class="ui center aligned header">Sigin Up</h1>
   <div class="signin options ui two column middle aligned relaxed fitted stackable grid">
   <div class="column">
     <h2>Using your credentials</h2>
@@ -11,6 +11,13 @@
         <div class="ui left icon input">
           <input type="text" placeholder="Username" name="username">
           <i class="user icon"></i>
+        </div>
+      </div>
+      <div class="field">
+        <label>Email</label>
+        <div class="ui left icon input">
+          <input type="text" placeholder="Email" name="email">
+          <i class="mail icon"></i>
         </div>
       </div>
       <div class="field">

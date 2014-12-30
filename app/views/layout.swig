@@ -11,10 +11,10 @@
 </head>
 <body>
   	<div class="ui menu">
-	  <a class="active item">
+	  <a class="active item" href="/signin">
 	    <i class="sign in icon"></i> Sign In
 	  </a>
-	  <a class="item">
+	  <a class="item" href="/signup">
 	    <i class="signup icon"></i> Sign Up
 	  </a>
 	</div>
@@ -23,5 +23,6 @@
 	</div>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script type="text/javascript" src="/components/semantic-ui/dist/semantic.js"></script>
+  {% block scripts %}{% endblock %}
 </body>
 </html>
