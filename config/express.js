@@ -1,15 +1,20 @@
-var express = require('express');
-var glob = require('glob');
-
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var compress = require('compression');
-var methodOverride = require('method-override');
-var swig = require('swig');
+var express = require('express'),
+  glob = require('glob'),
+  favicon = require('serve-favicon'),
+  logger = require('morgan'),
+  cookieParser = require('cookie-parser'),
+  bodyParser = require('body-parser'),
+  compress = require('compression'),
+  methodOverride = require('method-override'),
+  swig = require('swig'),
+  passport = require('passport');
 
 module.exports = function(app, config) {
+  var models = glob.sync(config.root + '/app/models/**/*.js');
+  models.forEach(function (model) {
+    require(model);
+  });
+
   app.engine('swig', swig.renderFile)
   app.set('views', config.root + '/app/views');
   app.set('view engine', 'swig');
@@ -55,5 +60,9 @@ module.exports = function(app, config) {
       title: 'error'
     });
   });
+
+  // use passport session
+  app.use(passport.initialize());
+  app.use(passport.session());
 
 };

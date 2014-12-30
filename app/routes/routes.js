@@ -15,7 +15,8 @@ module.exports = function(app) {
 		.get(signin.get);
 
 	app.route('/signup')
-		.get(signup.get);
+		.get(signup.get)
+		.post(signup.post);
 
 	app.route('/reset-password')
 		.get(resetPassword.get);

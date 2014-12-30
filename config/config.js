@@ -1,37 +1,14 @@
-var path = require('path'),
-    rootPath = path.normalize(__dirname + '/..'),
-    env = process.env.NODE_ENV || 'development';
+'use strict';
 
-var config = {
-  development: {
-    root: rootPath,
-    app: {
-      name: 'ssoapp4'
-    },
-    port: 3000,
-    db: 'mongodb://localhost/ssoapp4-development'
-    
-  },
+/**
+ * Module dependencies.
+ */
+var _ = require('lodash');
 
-  test: {
-    root: rootPath,
-    app: {
-      name: 'ssoapp4'
-    },
-    port: 3000,
-    db: 'mongodb://localhost/ssoapp4-test'
-    
-  },
-
-  production: {
-    root: rootPath,
-    app: {
-      name: 'ssoapp4'
-    },
-    port: 3000,
-    db: 'mongodb://localhost/ssoapp4-production'
-    
-  }
-};
-
-module.exports = config[env];
+/**
+ * Load app configurations
+ */
+module.exports = _.extend(
+	require('./env/all'),
+	require('./env/' + (process.env.NODE_ENV || 'development')) || {}
+);

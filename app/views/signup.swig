@@ -11,7 +11,7 @@
   <div class="signin options ui two column middle aligned relaxed fitted stackable grid">
   <div class="column">
     <h2>Using your credentials</h2>
-    <form class="ui form segment">
+    <form class="ui form segment" method="post">
       <div class="field">
         <label>Username</label>
         <div class="ui left icon input">
