@@ -86,6 +86,9 @@ var UserSchema = new Schema({
 	},
   	resetPasswordExpires: {
   		type: Date
+  	},
+  	token: {
+  		type: String
   	}
 });
 

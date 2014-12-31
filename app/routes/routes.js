@@ -8,6 +8,7 @@ var home = require('../controllers/home'),
 	signup = require('../controllers/signup'),
 	signout = require('../controllers/signout'),
 	users = require('../controllers/users'),
+	userInfo = require('../controllers/user-info'),
 	settings = require('../controllers/settings'),
 	resetPassword = require('../controllers/reset-password'),
 	passport = require('passport'),
@@ -59,6 +60,9 @@ module.exports = function(app) {
 
 	app.route('/reset-password')
 		.get(resetPassword.get);
+
+	app.route('/api/user-info')
+		.get(userInfo.get);
 
 	// Setting the facebook oauth routes
 	app.route('/auth/facebook').get(passport.authenticate('facebook', {

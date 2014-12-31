@@ -26,7 +26,7 @@ exports.post = function(req, res, next) {
         } else if (req.session.callbackUrl) {
           var callbackUrl = req.session.callbackUrl;
           req.session.callbackUrl = null;
-          res.redirect(callbackUrl + '?username=' + user.username + '&email=' + user.email);
+          res.redirect(callbackUrl + '?token=' + user.token);
         } else {
           res.redirect('/');
         }

@@ -4,8 +4,8 @@ module.exports = function isGuest(req, res, next) {
     if (req.session.callbackUrl) {
 		var callbackUrl = req.session.callbackUrl;
      	req.session.callbackUrl = null;
-      	res.redirect(callbackUrl + '?username=' + req.user.username + '&email=' + req.user.email);
+      	res.redirect(callbackUrl + '?token=' + req.user.token);
+    } else {
+    	res.redirect('/');
     }
-
-    res.redirect('/');
 };
