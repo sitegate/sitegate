@@ -1,5 +1,5 @@
 {
-  "name": "sesame",
+  "name": "sitegate",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -15,7 +15,6 @@
     "method-override": "~2.3.0",
     "glob": "~4.3.2",
     "mongoose": "~3.8.20",
-    "swig": "~1.4.2",
     "crypto": "0.0.3",
     "passport": "~0.2.1",
     "lodash": "~2.4.1",
@@ -25,7 +24,9 @@
     "passport-twitter": "~1.0.2",
     "express-session": "~1.9.3",
     "connect-mongo": "~0.5.2",
-    "helmet": "~0.5.4"
+    "helmet": "~0.5.4",
+    "i18next": "~1.7.8",
+    "jade": "~1.8.2"
   },
   "devDependencies": {
     "gulp": "~3.8.10",

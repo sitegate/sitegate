@@ -1,0 +1,39 @@
+{
+	"common": {
+		"saveChanges": "Save changes"
+	},
+	"account": {
+		"account": "Account",
+		"signIn": "Sign In",
+		"signUp": "Sign Up",
+		"dontHaveAccount": "Don't have an account?",
+		"signUpNow": "Sign up now",
+		"usingCredentials": "Using your credentials",
+		"username": "Username",
+		"password": "Password",
+		"login": "Login",
+		"cancel": "Cancel",
+		"cantAccessAccount": "Can't access your account?",
+		"usingSocialAccount": "Using your social account",
+		"or": "Or",
+		"alreadyHaveAccount": "Already have an account?",
+		"signInNow": "Sign in now",
+		"email": "Email",
+		"createAccount": "Create account",
+		"resetPassword": "Reset Password",
+		"signOut": "Sign Out",
+		"socialAccounts": "Social accounts"
+	},
+	"social": {
+		"facebook": "Facebook",
+		"twitter": "Twitter",
+		"googlePlus": "Google Plus"
+	},
+	"settings": {
+		"settings": "Settings",
+		"addLoginUsingService": "Add a login using any of the following services",
+		"currentPassword": "Current password",
+		"newPassword": "New password",
+		"repeatPassword": "Repeat password"
+	}
+}

@@ -10,8 +10,8 @@ var express = require('express'),
   glob = require('glob'),
   favicon = require('serve-favicon'),
   compress = require('compression'),
-  swig = require('swig'),
-  config = require('./config');
+  config = require('./config'),
+  i18n = require('i18next');
 
 module.exports = function(db) {
   // Initialize express app
@@ -23,9 +23,19 @@ module.exports = function(db) {
     require(model);
   });
 
-  app.engine('swig', swig.renderFile)
   app.set('views', config.root + '/app/views');
-  app.set('view engine', 'swig');
+  app.set('view engine', 'jade');
+
+  // Registering i18n
+  i18n.init({
+    fallbackLng: 'en',
+    ignoreRoutes: ['images/', 'public/', 'css/', 'js/'],
+    debug: true
+  });
+  i18n.registerAppHelper(app)
+  i18n.addPostProcessor("jade", function(val, key, opts) {
+   return require("jade").compile(val, opts)();
+  });
 
   // app.use(favicon(config.root + '/public/img/favicon.ico'));
   app.use(logger('dev'));
@@ -33,6 +43,7 @@ module.exports = function(db) {
   app.use(bodyParser.urlencoded({
     extended: true
   }));
+  app.use(i18n.handle);
   app.use(methodOverride());
 
   // CookieParser should be above session

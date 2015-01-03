@@ -1,0 +1,47 @@
+extends ./public-layout.jade
+
+block content
+  h1(id='sign-header', class='ui icon center aligned header')
+    i(class='sign in icon')
+    div(class='content')
+      != t('account.signIn')
+      div(class='sub header')
+        != t('account.dontHaveAccount')
+        | 
+        a(href='/signup')= t('account.signUpNow')
+
+  div(class="signin options ui two column middle aligned relaxed fitted stackable grid")
+    div(class="column")
+      h2= t('account.usingCredentials')
+      form(class="ui form segment", method="post")
+        div(class="field")
+          label= t('account.username')
+          div(class="ui left icon input")
+            input(type="text", placeholder=t('account.username'), name="username")
+            i(class="user icon")
+        div(class="field")
+          label= t('account.password')
+          div(class="ui left icon input")
+            input(type="password", name="password")
+            i(class="lock icon")
+        button(class="ui blue submit button", type="submit")= t('account.login')
+        div(class="ui button")= t('account.cancel')
+        a(href="/reset-password")= t('account.cantAccessAccount')
+    div(class="ui vertical divider")= t('account.or')
+    div(class="center aligned column")
+      h2= t('account.usingSocialAccount')
+      a(class="ui facebook button", href="/auth/facebook")
+        i(class="facebook icon")
+        != t('social.facebook')
+      a(class="ui twitter button", href="/auth/twitter")
+        i(class="twitter icon")
+        != t('social.twitter')
+      a(class="ui google plus button", href="/auth/google")
+        i(class="google plus icon")
+        != t('social.googlePlus')
+
+block styles
+  link(rel="stylesheet", href="/css/signin.css")
+
+block scripts
+  script(type="text/javascript", src="/js/signin.js")

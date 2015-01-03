@@ -1,0 +1,39 @@
+{
+	"common": {
+		"saveChanges": "Зберегти зміни"
+	},
+	"account": {
+		"account": "Акаунт",
+		"signIn": "Увійти",
+		"signUp": "Зареєструватись",
+		"dontHaveAccount": "Не маєте акаунта?",
+		"signUpNow": "Зареєструйтесь",
+		"usingCredentials": "Використовуючи облікові дані",
+		"username": "Ім`я користувача",
+		"password": "Пароль",
+		"login": "Лоґін",
+		"cancel": "Відміна",
+		"cantAccessAccount": "Забули пароль?",
+		"usingSocialAccount": "Використовуючи соціальний акаунт",
+		"or": "Або",
+		"alreadyHaveAccount": "Уже маєте акаунт?",
+		"signInNow": "Увійдіть",
+		"email": "Електронна пошта",
+		"createAccount": "Створити акаунт",
+		"resetPassword": "Відновити пароль",
+		"signOut": "Вийти",
+		"socialAccounts": "Соціальні акаунти"
+	},
+	"social": {
+		"facebook": "Facebook",
+		"twitter": "Twitter",
+		"googlePlus": "Google Plus"
+	},
+	"settings": {
+		"settings": "Налаштування",
+		"addLoginUsingService": "Додайте лоґін використовуючи будь-який з наведених сервісів",
+		"currentPassword": "Поточний пароль",
+		"newPassword": "Новий пароль",
+		"repeatPassword": "Повторно пароль"
+	}
+}

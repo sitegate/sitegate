@@ -1,0 +1,29 @@
+{
+	"common": {
+		"saveChanges": "Mentés"
+	},
+	"account": {
+		"signIn": "Bejelentkezni",
+		"signUp": "Beregisztrálni",
+		"dontHaveAccount": "Nincs profilja?",
+		"signUpNow": "Beregisztrálni most",
+		"username": "Felhasználói név",
+		"password": "Jelszó",
+		"login": "Login",
+		"cancel": "Vissza",
+		"cantAccessAccount": "Nem tud bemenni?",
+		"usingSocialAccount": "A szociális profilját használva",
+		"or": "Vagy",
+		"alreadyHaveAccount": "Már van profilja?",
+		"signInNow": "Jelentkezzen be most",
+		"email": "Email",
+		"createAccount": "Profil létrehozása",
+		"resetPassword": "Jelszó csere",
+		"signOut": "Kijelentkezni"
+	},
+	"social": {
+		"facebook": "Facebook",
+		"twitter": "Twitter",
+		"googlePlus": "Google Plus"
+	}
+}
