@@ -6,7 +6,7 @@ var gulp = require('gulp'),
 gulp.task('less', function () {
   gulp.src('./public/css/*.less')
     .pipe(less())
-    .pipe(gulp.dest('./public/css'))
+    .pipe(gulp.dest('./public/dest/css'))
     .pipe(livereload());
 });
 
@@ -18,7 +18,7 @@ gulp.task('develop', function () {
   livereload.listen();
   nodemon({
     script: 'app.js',
-    ext: 'js swig',
+    ext: 'js jade',
   }).on('restart', function () {
     setTimeout(function () {
       livereload.changed();
