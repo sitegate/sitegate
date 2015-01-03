@@ -15,6 +15,7 @@ SiteGate uses:
 * [Passport](http://passportjs.org/) for authentication.
 * [MongoDB](http://www.mongodb.org/downloads) as our database.
 * [Express](http://expressjs.com/) is our web framework for Node.js.
+* [Semantic UI](http://semantic-ui.com/) for the fancy design.
  
 Installation
 ========
