@@ -19,6 +19,11 @@ SiteGate uses:
  
 Installation
 ========
+Add this line to your hosts file:
+```
+127.0.0.1 account.sitegatedev.com
+```
+Run these commands in a console:
 ````
 $ git clone git@github.com:zkochan/sitegate.git && cd ./sitegate
 $ npm install && bower install
