@@ -14,6 +14,11 @@ module.exports = {
 	templateEngine: 'swig',
 	sessionSecret: 'ssoApp',
 	sessionCollection: 'sessions',
+	sitegateClient: {
+		domain: 'http://sitegatedev.com:3001',
+		privateHomepage: '/',
+		publicHomepage: '/'
+	},
 	assets: {
 		lib: {
 			css: [

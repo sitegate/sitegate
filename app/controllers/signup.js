@@ -6,11 +6,13 @@
 var errorHandler = require('./errors'),
 	mongoose = require('mongoose'),
 	passport = require('passport'),
-	User = mongoose.model('User');
+	User = mongoose.model('User'),
+  	config = require('../../config/config');
 
 exports.get = function (req, res, next) {
     res.render('signup', {
-      title: req.i18n.t('account.signUp')
+      title: req.i18n.t('account.signUp'),
+      cancelUrl: config.sitegateClient.domain + config.sitegateClient.publicHomepage
     });
 };
 

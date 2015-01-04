@@ -28,6 +28,7 @@ block content
             input(type="password", name="password")
             i(class="lock icon")
         button(class="ui blue submit button", type="submit")= t("account.createAccount")
+        a(class="ui button", href=cancelUrl)= t('account.cancel')
     div(class="ui vertical divider")= t("account.or")
     div(class="center aligned column")
       h2= t('account.usingSocialAccount')

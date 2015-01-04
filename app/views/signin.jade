@@ -25,7 +25,7 @@ block content
             input(type="password", name="password")
             i(class="lock icon")
         button(class="ui blue submit button", type="submit")= t('account.login')
-        div(class="ui button")= t('account.cancel')
+        a(class="ui button", href=cancelUrl)= t('account.cancel')
         a(href="/reset-password")= t('account.cantAccessAccount')
     div(class="ui vertical divider")= t('account.or')
     div(class="center aligned column")

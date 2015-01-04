@@ -1,10 +1,12 @@
 var express = require('express'),
   mongoose = require('mongoose'),
-  passport = require('passport');
+  passport = require('passport'),
+  config = require('../../config/config');
 
 exports.get = function (req, res, next) {
     res.render('signin', {
-      title: req.i18n.t('account.signIn')
+      title: req.i18n.t('account.signIn'),
+      cancelUrl: config.sitegateClient.domain + config.sitegateClient.publicHomepage
     });
 };
 
