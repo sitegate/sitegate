@@ -4,7 +4,8 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-	User = mongoose.model('User');
+	User = mongoose.model('User'),
+	passport = require('passport');
 
 /**
  * OAuth callback
@@ -20,7 +21,7 @@ exports.oauthCallback = function(strategy) {
 					return res.redirect('/signin');
 				}
 
-				return res.redirect(redirectURL || '/');
+				return require('../go-callback')(req, res, next);
 			});
 		})(req, res, next);
 	};

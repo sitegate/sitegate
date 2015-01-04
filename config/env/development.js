@@ -6,19 +6,19 @@ module.exports = {
 		title: 'MEAN - Development Environment'
 	},
 	facebook: {
-		clientID: process.env.FACEBOOK_ID || 'APP_ID',
-		clientSecret: process.env.FACEBOOK_SECRET || 'APP_SECRET',
-		callbackURL: 'http://localhost:3000/auth/facebook/callback'
+		clientID: process.env.FACEBOOK_ID || '391179464377243',
+		clientSecret: process.env.FACEBOOK_SECRET || 'edfafc7715060f8cb4c7212833a3c87a',
+		callbackURL: 'http://account.sitegatedev.com:3000/auth/facebook/callback'
 	},
 	twitter: {
-		clientID: process.env.TWITTER_KEY || 'CONSUMER_KEY',
-		clientSecret: process.env.TWITTER_SECRET || 'CONSUMER_SECRET',
-		callbackURL: 'http://localhost:3000/auth/twitter/callback'
+		clientID: process.env.TWITTER_KEY || 'j5UFdNnFLv6t24syOiDglfRIX',
+		clientSecret: process.env.TWITTER_SECRET || 'GZMmhyaUcsaQULXQknfmXCEh8KTG91UGBeQED19ASvhsaDO7Ba',
+		callbackURL: 'http://account.sitegatedev.com:3000/auth/twitter/callback'
 	},
 	google: {
-		clientID: process.env.GOOGLE_ID || 'APP_ID',
-		clientSecret: process.env.GOOGLE_SECRET || 'APP_SECRET',
-		callbackURL: 'http://localhost:3000/auth/google/callback'
+		clientID: process.env.GOOGLE_ID || '295363747259-4f4o7483ce5q74a6v31n05s23ke37dii.apps.googleusercontent.com',
+		clientSecret: process.env.GOOGLE_SECRET || 'rcBTWhsCnytAl6bXr3iTnjPs',
+		callbackURL: 'http://account.sitegatedev.com:3000/auth/google/callback'
 	},
 	linkedin: {
 		clientID: process.env.LINKEDIN_ID || 'APP_ID',
