@@ -1,0 +1,3 @@
+# the auth provider should never be indexed
+User-agent: *
+Disallow: /
