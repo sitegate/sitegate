@@ -4,7 +4,7 @@ var express = require('express'),
 
 exports.get = function (req, res, next) {
     res.render('signin', {
-      title: 'Generator-Express MVC'
+      title: req.i18n.t('account.signIn')
     });
 };
 
@@ -23,12 +23,8 @@ exports.post = function(req, res, next) {
       req.login(user, function(err) {
         if (err) {
           res.status(400).send(err);
-        } else if (req.session.callbackUrl) {
-          var callbackUrl = req.session.callbackUrl;
-          req.session.callbackUrl = null;
-          res.redirect(callbackUrl + '?token=' + user.token);
         } else {
-          res.redirect('/');
+          return require('../go-callback')(req, res, next);
         }
       });
     }

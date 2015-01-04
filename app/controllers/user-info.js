@@ -10,6 +10,7 @@ exports.get = function (req, res, next) {
 		token: req.query.token
 	}, function(err, user) {
 		if (err) return next(err);
+		if (!user) return res.status(404).send('No user with the specified token.');
 		res.json({
 			username: user.username,
 			email: user.email

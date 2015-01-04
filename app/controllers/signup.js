@@ -6,12 +6,11 @@
 var errorHandler = require('./errors'),
 	mongoose = require('mongoose'),
 	passport = require('passport'),
-	User = mongoose.model('User'),
-	crypto = require('crypto');
+	User = mongoose.model('User');
 
 exports.get = function (req, res, next) {
     res.render('signup', {
-      title: 'Generator-Express MVC'
+      title: req.i18n.t('account.signUp')
     });
 };
 
@@ -29,7 +28,6 @@ exports.post = function (req, res, next) {
 	// Add missing user fields
 	user.provider = 'local';
 	user.displayName = user.firstName + ' ' + user.lastName;
-	user.token = crypto.createHash('md5').update(user.username + Math.round((new Date().valueOf() * Math.random()))).digest('hex');
 
 	// Then save the user 
 	user.save(function(err) {
@@ -45,12 +43,8 @@ exports.post = function (req, res, next) {
 			req.login(user, function(err) {
 				if (err) {
 					res.status(400).send(err);
-				} else if (req.session.callbackUrl) {
-		          var callbackUrl = req.session.callbackUrl;
-		          req.session.callbackUrl = null;
-		          res.redirect(callbackUrl + '?token=' + user.token);
-		        } else {
-		          res.redirect('/');
+				} else {
+					return require('../go-callback')(req, res, next);
 		        }
 			});
 		}
