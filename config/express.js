@@ -11,7 +11,8 @@ var express = require('express'),
   favicon = require('serve-favicon'),
   compress = require('compression'),
   config = require('./config'),
-  i18n = require('i18next');
+  i18n = require('i18next'),
+  flash = require('connect-flash');
 
 module.exports = function(db) {
   // Initialize express app
@@ -63,6 +64,7 @@ module.exports = function(db) {
   // use passport session
   app.use(passport.initialize());
   app.use(passport.session());
+  app.use(flash()); // use connect-flash for flash messages stored in session
 
   // Use helmet to secure Express headers
   app.use(helmet.xframe());

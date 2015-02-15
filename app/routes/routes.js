@@ -56,7 +56,8 @@ module.exports = function(app) {
 		.get(settings.accounts);
 
 	app.route('/settings/password')
-		.get(settings.password);
+		.get(settings.password)
+		.post(settings.changePassword);
 
 	app.route('/reset-password')
 		.get(resetPassword.get);

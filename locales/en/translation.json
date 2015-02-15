@@ -25,7 +25,10 @@
 		"createAccount": "Create account",
 		"resetPassword": "Reset Password",
 		"signOut": "Sign Out",
-		"socialAccounts": "Social accounts"
+		"socialAccounts": "Social accounts",
+		"invalidUsername": "Incorrect username. Please try again.",
+		"invalidPassword": "Incorrect password. Please try again.",
+		"unknownError": "Some error occured"
 	},
 	"social": {
 		"facebook": "Facebook",
@@ -37,6 +40,8 @@
 		"addLoginUsingService": "Add a login using any of the following services",
 		"currentPassword": "Current password",
 		"newPassword": "New password",
-		"repeatPassword": "Repeat password"
+		"repeatPassword": "Repeat password",
+		"passwordChangedSuccessfully": "Password changed successfully",
+		"currentPasswordIsIncorrect": "Current password is incorrect"
 	}
 }

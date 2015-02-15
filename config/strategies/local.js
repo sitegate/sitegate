@@ -5,7 +5,8 @@
  */
 var passport = require('passport'),
 	LocalStrategy = require('passport-local').Strategy,
-	User = require('mongoose').model('User');
+	User = require('mongoose').model('User'),
+	i18n = require('i18next');
 
 module.exports = function() {
 	// Use local strategy
@@ -22,12 +23,12 @@ module.exports = function() {
 				}
 				if (!user) {
 					return done(null, false, {
-						message: 'Unknown user or invalid password'
+						message: i18n.t('account.invalidUsername')
 					});
 				}
 				if (!user.authenticate(password)) {
 					return done(null, false, {
-						message: 'Unknown user or invalid password'
+						message: i18n.t('account.invalidPassword')
 					});
 				}
 

@@ -1,12 +1,14 @@
 var express = require('express'),
   mongoose = require('mongoose'),
   passport = require('passport'),
-  config = require('../../config/config');
+  config = require('../../config/config'),
+  i18n = require('i18next');
 
 exports.get = function (req, res, next) {
     res.render('signin', {
       title: req.i18n.t('account.signIn'),
-      cancelUrl: config.sitegateClient.domain + config.sitegateClient.publicHomepage
+      cancelUrl: config.sitegateClient.domain + config.sitegateClient.publicHomepage,
+      error: req.flash('signinMessage')
     });
 };
 
@@ -15,8 +17,12 @@ exports.get = function (req, res, next) {
  */
 exports.post = function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {
-    if (err || !user) {
-      res.status(400).send(info);
+    if (!user) {
+      req.flash('signinMessage', info.message);
+      res.redirect('/signin');
+    } else if (err) {
+      req.flash('signinMessage', i18n.t('account.unknownError'));
+      res.redirect('/signin');
     } else {
       // Remove sensitive data before login
       user.password = undefined;
@@ -24,7 +30,8 @@ exports.post = function(req, res, next) {
 
       req.login(user, function(err) {
         if (err) {
-          res.status(400).send(err);
+          req.flash('signinMessage', i18n.t('account.unknownError'));
+          res.redirect('/signin');
         } else {
           return require('../go-callback')(req, res, next);
         }

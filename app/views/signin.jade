@@ -14,6 +14,10 @@ block content
     div(class="column")
       h2= t('account.usingCredentials')
       form(class="ui form segment", method="post")
+        if error.length > 0
+          div(class="ui negative message")
+            i(class="ui warning sign icon")
+            != error
         div(class="field")
           label= t('account.username')
           div(class="ui left icon input")
@@ -23,7 +27,7 @@ block content
           label= t('account.password')
           div(class="ui left icon input")
             input(type="password", name="password")
-            i(class="lock icon")
+            i.lock.icon
         button(class="ui blue submit button", type="submit")= t('account.login')
         a(class="ui button", href=cancelUrl)= t('account.cancel')
         a(href="/reset-password")= t('account.cantAccessAccount')
