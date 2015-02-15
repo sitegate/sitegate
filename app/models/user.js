@@ -5,7 +5,7 @@
  */
 var mongoose = require('mongoose'),
 	Schema = mongoose.Schema,
-	passportLocalMongoose = require('passport-local-mongoose');
+	passportLocalMongoose = require('passport-email');
 
 /**
  * A Validation function for local strategy properties
