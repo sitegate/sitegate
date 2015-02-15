@@ -39,4 +39,24 @@
 	      ]
 	    }
 	  });
+
+	var $lock = $('.lock.icon');
+	$('input[type="password"]').keyup(function () {
+		if (!zxcvbn) return;
+
+		var $this = $(this);
+		var score = zxcvbn($this.val()).score;
+		var scoreName;
+
+		if (score == 4)
+	        scoreName = 'strong';
+	    else if (score == 3)
+	        scoreName = 'good';
+	    else
+	        scoreName = 'weak';
+
+	    $lock.toggleClass('green', scoreName == 'strong');
+	    $lock.toggleClass('yellow', scoreName == 'good');
+	    $lock.toggleClass('red', scoreName == 'weak');
+	});
 })();
