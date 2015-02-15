@@ -18,10 +18,11 @@ exports.get = function (req, res, next) {
 exports.post = function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {
     if (!user) {
-      req.flash('signinMessage', info.message);
+      var message = i18n.t('account.error.' + (info.result || 'unknown'));
+      req.flash('signinMessage', message);
       res.redirect('/signin');
     } else if (err) {
-      req.flash('signinMessage', i18n.t('account.unknownError'));
+      req.flash('signinMessage', i18n.t('account.error.unknown'));
       res.redirect('/signin');
     } else {
       // Remove sensitive data before login
@@ -30,7 +31,7 @@ exports.post = function(req, res, next) {
 
       req.login(user, function(err) {
         if (err) {
-          req.flash('signinMessage', i18n.t('account.unknownError'));
+          req.flash('signinMessage', i18n.t('account.error.unknown'));
           res.redirect('/signin');
         } else {
           return require('../go-callback')(req, res, next);

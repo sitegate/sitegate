@@ -6,8 +6,8 @@
 var errorHandler = require('./errors'),
 	passport = require('passport'),
 	User = require('../models/user'),
-  	config = require('../../config/config'),
-  	i18n = require('i18next');
+  config = require('../../config/config'),
+  i18n = require('i18next');
 
 exports.get = function (req, res, next) {
     res.render('signup', {
@@ -26,17 +26,22 @@ exports.post = function (req, res, next) {
 	user.provider = 'local';
 	user.displayName = user.firstName + ' ' + user.lastName;
 
-	User.register(new User(user), req.body.password, function(err, user) {
-	      if (err) {
-	        return res.render('signup', {error: i18n.t('account.usernameAlreadyExists')});
-	      }
+	User.register(user, req.body.password, function(err, user) {
+		if (err) {
+			return res.render('signup', {
+				username: req.body.username,
+				password: req.body.password,
+				email: req.body.email,
+				error: i18n.t('account.error.' + (err.name || 'unknown'))
+			});
+    }
 
-	      req.login(user, function(err) {
+    req.login(user, function(err) {
 			if (err) {
 				res.status(400).send(err);
 			} else {
 				return require('../go-callback')(req, res, next);
-	        }
+      }
 		});
-	  });
+	});
 };

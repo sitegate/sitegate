@@ -26,10 +26,16 @@
 		"resetPassword": "Reset Password",
 		"signOut": "Sign Out",
 		"socialAccounts": "Social accounts",
-		"invalidUsername": "Incorrect username. Please try again.",
-		"invalidPassword": "Incorrect password. Please try again.",
-		"usernameAlreadyExists": "Sorry. That username already exists. Try again.",
-		"unknownError": "Some error occured"
+		"error": {
+			"unknown": "Some error occured",
+			"incorrectUsername": "Incorrect username. Please try again.",
+			"incorrectPassword": "Incorrect password. Please try again.",
+			"missingPassword": "Password is missing",
+			"missingUsername": "Username is missing",
+			"missingEmail": "Email is missing",
+			"usernameExists": "Sorry. That username already exists. Try again.",
+			"emailExists": "User already exists with the given email"
+		}
 	},
 	"social": {
 		"facebook": "Facebook",
