@@ -27,7 +27,8 @@
     "helmet": "~0.5.4",
     "i18next": "~1.7.8",
     "jade": "~1.8.2",
-    "connect-flash": "~0.1.1"
+    "connect-flash": "~0.1.1",
+    "passport-local-mongoose": "~1.0.0"
   },
   "devDependencies": {
     "gulp": "~3.8.10",
