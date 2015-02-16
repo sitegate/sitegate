@@ -40,6 +40,14 @@ var UserSchema = new Schema({
     validate: [validateLocalStrategyProperty, 'Please fill in your email'],
     match: [/.+\@.+\..+/, 'Please fill a valid email address']
   },
+  username: {
+    type: String,
+    unique: 'testing error message',
+    required: 'Please fill in a username',
+    trim: true,
+    min: 5,
+    max: 20
+  },
   provider: {
     type: String,
     required: 'Provider is required'

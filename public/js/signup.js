@@ -11,7 +11,19 @@
           {
             type: 'empty',
             prompt: 'Please enter a username'
-         }
+          },
+          {
+            type: 'length[5]',
+            prompt: 'A username must be at least 5 characters'
+          },
+          {
+            type: 'maxLength[20]',
+            prompt: 'A username must be less than 20 characters'
+          },
+          {
+            type: 'username',
+            prompt: 'Username can only contain latin letters, numbers, dashes, underscores and dots.'
+          }
        ]
       },
       password: {
@@ -22,7 +34,7 @@
             prompt: 'Please enter a password'
          },
           {
-            type: 'length[7]',
+            type: 'length[6]',
             prompt: 'Your password must be at least 6 characters'
          }
        ]
