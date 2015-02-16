@@ -1,22 +1,23 @@
-var express = require('express'),
-  mongoose = require('mongoose'),
-  passport = require('passport'),
+/* jshint node:true */
+'use strict';
+
+var passport = require('passport'),
   config = require('../../config/config'),
   i18n = require('i18next');
 
 exports.get = function (req, res, next) {
-    res.render('signin', {
-      title: req.i18n.t('account.signIn'),
-      cancelUrl: config.sitegateClient.domain + config.sitegateClient.publicHomepage,
-      error: req.flash('signinMessage')
-    });
+  res.render('signin', {
+    title: req.i18n.t('account.signIn'),
+    cancelUrl: config.sitegateClient.domain + config.sitegateClient.publicHomepage,
+    error: req.flash('signinMessage')
+  });
 };
 
 /**
  * Signin after passport authentication
  */
-exports.post = function(req, res, next) {
-  passport.authenticate('local', function(err, user, info) {
+exports.post = function (req, res, next) {
+  passport.authenticate('local', function (err, user, info) {
     if (!user) {
       var message = i18n.t('account.error.' + (info.result || 'unknown'));
       req.flash('signinMessage', message);
@@ -29,7 +30,7 @@ exports.post = function(req, res, next) {
       user.password = undefined;
       user.salt = undefined;
 
-      req.login(user, function(err) {
+      req.login(user, function (err) {
         if (err) {
           req.flash('signinMessage', i18n.t('account.error.unknown'));
           res.redirect('/signin');

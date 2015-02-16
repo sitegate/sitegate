@@ -1,3 +1,6 @@
+/* jshint node:true */
+'use strict';
+
 var express = require('express'),
   logger = require('morgan'),
   bodyParser = require('body-parser'),
@@ -8,13 +11,12 @@ var express = require('express'),
   passport = require('passport'),
   MongoStore = require('connect-mongo')(session),
   glob = require('glob'),
-  favicon = require('serve-favicon'),
   compress = require('compression'),
   config = require('./config'),
   i18n = require('i18next'),
   flash = require('connect-flash');
 
-module.exports = function(db) {
+module.exports = function (db) {
   // Initialize express app
   var app = express();
 
@@ -33,9 +35,9 @@ module.exports = function(db) {
     ignoreRoutes: ['images/', 'public/', 'css/', 'js/'],
     debug: true
   });
-  i18n.registerAppHelper(app)
-  i18n.addPostProcessor("jade", function(val, key, opts) {
-   return require("jade").compile(val, opts)();
+  i18n.registerAppHelper(app);
+  i18n.addPostProcessor('jade', function (val, key, opts) {
+    return require('jade').compile(val, opts)();
   });
 
   // app.use(favicon(config.root + '/public/img/favicon.ico'));
@@ -87,7 +89,7 @@ module.exports = function(db) {
     next(err);
   });
 
-  if(app.get('env') === 'development'){
+  if (app.get('env') === 'development') {
     app.use(function (err, req, res, next) {
       res.status(err.status || 500);
       res.render('error', {
