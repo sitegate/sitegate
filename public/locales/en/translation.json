@@ -1,0 +1,18 @@
+{
+  "accountValidation": {
+    "username": {
+      "required": "Please enter a username",
+      "minLength": "A username must be at least 5 characters",
+      "maxLength": "A username must be less than 20 characters",
+      "allowedChars": "Username can only contain latin letters, numbers, dashes, underscores and dots."
+    },
+    "password": {
+      "required": "Please enter a password",
+      "minLength": "Your password must be at least 6 characters"
+    },
+    "email": {
+      "required": "Please enter an email",
+      "valid": "Please enter a valid email"
+    }
+  }
+}

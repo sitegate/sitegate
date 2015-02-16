@@ -1,6 +1,6 @@
 /* jshint browser:true, jquery:true */
 
-(function () {
+(function (_t) {
   'use strict';
 
   $('.ui.form')
@@ -10,19 +10,19 @@
         rules: [
           {
             type: 'empty',
-            prompt: 'Please enter a username'
+            prompt: _t('accountValidation.username.required')
           },
           {
             type: 'length[5]',
-            prompt: 'A username must be at least 5 characters'
+            prompt: _t('accountValidation.username.minLength')
           },
           {
             type: 'maxLength[20]',
-            prompt: 'A username must be less than 20 characters'
+            prompt: _t('accountValidation.username.maxLength')
           },
           {
             type: 'username',
-            prompt: 'Username can only contain latin letters, numbers, dashes, underscores and dots.'
+            prompt: _t('accountValidation.username.allowedChars')
           }
        ]
       },
@@ -31,11 +31,11 @@
         rules: [
           {
             type: 'empty',
-            prompt: 'Please enter a password'
-         },
+            prompt: _t('accountValidation.password.required')
+          },
           {
             type: 'length[6]',
-            prompt: 'Your password must be at least 6 characters'
+            prompt: _t('accountValidation.password.minLength')
          }
        ]
       },
@@ -44,11 +44,11 @@
         rules: [
           {
             type: 'empty',
-            prompt: 'Please enter an email'
+            prompt: _t('accountValidation.email.required')
          },
           {
             type: 'email',
-            prompt: 'Please enter a valid email'
+            prompt: _t('accountValidation.email.valid')
          }
        ]
       }
@@ -76,4 +76,4 @@
     $lock.toggleClass('yellow', scoreName == 'good');
     $lock.toggleClass('red', scoreName == 'weak');
   });
-})();
+})(window._t);
