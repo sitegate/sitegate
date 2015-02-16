@@ -7,27 +7,68 @@ var config = require('../../config/config'),
 
 exports.profile = function (req, res, next) {
   res.render('settings/profile', {
-    username: req.user.username,
-    email: req.user.email,
-    homepageUrl: config.sitegateClient.domain + config.sitegateClient.privateHomepage
+    user: req.user,
+    homepageUrl: config.sitegateClient.domain +
+      config.sitegateClient.privateHomepage
   });
 };
 
 exports.updateProfile = function (req, res, next) {
-  throw 'Not implemented yet!';
+  var userToReturn = {
+    username: req.body['user.username'],
+    email: req.body['user.email']
+  };
+  User.findById(req.user.id, function (err, user) {
+    if (!err && user) {
+      user.username = req.body['user.username'];
+      user.email = req.body['user.email'];
+
+      user.save(function (err) {
+        if (err) {
+          res.render('settings/profile', {
+            user: userToReturn,
+            error: errorHandler.getErrorMessage(err)
+          });
+        } else {
+          req.login(user, function (err) {
+            if (err) {
+              res.render('settings/profile', {
+                user: userToReturn,
+                error: errorHandler.getErrorMessage(err)
+              });
+            } else {
+              return res.render('settings/profile', {
+                user: userToReturn,
+                success: 'Profile was updated'
+              });
+            }
+          });
+        }
+      });
+    } else {
+      res.render('settings/profile', {
+        user: userToReturn,
+        error: 'User is not found'
+      })
+    }
+  });
 };
 
 exports.accounts = function (req, res, next) {
   res.render('settings/accounts', {
     title: 'Generator-Express MVC',
-    homepageUrl: config.sitegateClient.domain + config.sitegateClient.privateHomepage
+    homepageUrl: config.sitegateClient.domain +
+      config.sitegateClient.privateHomepage
   });
 };
 
 function renderPasswordPage(res, locals) {
+  locals = locals || {};
+
   res.render('settings/password', {
     title: 'Generator-Express MVC',
-    homepageUrl: config.sitegateClient.domain + config.sitegateClient.privateHomepage,
+    homepageUrl: config.sitegateClient.domain +
+      config.sitegateClient.privateHomepage,
     success: locals.success,
     message: locals.message
   });
