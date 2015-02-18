@@ -1,6 +1,6 @@
 /* jshint browser:true, jquery:true */
 
-(function () {
+(function (_t) {
   'use strict';
 
   $('.ui.form')
@@ -10,7 +10,7 @@
         rules: [
           {
             type: 'empty',
-            prompt: 'Please enter your current password'
+            prompt: _t('settings.currentPassword.required')
           }
        ]
       },
@@ -19,11 +19,11 @@
         rules: [
           {
             type: 'empty',
-            prompt: 'Please enter your new password'
+            prompt: _t('settings.newPassword.required')
           },
           {
-            type: 'length[7]',
-            prompt: 'Your new password must be at least 6 characters'
+            type: 'length[6]',
+            prompt: _t('settings.newPassword.minLength')
           }
        ]
       },
@@ -32,13 +32,13 @@
         rules: [
           {
             type: 'empty',
-            prompt: 'Please verify your new password'
+            prompt: _t('settings.verifyPassword.required')
           },
           {
             type: 'match[newPassword]',
-            prompt: 'Does not match new password'
+            prompt: _t('settings.verifyPassword.matchNewPassword')
          }
        ]
       }
     });
-})();
+})(window._t);

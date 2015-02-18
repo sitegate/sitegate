@@ -1,6 +1,6 @@
 /* jshint browser:true, jquery:true */
 
-(function () {
+(function (_t) {
   'use strict';
 
   $('.ui.form')
@@ -10,11 +10,19 @@
         rules: [
           {
             type: 'empty',
-            prompt: 'Please enter a username'
+            prompt: _t('accountValidation.username.required')
+          },
+          {
+            type: 'length[5]',
+            prompt: _t('accountValidation.username.minLength')
+          },
+          {
+            type: 'maxLength[20]',
+            prompt: _t('accountValidation.username.maxLength')
           },
           {
             type: 'username',
-            prompt: 'Username can only contain latin letters, numbers, dashes, underscores and dots.'
+            prompt: _t('accountValidation.username.allowedChars')
           }
        ]
       },
@@ -23,13 +31,13 @@
         rules: [
           {
             type: 'empty',
-            prompt: 'Please enter an email'
+            prompt: _t('accountValidation.email.required')
           },
           {
             type: 'email',
-            prompt: 'Please enter a valid email'
+            prompt: _t('accountValidation.email.valid')
          }
        ]
       }
     });
-})();
+})(window._t);

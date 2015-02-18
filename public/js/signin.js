@@ -1,6 +1,6 @@
 /* jshint browser:true, jquery:true */
 
-(function () {
+(function (_t) {
   'use strict';
 
   $('.ui.form')
@@ -10,7 +10,7 @@
         rules: [
           {
             type: 'empty',
-            prompt: 'Please enter a username'
+            prompt: _t('accountValidation.username.required')
           }
        ]
       },
@@ -19,9 +19,9 @@
         rules: [
           {
             type: 'empty',
-            prompt: 'Please enter a password'
+            prompt: _t('accountValidation.password.required')
           }
        ]
       }
     });
-})();
+})(window._t);

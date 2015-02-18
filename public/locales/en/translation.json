@@ -14,5 +14,18 @@
       "required": "Please enter an email",
       "valid": "Please enter a valid email"
     }
+  },
+  "settings": {
+    "currentPassword": {
+      "required": "Please enter your current password"
+    },
+    "newPassword": {
+      "required": "Please enter your new password",
+      "minLength": "Your new password must be at least 6 characters"
+    },
+    "verifyPassword": {
+      "required": "Please verify your new password",
+      "matchNewPassword": "Does not match new password"
+    }
   }
 }

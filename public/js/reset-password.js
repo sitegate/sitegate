@@ -1,6 +1,6 @@
 /* jshint browser:true, jquery:true */
 
-(function () {
+(function (_t) {
   'use strict';
 
   $('.ui.form')
@@ -10,13 +10,13 @@
         rules: [
           {
             type: 'empty',
-            prompt: 'Please enter an email'
-         },
+            prompt: _t('accountValidation.email.required')
+          },
           {
             type: 'email',
-            prompt: 'Please enter a valid email'
+            prompt: _t('accountValidation.email.valid')
          }
        ]
       }
     });
-})();
+})(window._t);
