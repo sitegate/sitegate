@@ -14,6 +14,9 @@ var mongoose = require('mongoose'),
 exports.oauthCallback = function (strategy) {
   return function (req, res, next) {
     passport.authenticate(strategy, function (err, user, redirectURL) {
+      if (req.user) {
+        return res.redirect('/settings/accounts');
+      }
       if (err || !user) {
         return res.redirect('/signin');
       }
@@ -26,6 +29,27 @@ exports.oauthCallback = function (strategy) {
       });
     })(req, res, next);
   };
+};
+
+exports.disconnect = function (strategy) {
+  return function (req, res, next) {
+    var user = req.user;
+    if (user.provider == strategy) {
+      return next(new Error('Can\' disconnect the main provider'));
+    }
+
+    if (!user.additionalProvidersData || !user.additionalProvidersData[strategy]) {
+      return next(new Error('User doesn\'t have this provider'));
+    }
+
+    delete user.additionalProvidersData[strategy];
+
+    user.markModified('additionalProvidersData');
+
+    user.save(function (err) {
+      res.redirect('/settings/accounts');
+    });
+  }
 };
 
 /**
@@ -94,7 +118,7 @@ exports.saveOAuthUserProfile = function (req, providerUserProfile, done) {
 
       // And save the user
       user.save(function (err) {
-        return done(err, user, '/#!/settings/accounts');
+        return done(err, user, '/settings/accounts');
       });
     } else {
       return done(new Error('User is already connected using this provider'), user);

@@ -3,7 +3,8 @@
 
 var config = require('../../config/config'),
   User = require('../models/user'),
-  errorHandler = require('../error-handler');
+  errorHandler = require('../error-handler'),
+  i18n = require('i18next');
 
 exports.profile = function (req, res, next) {
   res.render('settings/profile', {
@@ -56,7 +57,7 @@ exports.updateProfile = function (req, res, next) {
 
 exports.accounts = function (req, res, next) {
   res.render('settings/accounts', {
-    title: 'Generator-Express MVC',
+    title: i18n.t('settings.socialConnections'),
     homepageUrl: config.sitegateClient.domain +
       config.sitegateClient.privateHomepage,
     user: req.user

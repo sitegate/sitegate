@@ -71,17 +71,23 @@ module.exports = function (app) {
     scope: ['email']
   }));
   app.route('/auth/facebook/callback').get(users.oauthCallback('facebook'));
+  app.route('/auth/facebook/disconnect')
+    .get(isAuthenticated, users.disconnect('facebook'));
 
   // Setting the twitter oauth routes
   app.route('/auth/twitter').get(passport.authenticate('twitter'));
   app.route('/auth/twitter/callback').get(users.oauthCallback('twitter'));
+  app.route('/auth/twitter/disconnect')
+    .get(isAuthenticated, users.disconnect('twitter'));
 
   // Setting the google oauth routes
   app.route('/auth/google').get(passport.authenticate('google', {
     scope: [
-   'https://www.googleapis.com/auth/userinfo.profile',
-   'https://www.googleapis.com/auth/userinfo.email'
-  ]
+     'https://www.googleapis.com/auth/userinfo.profile',
+     'https://www.googleapis.com/auth/userinfo.email'
+    ]
   }));
   app.route('/auth/google/callback').get(users.oauthCallback('google'));
+  app.route('/auth/google/disconnect')
+    .get(isAuthenticated, users.disconnect('google'));
 };
