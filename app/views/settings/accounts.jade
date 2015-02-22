@@ -1,13 +1,16 @@
 extends ../settings-layout.jade
 
 block settingsContent
-  h1(class="ui header")= t('settings.addLoginUsingService')
-  a(class="ui facebook button", href="/auth/facebook")
-    i(class="facebook icon")
-    != t('social.facebook')
-  a(class="ui twitter button", href="/auth/twitter")
-    i(class="twitter icon")
-    != t('social.twitter')
-  a(class="ui google plus button", href="/auth/google")
-    i(class="google plus icon")
-    != t('social.googlePlus')
+  div.social.connections.container
+    h1(class="ui header")= t('settings.addLoginUsingService')
+    a(class="fluid big ui black basic button", href="/auth/facebook")
+      i(class="facebook square icon")
+      != t('social.facebook')
+    a(class="fluid big ui black basic button", href="/auth/twitter")
+      i(class="twitter icon")
+      != t('social.twitter')
+    a(class="fluid big ui black basic button", href="/auth/google")
+      i(class="google plus icon")
+      != t('social.googlePlus')
+block styles
+  link(rel="stylesheet", href="/dest/css/settings/accounts.css")

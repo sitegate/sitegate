@@ -45,7 +45,7 @@
           {
             type: 'empty',
             prompt: _t('accountValidation.email.required')
-         },
+          },
           {
             type: 'email',
             prompt: _t('accountValidation.email.valid')

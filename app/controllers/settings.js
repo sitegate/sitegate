@@ -58,7 +58,8 @@ exports.accounts = function (req, res, next) {
   res.render('settings/accounts', {
     title: 'Generator-Express MVC',
     homepageUrl: config.sitegateClient.domain +
-      config.sitegateClient.privateHomepage
+      config.sitegateClient.privateHomepage,
+    user: req.user
   });
 };
 
