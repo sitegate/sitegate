@@ -72,11 +72,12 @@ exports.accounts = function (req, res, next) {
   });
 };
 
-function renderPasswordPage(res, locals) {
+function renderPasswordPage(req, res, locals) {
   locals = locals || {};
 
   res.render('settings/password', {
     title: 'Generator-Express MVC',
+    hasPassword: typeof req.user.hash !== 'undefined',
     homepageUrl: config.sitegateClient.domain +
       config.sitegateClient.privateHomepage,
     messages: locals.messages
@@ -84,8 +85,54 @@ function renderPasswordPage(res, locals) {
 }
 
 exports.password = function (req, res, next) {
-  renderPasswordPage(res);
+  renderPasswordPage(req, res);
 };
+
+function saveNewPassword(req, res, passwordDetails, err, user, info) {
+  if (!err && user) {
+    if (passwordDetails.newPassword === passwordDetails.verifyPassword) {
+      user.setPassword(passwordDetails.newPassword, function (err, user) {
+        if (err) {
+          return renderPasswordPage(req, res, {
+            messages: {
+              error: 'Error during changing password'
+            }
+          });
+        }
+
+        user.save(function (err) {
+          if (err) {
+            return res.status(400).send({
+              message: errorHandler.getErrorMessage(err)
+            });
+          } else {
+            req.login(user, function (err) {
+              if (err) {
+                res.status(400).send(err);
+              } else {
+                return renderPasswordPage(req, res, {
+                  messages: {
+                    success: req.i18n.t('settings.passwordChangedSuccessfully')
+                  }
+                });
+              }
+            });
+          }
+        });
+      });
+    } else {
+      res.status(400).send({
+        message: 'Passwords do not match'
+      });
+    }
+  } else {
+    return renderPasswordPage(req, res, {
+      messages: {
+        error: req.i18n.t('settings.currentPasswordIsIncorrect')
+      }
+    });
+  }
+}
 
 exports.changePassword = function (req, res) {
   // Init Variables
@@ -95,51 +142,13 @@ exports.changePassword = function (req, res) {
     if (passwordDetails.newPassword) {
       User.findById(req.user.id, function (err, user) {
         if (!err && user) {
-          user.authenticate(passwordDetails.currentPassword, function (err, user, info) {
-            if (!err && user) {
-              if (passwordDetails.newPassword === passwordDetails.verifyPassword) {
-                user.setPassword(passwordDetails.newPassword, function (err, user) {
-                  if (err) {
-                    return renderPasswordPage(res, {
-                      messages: {
-                        error: 'Error during changing password'
-                      }
-                    });
-                  }
-
-                  user.save(function (err) {
-                    if (err) {
-                      return res.status(400).send({
-                        message: errorHandler.getErrorMessage(err)
-                      });
-                    } else {
-                      req.login(user, function (err) {
-                        if (err) {
-                          res.status(400).send(err);
-                        } else {
-                          return renderPasswordPage(res, {
-                            messages: {
-                              success: req.i18n.t('settings.passwordChangedSuccessfully')
-                            }
-                          });
-                        }
-                      });
-                    }
-                  });
-                });
-              } else {
-                res.status(400).send({
-                  message: 'Passwords do not match'
-                });
-              }
-            } else {
-              return renderPasswordPage(res, {
-                messages: {
-                  error: req.i18n.t('settings.currentPasswordIsIncorrect')
-                }
-              });
-            }
-          });
+          if (typeof user.hash === 'undefined') {
+            saveNewPassword(req, res, passwordDetails, err, user);
+          } else {
+            user.authenticate(passwordDetails.currentPassword, function (err, user, info) {
+              saveNewPassword(req, res, passwordDetails, err, user, info);
+            });
+          }
         } else {
           res.status(400).send({
             message: 'User is not found'
