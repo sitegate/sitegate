@@ -1,47 +1,44 @@
 extends ./public-layout.jade
 
 block content
-  h1(id='sign-header', class='ui icon center aligned header')
-    i(class='sign in icon')
-    div(class='content')
+  h1#sign-header.ui.icon.center.aligned.header
+    i.sign.in.icon
+    .content
       != t('account.signIn')
-      div(class='sub header')
+      .sub.header
         != t('account.dontHaveAccount')
         | 
         a(href='/signup')= t('account.signUpNow')
 
-  div(class="signin options ui two column middle aligned relaxed fitted stackable grid")
-    div(class="column")
+  .signin.options.ui.two.column.middle.aligned.relaxed.fitted.stackable.grid
+    .column
       h2= t('account.usingCredentials')
-      form(class="ui form segment", method="post")
-        if error.length > 0
-          div(class="ui negative message")
-            i(class="ui warning sign icon")
-            != error
-        div(class="field")
+      form.ui.form.segment(method="post")
+        +messageBlock(messages)
+        .field
           label= t('account.username')
-          div(class="ui left icon input")
+          .ui.left.icon.input
             input(type="text", placeholder=t('account.username'), name="username")
-            i(class="user icon")
-        div(class="field")
+            i.user.icon
+        .field
           label= t('account.password')
-          div(class="ui left icon input")
+          .ui.left.icon.input
             input(type="password", name="password")
             i.lock.icon
-        button(class="ui blue submit button", type="submit")= t('account.login')
+        button.ui.blue.submit.button(type="submit")= t('account.login')
         a(class="ui button", href=cancelUrl)= t('account.cancel')
         a(href="/reset-password")= t('account.cantAccessAccount')
-    div(class="ui vertical divider")= t('account.or')
-    div(class="center aligned column")
+    .ui.vertical.divider= t('account.or')
+    .center.aligned.column
       h2= t('account.usingSocialAccount')
-      a(class="ui facebook button", href="/auth/facebook")
-        i(class="facebook icon")
+      a.ui.facebook.button(href="/auth/facebook")
+        i.facebook.icon
         != t('social.facebook')
-      a(class="ui twitter button", href="/auth/twitter")
-        i(class="twitter icon")
+      a.ui.twitter.button(href="/auth/twitter")
+        i.twitter.icon
         != t('social.twitter')
-      a(class="ui google plus button", href="/auth/google")
-        i(class="google plus icon")
+      a.ui.google.plus.button(href="/auth/google")
+        i.google.plus.icon
         != t('social.google')
 
 block styles

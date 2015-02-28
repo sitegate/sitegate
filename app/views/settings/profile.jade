@@ -1,25 +1,18 @@
 extends ../settings-layout.jade
 
 block settingsContent
-  form(class="ui form", method="post")
-    if error
-      div.ui.negative.message
-        i.ui.warning.sign.icon
-        != error
-    if success
-      div.ui.positive.message
-        i.ui.info.circle.icon
-        != success
-    div(class="field")
+  form.ui.form(method="post")
+    +messageBlock(messages)
+    .field
       label= t('account.username')
-      div(class="ui left icon input")
+      .ui.left.icon.input
         input(type="text", placeholder=t('account.username'), name="user.username", value=user.username)
         i(class="user icon")
-    div(class="field")
+    .field
       label= t('account.email')
-      div(class="ui left icon input")
+      .ui.left.icon.input
         input(type="text", placeholder=t('account.email'), name="user.email", value=user.email)
-        i(class="mail icon")
-    button(class="ui blue submit button", type="submit")= t('common.saveChanges')
+        i.mail.icon
+    button.ui.blue.submit.button(type="submit")= t('common.saveChanges')
 block scripts
   script(type="text/javascript", src="/js/settings/profile.js")

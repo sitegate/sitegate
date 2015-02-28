@@ -1,3 +1,13 @@
+mixin messageBlock(messages)
+  if messages && messages.success && messages.success.length
+    .ui.positive.message
+      i.ui.info.circle.icon
+      != messages.success
+  if messages && messages.error && messages.error.length
+    .ui.negative.message
+      i.ui.warning.sign.icon
+      != messages.error
+
 doctype html
 html(lang='en')
   head

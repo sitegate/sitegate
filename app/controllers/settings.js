@@ -28,19 +28,25 @@ exports.updateProfile = function (req, res, next) {
         if (err) {
           res.render('settings/profile', {
             user: userToReturn,
-            error: errorHandler.getErrorMessage(err)
+            messages: {
+              error: errorHandler.getErrorMessage(err)
+            }
           });
         } else {
           req.login(user, function (err) {
             if (err) {
               res.render('settings/profile', {
                 user: userToReturn,
-                error: errorHandler.getErrorMessage(err)
+                messages: {
+                  error: errorHandler.getErrorMessage(err)
+                }
               });
             } else {
               return res.render('settings/profile', {
                 user: userToReturn,
-                success: 'Profile was updated'
+                messages: {
+                  success: 'Profile was updated'
+                }
               });
             }
           });
@@ -49,7 +55,9 @@ exports.updateProfile = function (req, res, next) {
     } else {
       res.render('settings/profile', {
         user: userToReturn,
-        error: 'User is not found'
+        messages: {
+          error: 'User is not found'
+        }
       });
     }
   });
@@ -71,8 +79,7 @@ function renderPasswordPage(res, locals) {
     title: 'Generator-Express MVC',
     homepageUrl: config.sitegateClient.domain +
       config.sitegateClient.privateHomepage,
-    success: locals.success,
-    message: locals.message
+    messages: locals.messages
   });
 }
 
@@ -94,8 +101,9 @@ exports.changePassword = function (req, res) {
                 user.setPassword(passwordDetails.newPassword, function (err, user) {
                   if (err) {
                     return renderPasswordPage(res, {
-                      success: false,
-                      message: 'Error during changing password'
+                      messages: {
+                        error: 'Error during changing password'
+                      }
                     });
                   }
 
@@ -110,8 +118,9 @@ exports.changePassword = function (req, res) {
                           res.status(400).send(err);
                         } else {
                           return renderPasswordPage(res, {
-                            success: true,
-                            message: req.i18n.t('settings.passwordChangedSuccessfully')
+                            messages: {
+                              success: req.i18n.t('settings.passwordChangedSuccessfully')
+                            }
                           });
                         }
                       });
@@ -125,8 +134,9 @@ exports.changePassword = function (req, res) {
               }
             } else {
               return renderPasswordPage(res, {
-                success: false,
-                message: req.i18n.t('settings.currentPasswordIsIncorrect')
+                messages: {
+                  error: req.i18n.t('settings.currentPasswordIsIncorrect')
+                }
               });
             }
           });

@@ -9,7 +9,9 @@ exports.get = function (req, res, next) {
   res.render('signin', {
     title: req.i18n.t('account.signIn'),
     cancelUrl: config.sitegateClient.domain + config.sitegateClient.publicHomepage,
-    error: req.flash('signinMessage')
+    messages: {
+      error: req.flash('signinMessage')
+    }
   });
 };
 

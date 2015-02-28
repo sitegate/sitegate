@@ -14,8 +14,8 @@ mixin socialConnection(provider, iconClass)
         != t('social.' + provider)
 
 block settingsContent
-  div.social.connections.container
-    h1(class="ui header")= t('settings.addLoginUsingService')
+  .social.connections.container
+    h1.ui.header= t('settings.addLoginUsingService')
     +socialConnection('facebook', 'facebook')
     +socialConnection('twitter', 'twitter')
     +socialConnection('google', 'google plus')

@@ -12,10 +12,7 @@ block content
     div(class="column")
       h2= t('account.usingCredentials')
       form(class="ui form segment", method="post")
-        if error && error.length > 0
-          div(class="ui negative message")
-            i(class="ui warning sign icon")
-            != error
+        +messageBlock(messages)
         div(class="field")
           label= t('account.username')
           div(class="ui left icon input")
