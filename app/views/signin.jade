@@ -31,15 +31,7 @@ block content
     .ui.vertical.divider= t('account.or')
     .center.aligned.column
       h2= t('account.usingSocialAccount')
-      a.ui.facebook.button(href="/auth/facebook")
-        i.facebook.icon
-        != t('social.facebook')
-      a.ui.twitter.button(href="/auth/twitter")
-        i.twitter.icon
-        != t('social.twitter')
-      a.ui.google.plus.button(href="/auth/google")
-        i.google.plus.icon
-        != t('social.google')
+      include social-signin
 
 block styles
   link(rel="stylesheet", href="/dest/css/signin.css")

@@ -1,15 +1,14 @@
 extends ./layout.jade
 
 block coreContent
-  div(class="main container")
-    div(class="ui menu")
-      a(class="item", href=homepageUrl)
-        i(class="home icon")
-        != t("menu.home")
-      a(class="item", href="/settings")
-        i(class="settings icon")
-        != t('settings.settings')
-      a(class="item", href="/signout")
-        i(class="sign out icon")
-        != t('account.signOut')
-    block content
+  .ui.menu
+    a.item(href=homepageUrl)
+      i.home.icon
+      != t("menu.home")
+    a.item(href="/settings")
+      i.settings.icon
+      != t('settings.settings')
+    a.item(href="/signout")
+      i.sign.out.icon
+      != t('account.signOut')
+  block content

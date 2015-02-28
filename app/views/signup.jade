@@ -33,15 +33,7 @@ block content
     div(class="ui vertical divider")= t("account.or")
     div(class="center aligned column")
       h2= t('account.usingSocialAccount')
-      a(class="ui facebook button", href="/auth/facebook")
-        i(class="facebook icon")
-        != t('social.facebook')
-      a(class="ui twitter button", href="/auth/twitter")
-        i(class="twitter icon")
-        != t('social.twitter')
-      a(class="ui google plus button", href="/auth/google")
-        i(class="google plus icon")
-        != t('social.google')
+      include social-signin
 
 block styles
   link(rel="stylesheet", href="/dest/css/signin.css")
