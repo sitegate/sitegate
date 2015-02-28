@@ -54,7 +54,10 @@
   },
   "email": {
     "emailVerification": {
-      "subject": "Email Verification"
+      "subject": "Email Verification",
+      "hiUser": "Hi __username__",
+      "welcometToSite": "Welcome to __siteName__",
+      "confirmEmail": "Confirm Email"
     }
   }
 }

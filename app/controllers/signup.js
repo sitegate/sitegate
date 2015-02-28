@@ -4,8 +4,8 @@
 var User = require('../models/user'),
   config = require('../../config/config'),
   i18n = require('i18next'),
-  nodemailer = require('nodemailer'),
-  crypto = require('crypto');
+  crypto = require('crypto'),
+  sendEmail = require('../send-email');
 
 exports.get = function (req, res, next) {
   res.render('signup', {
@@ -55,21 +55,14 @@ function sendVerificationEmail(res, user) {
 
     user.save(function (err, user) {
       if (!err && user) {
-        res.render('email-templates/email-verification-email', {
-          username: user.username,
-          emailVerificationToken: user.emailVerificationToken
-        }, function (err, emailHtml) {
-          if (!err) {
-            var smtpTransport = nodemailer.createTransport(config.mailer.options);
-            var mailOptions = {
-              to: user.email,
-              from: config.mailer.from,
-              subject: i18n.t('email.emailVerification.subject'),
-              html: emailHTML
-            };
-            smtpTransport.sendMail(mailOptions);
+        sendEmail({
+          templateName: 'email-verification-email',
+          to: user.email,
+          subject: i18n.t('email.emailVerification.subject'),
+          locals: {
+            username: user.username
           }
-        })
+        });
       }
     });
   });
