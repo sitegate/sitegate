@@ -79,7 +79,8 @@ var UserSchema = new Schema({
     type: Boolean,
     default: false
   },
-  emailVerificationToken: String
+  emailVerificationToken: String,
+  emailVerificationTokenExpires: Date
 });
 
 UserSchema.plugin(passportLocalMongoose);

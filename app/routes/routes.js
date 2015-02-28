@@ -11,6 +11,7 @@ var home = require('../controllers/home'),
   users = require('../controllers/users'),
   userInfo = require('../controllers/user-info'),
   settings = require('../controllers/settings'),
+  verify = require('../controllers/verify'),
   resetPassword = require('../controllers/reset-password'),
   passport = require('passport'),
   isAuthenticated = require('../middlewares/is-authenticated'),
@@ -65,6 +66,10 @@ module.exports = function (app) {
 
   app.route('/api/user-info')
     .get(userInfo.get);
+
+  app.route('/verify-email/:token').get(verify.email);
+
+  app.route('/resend-email-verification').post(isAuthenticated, settings.resendEmailVerification);
 
   // Setting the facebook oauth routes
   app.route('/auth/facebook').get(passport.authenticate('facebook', {

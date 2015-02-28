@@ -4,8 +4,7 @@
 var User = require('../models/user'),
   config = require('../../config/config'),
   i18n = require('i18next'),
-  crypto = require('crypto'),
-  sendEmail = require('../send-email');
+  sendVerificationEmail = require('../send-verification-email');
 
 exports.get = function (req, res, next) {
   res.render('signup', {
@@ -40,30 +39,9 @@ exports.post = function (req, res, next) {
       if (err) {
         res.status(400).send(err);
       } else {
-        sendVerificationEmail(res, user);
+        sendVerificationEmail(req, user);
         return require('../go-callback')(req, res, next);
       }
     });
   });
 };
-
-function sendVerificationEmail(res, user) {
-  crypto.randomBytes(20, function (err, buffer) {
-    var token = buffer.toString('hex');
-
-    user.emailVerificationToken = token;
-
-    user.save(function (err, user) {
-      if (!err && user) {
-        sendEmail({
-          templateName: 'email-verification-email',
-          to: user.email,
-          subject: i18n.t('email.emailVerification.subject'),
-          locals: {
-            username: user.username
-          }
-        });
-      }
-    });
-  });
-}

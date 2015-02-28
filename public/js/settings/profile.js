@@ -40,4 +40,17 @@
        ]
       }
     });
+
+  $('#resend-email').click(function () {
+    $.ajax({
+      url: '/resend-email-verification',
+      method: 'POST',
+      success: function () {
+        alert('success');
+      },
+      error: function () {
+        alert('error');
+      }
+    });
+  });
 })(window._t);
