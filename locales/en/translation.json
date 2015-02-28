@@ -51,5 +51,10 @@
     "repeatPassword": "Repeat password",
     "passwordChangedSuccessfully": "Password changed successfully",
     "currentPasswordIsIncorrect": "Current password is incorrect"
+  },
+  "email": {
+    "emailVerification": {
+      "subject": "Email Verification"
+    }
   }
 }

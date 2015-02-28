@@ -29,10 +29,6 @@ var UserSchema = new Schema({
     trim: true,
     default: ''
   },
-  displayName: {
-    type: String,
-    trim: true
-  },
   email: {
     type: String,
     trim: true,
@@ -77,7 +73,13 @@ var UserSchema = new Schema({
   },
   token: {
     type: String
-  }
+  },
+  // For email verification
+  emailVerified: {
+    type: Boolean,
+    default: false
+  },
+  emailVerificationToken: String
 });
 
 UserSchema.plugin(passportLocalMongoose);
