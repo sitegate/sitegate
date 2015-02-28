@@ -50,7 +50,7 @@ exports.updateProfile = function (req, res, next) {
       res.render('settings/profile', {
         user: userToReturn,
         error: 'User is not found'
-      })
+      });
     }
   });
 };
@@ -88,39 +88,48 @@ exports.changePassword = function (req, res) {
     if (passwordDetails.newPassword) {
       User.findById(req.user.id, function (err, user) {
         if (!err && user) {
-          if (user.authenticate(passwordDetails.currentPassword)) {
-            if (passwordDetails.newPassword === passwordDetails.verifyPassword) {
-              user.password = passwordDetails.newPassword;
+          user.authenticate(passwordDetails.currentPassword, function (err, user, info) {
+            if (!err && user) {
+              if (passwordDetails.newPassword === passwordDetails.verifyPassword) {
+                user.setPassword(passwordDetails.newPassword, function (err, user) {
+                  if (err) {
+                    return renderPasswordPage(res, {
+                      success: false,
+                      message: 'Error during changing password'
+                    });
+                  }
 
-              user.save(function (err) {
-                if (err) {
-                  return res.status(400).send({
-                    message: errorHandler.getErrorMessage(err)
-                  });
-                } else {
-                  req.login(user, function (err) {
+                  user.save(function (err) {
                     if (err) {
-                      res.status(400).send(err);
+                      return res.status(400).send({
+                        message: errorHandler.getErrorMessage(err)
+                      });
                     } else {
-                      return renderPasswordPage(res, {
-                        success: true,
-                        message: req.i18n.t('settings.passwordChangedSuccessfully')
+                      req.login(user, function (err) {
+                        if (err) {
+                          res.status(400).send(err);
+                        } else {
+                          return renderPasswordPage(res, {
+                            success: true,
+                            message: req.i18n.t('settings.passwordChangedSuccessfully')
+                          });
+                        }
                       });
                     }
                   });
-                }
-              });
+                });
+              } else {
+                res.status(400).send({
+                  message: 'Passwords do not match'
+                });
+              }
             } else {
-              res.status(400).send({
-                message: 'Passwords do not match'
+              return renderPasswordPage(res, {
+                success: false,
+                message: req.i18n.t('settings.currentPasswordIsIncorrect')
               });
             }
-          } else {
-            return renderPasswordPage(res, {
-              success: false,
-              message: req.i18n.t('settings.currentPasswordIsIncorrect')
-            });
-          }
+          });
         } else {
           res.status(400).send({
             message: 'User is not found'
