@@ -62,7 +62,12 @@ module.exports = function (app) {
     .post(settings.changePassword);
 
   app.route('/reset-password')
-    .get(resetPassword.get);
+    .get(resetPassword.get)
+    .post(resetPassword.post);
+
+  app.route('/reset/:token')
+    .get(resetPassword.validateResetToken)
+    .post(resetPassword.newPassword);
 
   app.route('/api/user-info')
     .get(userInfo.get);

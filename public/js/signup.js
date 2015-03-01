@@ -36,7 +36,7 @@
           {
             type: 'length[6]',
             prompt: _t('accountValidation.password.minLength')
-         }
+          }
        ]
       },
       email: {

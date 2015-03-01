@@ -1,11 +1,11 @@
 /* jshint node:true */
 'use strict';
 
-var config = require('../../config/config'),
-  User = require('../models/user'),
-  errorHandler = require('../error-handler'),
-  i18n = require('i18next'),
-  sendVerificationEmail = require('../send-verification-email');
+var config = require('../../config/config');
+var User = require('../models/user');
+var errorHandler = require('../error-handler');
+var i18n = require('i18next');
+var sendVerificationEmail = require('../send-verification-email');
 
 exports.profile = function (req, res, next) {
   res.render('settings/profile', {
@@ -109,7 +109,7 @@ function saveNewPassword(req, res, passwordDetails, err, user, info) {
         if (err) {
           return renderPasswordPage(req, res, {
             messages: {
-              error: 'Error during changing password'
+              error: i18n.t('account.password.unknownError')
             }
           });
         }
@@ -136,7 +136,7 @@ function saveNewPassword(req, res, passwordDetails, err, user, info) {
       });
     } else {
       res.status(400).send({
-        message: 'Passwords do not match'
+        message: i18n.t('account.password.passwordsDoNotMatch')
       });
     }
   } else {
