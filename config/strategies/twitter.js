@@ -4,10 +4,10 @@
 /**
  * Module dependencies.
  */
-var passport = require('passport'),
-  TwitterStrategy = require('passport-twitter').Strategy,
-  config = require('../config'),
-  users = require('../../app/controllers/users');
+var passport = require('passport');
+var TwitterStrategy = require('passport-twitter').Strategy;
+var config = require('../config');
+var users = require('../../app/controllers/users');
 
 module.exports = function () {
   // Use twitter strategy

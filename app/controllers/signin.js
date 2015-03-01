@@ -1,9 +1,9 @@
 /* jshint node:true */
 'use strict';
 
-var passport = require('passport'),
-  config = require('../../config/config'),
-  i18n = require('i18next');
+var passport = require('passport');
+var config = require('../../config/config');
+var i18n = require('i18next');
 
 exports.get = function (req, res, next) {
   res.render('signin', {

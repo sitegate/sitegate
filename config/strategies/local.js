@@ -4,8 +4,8 @@
 /**
  * Module dependencies.
  */
-var passport = require('passport'),
-  User = require('../../app/models/user');
+var passport = require('passport');
+var User = require('../../app/models/user');
 
 module.exports = function () {
   // Use local strategy

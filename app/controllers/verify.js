@@ -1,8 +1,8 @@
 /* jshint node:true */
 'use strict';
 
-var User = require('../models/user'),
-  errorHandler = require('../error-handler');
+var User = require('../models/user');
+var errorHandler = require('../error-handler');
 
 exports.email = function (req, res, next) {
   User.findOne({

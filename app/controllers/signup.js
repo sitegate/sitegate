@@ -1,10 +1,10 @@
 /* jshint node:true */
 'use strict';
 
-var User = require('../models/user'),
-  config = require('../../config/config'),
-  i18n = require('i18next'),
-  sendVerificationEmail = require('../send-verification-email');
+var User = require('../models/user');
+var config = require('../../config/config');
+var i18n = require('i18next');
+var sendVerificationEmail = require('../send-verification-email');
 
 exports.get = function (req, res, next) {
   res.render('signup', {

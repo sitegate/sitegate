@@ -1,20 +1,20 @@
 /* jshint node:true */
 'use strict';
 
-var express = require('express'),
-  logger = require('morgan'),
-  bodyParser = require('body-parser'),
-  session = require('express-session'),
-  methodOverride = require('method-override'),
-  cookieParser = require('cookie-parser'),
-  helmet = require('helmet'),
-  passport = require('passport'),
-  MongoStore = require('connect-mongo')(session),
-  glob = require('glob'),
-  compress = require('compression'),
-  config = require('./config'),
-  i18n = require('i18next'),
-  flash = require('connect-flash');
+var express = require('express');
+var logger = require('morgan');
+var bodyParser = require('body-parser');
+var session = require('express-session');
+var methodOverride = require('method-override');
+var cookieParser = require('cookie-parser');
+var helmet = require('helmet');
+var passport = require('passport');
+var MongoStore = require('connect-mongo')(session);
+var glob = require('glob');
+var compress = require('compression');
+var config = require('./config');
+var i18n = require('i18next');
+var flash = require('connect-flash');
 
 module.exports = function (db) {
   // Initialize express app

@@ -4,10 +4,10 @@
 /**
  * Module dependencies.
  */
-var passport = require('passport'),
-  GoogleStrategy = require('passport-google-oauth').OAuth2Strategy,
-  config = require('../config'),
-  users = require('../../app/controllers/users');
+var passport = require('passport');
+var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+var config = require('../config');
+var users = require('../../app/controllers/users');
 
 module.exports = function () {
   // Use google strategy

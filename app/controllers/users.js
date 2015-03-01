@@ -4,9 +4,9 @@
 /**
  * Module dependencies.
  */
-var mongoose = require('mongoose'),
-  User = mongoose.model('User'),
-  passport = require('passport');
+var mongoose = require('mongoose');
+var User = mongoose.model('User');
+var passport = require('passport');
 
 /**
  * OAuth callback
@@ -49,7 +49,7 @@ exports.disconnect = function (strategy) {
     user.save(function (err) {
       res.redirect('/settings/accounts');
     });
-  }
+  };
 };
 
 /**

@@ -4,19 +4,19 @@
 /**
  * Module dependencies.
  */
-var home = require('../controllers/home'),
-  signin = require('../controllers/signin'),
-  signup = require('../controllers/signup'),
-  signout = require('../controllers/signout'),
-  users = require('../controllers/users'),
-  userInfo = require('../controllers/user-info'),
-  settings = require('../controllers/settings'),
-  verify = require('../controllers/verify'),
-  resetPassword = require('../controllers/reset-password'),
-  passport = require('passport'),
-  isAuthenticated = require('../middlewares/is-authenticated'),
-  isGuest = require('../middlewares/is-guest'),
-  saveCallbackUrl = require('../middlewares/save-callback-url');
+var home = require('../controllers/home');
+var signin = require('../controllers/signin');
+var signup = require('../controllers/signup');
+var signout = require('../controllers/signout');
+var users = require('../controllers/users');
+var userInfo = require('../controllers/user-info');
+var settings = require('../controllers/settings');
+var verify = require('../controllers/verify');
+var resetPassword = require('../controllers/reset-password');
+var passport = require('passport');
+var isAuthenticated = require('../middlewares/is-authenticated');
+var isGuest = require('../middlewares/is-guest');
+var saveCallbackUrl = require('../middlewares/save-callback-url');
 
 module.exports = function (app) {
   app.use(saveCallbackUrl);

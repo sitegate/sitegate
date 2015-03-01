@@ -4,10 +4,10 @@
 /**
  * Module dependencies.
  */
-var passport = require('passport'),
-  FacebookStrategy = require('passport-facebook').Strategy,
-  config = require('../config'),
-  users = require('../../app/controllers/users');
+var passport = require('passport');
+var FacebookStrategy = require('passport-facebook').Strategy;
+var config = require('../config');
+var users = require('../../app/controllers/users');
 
 module.exports = function () {
   // Use facebook strategy

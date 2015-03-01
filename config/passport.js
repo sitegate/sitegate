@@ -1,10 +1,10 @@
 /* jshint node:true */
 'use strict';
 
-var passport = require('passport'),
-  User = require('../app/models/user'),
-  path = require('path'),
-  glob = require('glob');
+var passport = require('passport');
+var User = require('../app/models/user');
+var path = require('path');
+var glob = require('glob');
 
 module.exports = function () {
   passport.serializeUser(User.serializeUser());

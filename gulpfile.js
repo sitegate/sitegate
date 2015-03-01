@@ -1,7 +1,9 @@
-var gulp = require('gulp'),
-  nodemon = require('gulp-nodemon'),
-  livereload = require('gulp-livereload'),
-  less = require('gulp-less');
+'use strict';
+
+var gulp = require('gulp');
+var nodemon = require('gulp-nodemon');
+var livereload = require('gulp-livereload');
+var less = require('gulp-less');
 
 gulp.task('less', function () {
   gulp.src('./public/css/**/*.less')

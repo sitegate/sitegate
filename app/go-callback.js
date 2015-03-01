@@ -1,8 +1,8 @@
 /* jshint node:true */
 'use strict';
 
-var crypto = require('crypto'),
-  errorHandler = require('./error-handler');
+var crypto = require('crypto');
+var errorHandler = require('./error-handler');
 
 function go(req, res) {
   if (req.session.callbackUrl) {

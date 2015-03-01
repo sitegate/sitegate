@@ -1,8 +1,8 @@
 /* jshint node:true */
 'use strict';
 
-var mongoose = require('mongoose'),
-  User = mongoose.model('User');
+var mongoose = require('mongoose');
+var User = mongoose.model('User');
 
 exports.get = function (req, res, next) {
   if (!req.query.token) {
