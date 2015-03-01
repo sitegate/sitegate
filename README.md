@@ -1,4 +1,4 @@
-SiteGate [![Dependency Status](https://david-dm.org/zkochan/sitegate/status.svg?style=flat)](https://david-dm.org/zkochan/sitegate)
+SiteGate [![Dependency Status](https://david-dm.org/zkochan/sitegate/status.svg?style=flat)](https://david-dm.org/zkochan/sitegate) [![Build Status](http://img.shields.io/travis/zkochan/sitegate.svg?style=flat)](https://travis-ci.org/zkochan/sitegate)
 ========
 
 SiteGate is a **Node.js Express** website that handles the user sign in/up processes. SiteGate allows to create a user account either through registration with an email or using an OAuth provider like Facebook, Twitter, etc.
