@@ -1,37 +1,37 @@
 extends ./public-layout.jade
 
 block content
-  h1(id="sign-header", class="ui icon center aligned header")
-    i(class="signup icon")
-    div(class="content")= t('account.signUp')
-      div(class="sub header")= t('account.alreadyHaveAccount')
+  h1#sign-header.ui.icon.center.aligned.header
+    i.signup.icon
+    .content= t('account.signUpTo', { appTitle: appTitle })
+      .sub.header= t('account.alreadyHaveAccount')
         | 
         a(href="/signin")= t('account.signInNow')
 
-  div(class="signin options ui two column middle aligned relaxed fitted stackable grid")
-    div(class="column")
+  .signin.options.ui.two.column.middle.aligned.relaxed.fitted.stackable.grid
+    .column
       h2= t('account.usingCredentials')
-      form(class="ui form segment", method="post")
+      form.ui.form.segment(method="post")
         +messageBlock(messages)
-        div(class="field")
+        .field
           label= t('account.username')
-          div(class="ui left icon input")
+          .ui.left.icon.input
             input(type="text", placeholder=t('account.username'), name="username", val=username)
-            i(class="user icon")
-        div(class="field")
+            i.user.icon
+        .field
           label= t('account.email')
-          div(class="ui left icon input")
+          .ui.left.icon.input
             input(type="text", placeholder=t('account.email'), name="email", val=email)
-            i(class="mail icon")
-        div(class="field")
+            i.mail.icon
+        .field
           label= t('account.password.password')
-          div(class="ui left icon input")
-            input(type="password", name="password", val=password)
+          .ui.left.icon.input
+            input(type="password", name="password", placeholder=t('account.password.password'), val=password)
             i(class="lock icon")
         button(class="ui blue submit button", type="submit")= t("account.createAccount")
-        a(class="ui button", href=cancelUrl)= t('account.cancel')
-    div(class="ui vertical divider")= t("account.or")
-    div(class="center aligned column")
+        a.ui.button(href=cancelUrl)= t('account.cancel')
+    .ui.vertical.divider= t("account.or")
+    .center.aligned.column
       h2= t('account.usingSocialAccount')
       include social-signin
 

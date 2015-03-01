@@ -4,7 +4,7 @@ block content
   h1#sign-header.ui.icon.center.aligned.header
     i.sign.in.icon
     .content
-      != t('account.signIn')
+      != t('account.signInTo', { appTitle: appTitle })
       .sub.header
         != t('account.dontHaveAccount')
         | 
@@ -23,10 +23,10 @@ block content
         .field
           label= t('account.password.password')
           .ui.left.icon.input
-            input(type="password", name="password")
+            input(type="password", placeholder=t('account.password.password'), name="password")
             i.lock.icon
         button.ui.blue.submit.button(type="submit")= t('account.login')
-        a(class="ui button", href=cancelUrl)= t('account.cancel')
+        a.ui.button(href=cancelUrl)= t('account.cancel')
         a(href="/reset-password")= t('account.cantAccessAccount')
     .ui.vertical.divider= t('account.or')
     .center.aligned.column

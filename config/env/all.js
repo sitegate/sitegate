@@ -7,7 +7,7 @@ var rootPath = path.normalize(__dirname + '/../..');
 module.exports = {
   root: rootPath,
   app: {
-    title: 'sitegate',
+    title: 'SiteGate',
     description: 'An authentication and account management website',
     keywords: 'MongoDB, Express, Node.js'
   },

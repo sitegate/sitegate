@@ -3,9 +3,6 @@
 
 module.exports = {
   db: 'mongodb://localhost/ssoapp-dev',
-  app: {
-    title: 'MEAN - Development Environment'
-  },
   facebook: {
     clientID: process.env.FACEBOOK_ID || '391179464377243',
     clientSecret: process.env.FACEBOOK_SECRET || 'edfafc7715060f8cb4c7212833a3c87a',

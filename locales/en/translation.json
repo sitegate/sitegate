@@ -8,7 +8,9 @@
   "account": {
     "account": "Account",
     "signIn": "Sign In",
+    "signInTo": "Sign in to __appTitle__",
     "signUp": "Sign Up",
+    "signUpTo": "Sign up to __appTitle__",
     "dontHaveAccount": "Don't have an account?",
     "signUpNow": "Sign up now",
     "usingCredentials": "Using your credentials",

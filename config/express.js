@@ -29,6 +29,8 @@ module.exports = function (db) {
   app.set('views', config.root + '/app/views');
   app.set('view engine', 'jade');
 
+  app.locals.appTitle = config.app.title;
+
   // Registering i18n
   i18n.init({
     fallbackLng: 'en',
