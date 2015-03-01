@@ -21,6 +21,7 @@ exports.post = function (req, res, next) {
 
   // Add missing user fields
   user.provider = 'local';
+  user.displayName = user.firstName + ' ' + user.lastName;
   user.emailVerified = false;
 
   User.register(user, req.body.password, function (err, user) {
