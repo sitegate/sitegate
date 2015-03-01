@@ -47,7 +47,7 @@ exports.get = function (req, res, next) {
 
 exports.post = function (req, res, next) {
   User.findOne({
-    email: req.body.email
+    email: req.body.email.toLowerCase()
   }, function (err, user) {
     if (err) {
       return renderResetPassword(res, {
