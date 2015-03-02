@@ -11,7 +11,7 @@ function sendVerificationEmail(req, user) {
   crypto.randomBytes(20, function (err, buffer) {
     var token = buffer.toString('hex');
 
-    user.emailVerified = token;
+    user.emailVerified = false;
     user.emailVerificationToken = token;
 
     user.emailVerificationTokenExpires = Date.now() + ONE_DAY;

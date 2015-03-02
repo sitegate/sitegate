@@ -11,32 +11,29 @@ block content
   .signin.options.ui.two.column.middle.aligned.relaxed.fitted.stackable.grid
     .column
       h2= t('account.usingCredentials')
-      form.ui.form.segment(method="post")
+      form.ui.form(method="post")
         +messageBlock(messages)
         .field
-          label= t('account.username')
           .ui.left.icon.input
             input(type="text", placeholder=t('account.username'), name="username", val=username)
             i.user.icon
         .field
-          label= t('account.email')
           .ui.left.icon.input
             input(type="text", placeholder=t('account.email'), name="email", val=email)
             i.mail.icon
         .field
-          label= t('account.password.password')
           .ui.left.icon.input
             input(type="password", name="password", placeholder=t('account.password.password'), val=password)
             i(class="lock icon")
-        button(class="ui blue submit button", type="submit")= t("account.createAccount")
-        a.ui.button(href=cancelUrl)= t('account.cancel')
+        button.fluid.ui.big.primary.submit.button(type="submit")= t("account.createAccount")
     .ui.vertical.divider= t("account.or")
-    .center.aligned.column
+    .center.aligned.column.social.signin.container
       h2= t('account.usingSocialAccount')
       include social-signin
 
 block styles
   link(rel="stylesheet", href="/dest/css/signin.css")
+  link(rel="stylesheet", href="/dest/css/social-signin.css")
 block scripts
   script(type="text/javascript", src="/js/zxcvbn/zxcvbn-async.js")
   script(type="text/javascript", src="/js/signup.js")
