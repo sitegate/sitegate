@@ -17,6 +17,11 @@ SiteGate uses:
 * [Express](http://expressjs.com/) is our web framework for Node.js.
 * [Semantic UI](http://semantic-ui.com/) for the fancy design.
  
+Why is it better than the alternatives?
+========
+* It supports internationalization. Currently it has only in English but will have Ukrainian, Hungarian and Russian translations of the interface soon.
+* It is designed as a standalone application with its own data storage, so updates will be easier.
+
 Installation
 ========
 Add this line to your hosts file:
