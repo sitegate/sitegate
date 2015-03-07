@@ -17,11 +17,11 @@ block content
         +messageBlock(messages)
         .field
           .ui.left.icon.input
-            input(type="text", placeholder=t('account.username'), name="username")
+            input(type="text", placeholder=t('account.username'), name="username", value=username)
             i.user.icon
         .field
           .ui.left.icon.input
-            input(type="password", placeholder=t('account.password.password'), name="password")
+            input(type="password", placeholder=t('account.password.password'), name="password", value=password)
             i.lock.icon
         button.fluid.ui.big.primary.submit.button(type="submit")= t('account.login')
       a.reset.link(href="/reset-password")= t('account.cantAccessAccount')

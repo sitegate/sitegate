@@ -6,11 +6,15 @@ var config = require('../../config/config');
 var i18n = require('i18next');
 var sendVerificationEmail = require('../send-verification-email');
 
+function renderSignUp(res, locals) {
+  locals = locals || {};
+  locals.title = i18n.t('account.signUp');
+  locals.cancelUrl = config.sitegateClient.domain + config.sitegateClient.publicHomepage;
+  res.render('signup', locals);
+}
+
 exports.get = function (req, res, next) {
-  res.render('signup', {
-    title: req.i18n.t('account.signUp'),
-    cancelUrl: config.sitegateClient.domain + config.sitegateClient.publicHomepage
-  });
+  renderSignUp(res);
 };
 
 /**
@@ -26,7 +30,7 @@ exports.post = function (req, res, next) {
 
   User.register(user, req.body.password, function (err, user) {
     if (err) {
-      return res.render('signup', {
+      return renderSignUp(res, {
         username: req.body.username,
         password: req.body.password,
         email: req.body.email,
@@ -38,11 +42,10 @@ exports.post = function (req, res, next) {
 
     req.login(user, function (err) {
       if (err) {
-        res.status(400).send(err);
-      } else {
-        sendVerificationEmail(req, user);
-        return require('../go-callback')(req, res, next);
+        return res.status(400).send(err);
       }
+      sendVerificationEmail(req, user);
+      return require('../go-callback')(req, res, next);
     });
   });
 };

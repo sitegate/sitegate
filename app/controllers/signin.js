@@ -5,14 +5,15 @@ var passport = require('passport');
 var config = require('../../config/config');
 var i18n = require('i18next');
 
+function renderSignIn(res, locals) {
+  locals = locals || {};
+  locals.title = i18n.t('account.signIn');
+  locals.cancelUrl = config.sitegateClient.domain + config.sitegateClient.publicHomepage;
+  res.render('signin', locals);
+}
+
 exports.get = function (req, res, next) {
-  res.render('signin', {
-    title: req.i18n.t('account.signIn'),
-    cancelUrl: config.sitegateClient.domain + config.sitegateClient.publicHomepage,
-    messages: {
-      error: req.flash('signinMessage')
-    }
-  });
+  renderSignIn(res);
 };
 
 /**
@@ -21,25 +22,41 @@ exports.get = function (req, res, next) {
 exports.post = function (req, res, next) {
   passport.authenticate('local', function (err, user, info) {
     if (!user) {
-      var message = i18n.t('account.error.' + (info.result || 'unknown'));
-      req.flash('signinMessage', message);
-      res.redirect('/signin');
-    } else if (err) {
-      req.flash('signinMessage', i18n.t('account.error.unknown'));
-      res.redirect('/signin');
-    } else {
-      // Remove sensitive data before login
-      user.password = undefined;
-      user.salt = undefined;
-
-      req.login(user, function (err) {
-        if (err) {
-          req.flash('signinMessage', i18n.t('account.error.unknown'));
-          res.redirect('/signin');
-        } else {
-          return require('../go-callback')(req, res, next);
+      return renderSignIn(res, {
+        username: req.body.username,
+        password: req.body.password,
+        messages: {
+          error: i18n.t('account.error.' + (info.result || 'unknown'))
         }
       });
     }
+    
+    if (err) {
+      return renderSignIn(res, {
+        username: req.body.username,
+        password: req.body.password,
+        messages: {
+          error: i18n.t('account.error.unknown')
+        }
+      });
+    }
+    
+    // Remove sensitive data before login
+    user.password = undefined;
+    user.salt = undefined;
+
+    req.login(user, function (err) {
+      if (err) {
+        return renderSignIn(res, {
+        username: req.body.username,
+        password: req.body.password,
+          messages: {
+            error: i18n.t('account.error.unknown')
+          }
+        });
+      }
+      
+      return require('../go-callback')(req, res, next);
+    });
   })(req, res, next);
 };

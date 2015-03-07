@@ -15,18 +15,18 @@ block content
         +messageBlock(messages)
         .field
           .ui.left.icon.input
-            input(type="text", placeholder=t('account.username'), name="username", val=username)
+            input(type="text", placeholder=t('account.username'), name="username", value=username)
             i.user.icon
         .field
           .ui.left.icon.input
-            input(type="text", placeholder=t('account.email'), name="email", val=email)
+            input(type="text", placeholder=t('account.email'), name="email", value=email)
             i.mail.icon
         .field
           .ui.left.icon.input
-            input(type="password", name="password", placeholder=t('account.password.password'), val=password)
-            i(class="lock icon")
-        button.fluid.ui.big.primary.submit.button(type="submit")= t("account.createAccount")
-    .ui.vertical.divider= t("account.or")
+            input(type="password", name="password", placeholder=t('account.password.password'), value=password)
+            i.lock.icon
+        button.fluid.ui.big.primary.submit.button(type="submit")= t('account.createAccount')
+    .ui.vertical.divider= t('account.or')
     .center.aligned.column.social.signin.container
       h2= t('account.usingSocialAccount')
       include social-signin
