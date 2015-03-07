@@ -1,12 +1,15 @@
 extends ./private-layout.jade
 
+mixin link(targetUrl, text)
+  a.item(class=(url == targetUrl ? 'active' : ''), href=targetUrl)= text
+
 block content
   .ui.grid
     .four.wide.column
       .ui.vertical.fluid.menu
-        a(class='item ' + (url == '/settings/profile' ? 'active' : ''), href="/settings/profile")= t('account.account')
-        a(class='item ' + (url == '/settings/accounts' ? 'active' : ''), href="/settings/accounts")= t('account.socialAccounts')
-        a(class='item ' + (url == '/settings/password' ? 'active' : ''), href="/settings/password")= t('account.password.password')
+        +link('/settings/profile', t('account.account'))
+        +link('/settings/accounts', t('account.socialAccounts'))
+        +link('/settings/password', t('account.password.password'))
     .twelve.wide.column
       .ui.segment
         block settingsContent

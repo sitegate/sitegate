@@ -13,7 +13,10 @@ html(lang='en')
   head
     meta(charset='UTF-8')
     meta(name='viewport', content='width=device-width')
-    title #{title} | #{appTitle}
+    if title && title.length > 0
+      title #{title} | #{appTitle}
+    else
+      title= appTitle
     link(type="text/plain", rel="author", href="/humans.txt")
     link(rel='stylesheet', href='/components/semantic-ui/dist/semantic.css')
     link(rel='stylesheet', href='/dest/css/style.css')
