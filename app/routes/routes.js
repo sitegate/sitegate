@@ -46,9 +46,7 @@ module.exports = function (app) {
   app.route('/signout')
     .get(signout.get);
 
-  app.route('/settings')
-    .get(settings.profile)
-    .post(settings.updateProfile);
+  app.redirect('/settings', '/settings/profile');
 
   app.route('/settings/profile')
     .get(settings.profile)

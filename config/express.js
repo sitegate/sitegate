@@ -15,10 +15,13 @@ var compress = require('compression');
 var config = require('./config');
 var i18n = require('i18next');
 var flash = require('connect-flash');
+var redirect = require('express-redirect');
 
 module.exports = function (db) {
   // Initialize express app
   var app = express();
+
+  redirect(app);
 
   // Globbing model files
   var models = glob.sync(config.root + '/app/models/**/*.js');
