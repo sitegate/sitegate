@@ -27,5 +27,19 @@
       "required": "Please verify your new password",
       "matchNewPassword": "Does not match new password"
     }
+  },
+  "app": {
+    "validation": {
+      "nameRequired": "Name is required",
+      "homepageUrl": {
+        "required": "Homepage URL is required",
+        "url": "Homepage URL should be a valid URL"
+      },
+      "authCallbackUrl": {
+        "required": "Authorization URL is required",
+        "url": "Authorization URL should be a valid URL"
+      }
+    },
+    "deleteConfirmation": "Are you sure you want to delete this application?"
   }
 }

@@ -47,6 +47,21 @@
       "emailExists": "User already exists with the given email"
     }
   },
+  "app": {
+    "apps": "Applications",
+    "devApps": "Developer applications",
+    "registerNew": "Register new application",
+    "authorizedApps": "Authorized applications",
+    "revokeAll": "Revoke all",
+    "revoke": "Revoke",
+    "name": "Application name",
+    "description": "Application description",
+    "homepageUrl": "Homepage URL",
+    "authCallbackUrl": "Authorization callback URL",
+    "register": "Register application",
+    "update": "Update application",
+    "delete": "Delete application"
+  },
   "social": {
     "facebook": "Facebook",
     "twitter": "Twitter",

@@ -1,0 +1,33 @@
+extends ../settings-layout.jade
+
+block settingsContent
+  .ui.tertiary.attached.segment
+    .ui.breadcrumb
+      a.section(href="/settings/applications")= t('app.apps')
+      i.right.chevron.icon.divider
+      .active.section= name
+  .ui.attached.segment
+    dl
+      dt Client ID
+      dd= id
+      dt Client Secret
+      dd= secret
+  form.ui.attached.segment.form(method='post')
+    +messageBlock(messages)
+    .field
+      label(for='appName')= t('app.name')
+      input#appName(type='text', name='name', value=name)
+    .field
+      label(for='appHomepageUrl')= t('app.homepageUrl')
+      input#appHomepageUrl(type='text', name='homepageUrl', value=homepageUrl)
+    .field
+      label(for='appDescription')= t('app.description')
+      textarea#appDescription(type='text', name='description', value=description)
+    .field
+      label(for='appAuthCallbackUrl')= t('app.authCallbackUrl')
+      input#appAuthCallbackUrl(type='text', name='authCallbackUrl', value=authCallbackUrl)
+    button.ui.primary.button= t('app.update')
+    button#appDelete.ui.red.basic.button(type='button', data-client-id=_id.toString())= t('app.delete')
+block scripts
+  script(type="text/javascript", src="/js/settings/applications-new.js")
+  script(type="text/javascript", src="/js/settings/applications-edit.js")

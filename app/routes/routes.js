@@ -17,6 +17,9 @@ var passport = require('passport');
 var isAuthenticated = require('../middlewares/is-authenticated');
 var isGuest = require('../middlewares/is-guest');
 var saveCallbackUrl = require('../middlewares/save-callback-url');
+var oauth2Controller = require('../controllers/oauth2');
+var authController = require('../controllers/auth');
+var applications = require('../controllers/applications');
 
 module.exports = function (app) {
   app.use(saveCallbackUrl);
@@ -58,6 +61,18 @@ module.exports = function (app) {
   app.route('/settings/password')
     .get(settings.password)
     .post(settings.changePassword);
+  
+  app.route('/settings/applications')
+    .get(applications.applications);
+  
+  app.route('/settings/applications/new')
+    .get(applications.getNewApplication)
+    .post(applications.postNewApplication);
+  
+  app.route('/settings/applications/:id')
+    .get(applications.getApplication)
+    .post(applications.postApplication)
+    .delete(applications.deleteApplication);
 
   app.route('/reset-password')
     .get(resetPassword.get)
@@ -72,7 +87,8 @@ module.exports = function (app) {
 
   app.route('/verify-email/:token').get(verify.email);
 
-  app.route('/resend-email-verification').post(isAuthenticated, settings.resendEmailVerification);
+  app.route('/resend-email-verification')
+    .post(isAuthenticated, settings.resendEmailVerification);
 
   // Setting the facebook oauth routes
   app.route('/auth/facebook').get(passport.authenticate('facebook', {
@@ -98,4 +114,13 @@ module.exports = function (app) {
   app.route('/auth/google/callback').get(users.oauthCallback('google'));
   app.route('/auth/google/disconnect')
     .get(isAuthenticated, users.disconnect('google'));
+
+  // Create endpoint handlers for oauth2 authorize
+  app.route('/oauth2/authorize')
+    .get(isAuthenticated, oauth2Controller.authorization)
+    .post(isAuthenticated, oauth2Controller.decision);
+
+  // Create endpoint handlers for oauth2 token
+  app.route('/oauth2/token')
+    .post(authController.isClientAuthenticated, oauth2Controller.token);
 };

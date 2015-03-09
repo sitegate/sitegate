@@ -1,0 +1,18 @@
+extends ../settings-layout.jade
+
+block settingsContent
+  h5.ui.top.attached.block.header
+    != t('app.devApps')
+    a.ui.basic.small.button(href='/settings/applications/new')= t('app.registerNew')
+  .ui.attached.segment
+    if !clients || clients.length === 0
+      | You have no apps
+    else
+      .ui.list
+        each client in clients
+          a.item(href='/settings/applications/' + client._id)
+            i.anchor.icon
+            != client.name
+  h5.ui.top.attached.block.header
+    != t('app.authorizedApps')
+    button.ui.basic.small.button= t('app.revokeAll')
