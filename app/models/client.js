@@ -34,6 +34,10 @@ var ClientSchema = new Schema({
     type: String,
     unique: true,
     required: true
+  },
+  trusted: {
+    type: Boolean,
+    default: false
   }
 });
 

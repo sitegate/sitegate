@@ -87,7 +87,7 @@ server.exchange(oauth2orize
             return cb(err);
           }
 
-          cb(null, token);
+          cb(null, token.value);
         });
       });
     });
@@ -108,7 +108,17 @@ exports.authorization = [
       return cb(null, client, redirectUri);
     });
   }),
-  function (req, res) {
+  function (req, res, next) {
+    if (req.oauth2.client.trusted === true) {
+      server.decision({
+        loadTransaction: false
+      }, function (req, cb) {
+        cb(null, {
+          allow: true
+        });
+      })(req, res, next);
+      return;
+    }
     res.render('dialog', {
       transactionID: req.oauth2.transactionID,
       user: req.user,
