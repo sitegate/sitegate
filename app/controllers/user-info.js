@@ -19,8 +19,17 @@ exports.get = function (req, res, next) {
       return res.status(404).send('No user with the specified token.');
     }
     res.json({
+      id: user._id,
       username: user.username,
       email: user.email
     });
+  });
+};
+
+exports.getUserInfo = function (req, res, next) {
+  res.json({
+    id: req.user._id,
+    username: req.user.username,
+    email: req.user.email
   });
 };

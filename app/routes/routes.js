@@ -123,4 +123,7 @@ module.exports = function (app) {
   // Create endpoint handlers for oauth2 token
   app.route('/oauth2/token')
     .post(authController.isClientAuthenticated, oauth2Controller.token);
+  
+  app.route('/api/userinfo')
+    .get(passport.authenticate('bearer', {session: false}), userInfo.getUserInfo);
 };
