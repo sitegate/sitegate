@@ -109,7 +109,7 @@ exports.authorization = [
     });
   }),
   function (req, res, next) {
-    if (req.oauth2.client.trusted === true) {
+    if (req.oauth2.client.trusted === true || req.user.trusts(req.oauth2.client)) {
       server.decision({
         loadTransaction: false
       }, function (req, cb) {
@@ -129,6 +129,18 @@ exports.authorization = [
 
 // User decision endpoint
 exports.decision = [
+  function (req, res, next) {
+    Client.findById(req.body.clientId, function (err, client) {
+      if (err) {
+        return next(err);
+      }
+
+      req.user.trustedClients.push(client._id);
+      req.user.save(function (err, user) {
+        next(err, user);
+      });
+    });
+  },
   server.decision()
 ];
 

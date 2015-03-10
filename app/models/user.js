@@ -84,7 +84,11 @@ var UserSchema = new Schema({
     default: false
   },
   emailVerificationToken: String,
-  emailVerificationTokenExpires: Date
+  emailVerificationTokenExpires: Date,
+  trustedClients: [{
+    type: mongoose.Schema.ObjectId,
+    ref: 'Client'
+  }]
 });
 
 UserSchema.plugin(passportLocalMongoose);
@@ -109,6 +113,13 @@ UserSchema.statics.findUniqueUsername = function (username, suffix, callback) {
       callback(null);
     }
   });
+};
+
+UserSchema.methods.trusts = function (client) {
+  if (!client) {
+    throw 'Client should be passed';
+  }
+  return this.trustedClients && this.trustedClients.indexOf(client._id) !== -1;
 };
 
 module.exports = mongoose.model('User', UserSchema);

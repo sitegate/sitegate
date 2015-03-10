@@ -11,6 +11,7 @@ block coreContent
   
   form(action='/oauth2/authorize', method='post')
     input(name='transaction_id', type='hidden', value=transactionID)
+    input(name='clientId', type='hidden', value=client._id)
     div
       input#allow(type='submit', value='Allow')
       input#deny(type='submit', value='Deny', name='cancel')
