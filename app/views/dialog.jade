@@ -1,17 +1,20 @@
-extends ./layout.jade
+extends ./public-layout.jade
 
-block coreContent
-  p Hi #{user.username}
-  p
-    b= client.name
-    | is requesting
-    b full access
-    | to your account
-  p Do you approve?
-  
-  form(action='/oauth2/authorize', method='post')
-    input(name='transaction_id', type='hidden', value=transactionID)
-    input(name='clientId', type='hidden', value=client._id)
-    div
-      input#allow(type='submit', value='Allow')
-      input#deny(type='submit', value='Deny', name='cancel')
+block content
+  .ui.attached.segment
+    p Hi #{user.username}
+    p
+      b= client.name
+      | is requesting 
+      b full access 
+      | to your account
+    p Do you approve?
+  .ui.attached.segment
+    form(action='/oauth2/authorize', method='post')
+      input(name='transaction_id', type='hidden', value=transactionID)
+      input(name='clientId', type='hidden', value=client._id)
+      div
+        input#allow.ui.primary.button(type='submit', value='Allow')
+        input#deny.ui.negative.button(type='submit', value='Deny', name='cancel')
+block styles
+  link(rel="stylesheet", href="/dest/css/dialog.css")
