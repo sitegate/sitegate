@@ -16,14 +16,11 @@ var resetPassword = require('../controllers/reset-password');
 var passport = require('passport');
 var isAuthenticated = require('../middlewares/is-authenticated');
 var isGuest = require('../middlewares/is-guest');
-var saveCallbackUrl = require('../middlewares/save-callback-url');
 var oauth2Controller = require('../controllers/oauth2');
 var authController = require('../controllers/auth');
 var applications = require('../controllers/applications');
 
 module.exports = function (app) {
-  app.use(saveCallbackUrl);
-
   app.use(function (req, res, next) {
     res.locals.url = req.url;
     next();
@@ -81,9 +78,6 @@ module.exports = function (app) {
   app.route('/reset/:token')
     .get(resetPassword.validateResetToken)
     .post(resetPassword.newPassword);
-
-  app.route('/api/user-info')
-    .get(userInfo.get);
 
   app.route('/verify-email/:token').get(verify.email);
 

@@ -75,9 +75,6 @@ var UserSchema = new Schema({
   resetPasswordExpires: {
     type: Date
   },
-  token: {
-    type: String
-  },
   // For email verification
   emailVerified: {
     type: Boolean,
