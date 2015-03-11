@@ -1,0 +1,15 @@
+extends ../settings-layout.jade
+
+block settingsContent
+  .ui.tertiary.attached.segment
+    .ui.breadcrumb
+      a.section(href="/settings/applications")= t('app.apps')
+      i.right.chevron.icon.divider
+      .active.section= name
+  form.ui.attached.segment
+    h2= name
+    a(href=homepageUrl)= homepageUrl
+    p= description
+    button.ui.red.inverted.revoke.button(data-client-id=id)= t('app.revoke')
+block scripts
+  script(type="text/javascript", src="/js/settings/applications-view.js")

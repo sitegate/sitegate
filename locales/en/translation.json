@@ -60,7 +60,11 @@
     "authCallbackUrl": "Authorization callback URL",
     "register": "Register application",
     "update": "Update application",
-    "delete": "Delete application"
+    "delete": "Delete application",
+    "view": "View",
+    "revoke": "Revoke access",
+    "noApps": "You have no apps",
+    "noTrustedApps": "You have no trusted apps"
   },
   "social": {
     "facebook": "Facebook",

@@ -11,10 +11,19 @@ exports.applications = function (req, res) {
     if (err) {
       //
     }
-    
-    res.render('settings/applications', {
-      title: i18n.t('app.apps'),
-      clients: clients
+
+    var userClients = clients;
+
+    Client.find({
+      _id: {
+        $in: req.user.trustedClients
+      }
+    }, function (err, clients) {
+      res.render('settings/applications', {
+        title: i18n.t('app.apps'),
+        trustedClients: clients,
+        clients: userClients
+      });
     });
   });
 };
@@ -63,21 +72,21 @@ exports.postApplication = function (req, res) {
     if (err) {
       return res.send(err);
     }
-    
+
     if (client.userId !== req.user._id.toString()) {
       return res.send('You cannot edit a client that was not created by you!');
     }
-    
+
     client.name = req.body.name;
     client.description = req.body.description;
     client.homepageUrl = req.body.homepageUrl;
     client.authCallbackUrl = req.body.authCallbackUrl;
-    
+
     client.save(function (err) {
       if (err) {
         return res.send(err);
       }
-      
+
       res.redirect('/settings/applications');
     });
   });
@@ -89,5 +98,37 @@ exports.deleteApplication = function (req, res) {
       return res.status(400).send(err);
     }
     return res.status(200).send('Success');
+  });
+};
+
+exports.postRevoke = function (req, res) {
+  req.user.trustedClients.splice(req.user.trustedClients.indexOf(req.params.id), 1);
+  req.user.save(function (err) {
+    if (err) {
+      return res.status(400).send(err);
+    }
+    return res.status(200).send('Success');
+  });
+};
+
+exports.postRevokeAll = function (req, res) {
+  req.user.trustedClients.splice(0, req.user.trustedClients.length);
+  req.user.save(function (err) {
+    if (err) {
+      return res.status(400).send(err);
+    }
+    return res.status(200).send('Success');
+  });
+};
+
+exports.getConnection = function (req, res) {
+  Client.findOne({
+    _id: req.params.id
+  }, function (err, client) {
+    if (err) {
+      //
+    }
+
+    res.render('settings/applications-view', client);
   });
 };

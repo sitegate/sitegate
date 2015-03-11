@@ -66,10 +66,19 @@ module.exports = function (app) {
     .get(applications.getNewApplication)
     .post(applications.postNewApplication);
   
+  app.route('/settings/applications/revoke/:id')
+    .post(applications.postRevoke);
+  
+  app.route('/settings/applications/revoke-all')
+    .post(applications.postRevokeAll);
+  
   app.route('/settings/applications/:id')
     .get(applications.getApplication)
     .post(applications.postApplication)
     .delete(applications.deleteApplication);
+  
+  app.route('/settings/connections/:id')
+    .get(applications.getConnection);
 
   app.route('/reset-password')
     .get(resetPassword.get)
