@@ -18,7 +18,7 @@
     "crypto": "0.0.3",
     "lodash": "~3.5.0",
     "passport": "~0.2.1",
-    "passport-email": "0.0.2",
+    "passport-email": "0.0.3",
     "passport-facebook": "~2.0.0",
     "passport-google-oauth": "~0.2.0",
     "passport-local": "~1.0.0",

@@ -10,7 +10,7 @@
         rules: [
           {
             type: 'empty',
-            prompt: _t('accountValidation.username.required')
+            prompt: _t('accountValidation.usernameOrEmail.required')
           }
        ]
       },

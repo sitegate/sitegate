@@ -1,5 +1,8 @@
 {
   "accountValidation": {
+    "usernameOrEmail": {
+      "required": "Please enter your username or email"
+    },
     "username": {
       "required": "Please enter a username",
       "minLength": "A username must be at least 5 characters",

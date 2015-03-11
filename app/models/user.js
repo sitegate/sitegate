@@ -6,7 +6,7 @@
  */
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var passportLocalMongoose = require('passport-email');
+var passportEmail = require('passport-email');
 
 /**
  * A Validation function for local strategy properties
@@ -88,7 +88,7 @@ var UserSchema = new Schema({
   }]
 });
 
-UserSchema.plugin(passportLocalMongoose);
+UserSchema.plugin(passportEmail);
 
 /**
  * Find possible not used username
