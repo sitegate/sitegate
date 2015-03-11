@@ -4,6 +4,7 @@ var gulp = require('gulp');
 var nodemon = require('gulp-nodemon');
 var livereload = require('gulp-livereload');
 var less = require('gulp-less');
+var fs = require('fs');
 
 gulp.task('less', function () {
   gulp.src('./public/css/**/*.less')
@@ -17,7 +18,11 @@ gulp.task('watch', function () {
 });
 
 gulp.task('develop', function () {
-  livereload.listen();
+  var options = {
+    key: fs.readFileSync('certs/privatekey.pem'),
+    cert: fs.readFileSync('certs/certificate.pem')
+  };
+  livereload.listen(options);
   nodemon({
     script: 'app.js',
     ext: 'js jade',
