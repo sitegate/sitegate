@@ -19,8 +19,9 @@ SiteGate uses:
  
 Why is it better than the alternatives?
 ========
-* It supports internationalization. Currently it has only in English but will have Ukrainian, Hungarian and Russian translations of the interface soon.
+* It supports internationalization. Currently it's only in English but will have Ukrainian, Hungarian, German and Russian translations of the interface soon.
 * It is designed as a standalone application with its own data storage, so updates will be easier.
+* It is also an OAuth2 server.
 
 Installation
 ========
@@ -33,6 +34,12 @@ Run these commands in a console:
 $ git clone git@github.com:zkochan/sitegate.git && cd ./sitegate
 $ npm install && bower install
 $ gulp
+````
+Generate your local SSL certificates in the ./certs folder. You can use these commands:
+````
+$ openssl genrsa -out privatekey.pem 1024
+$ openssl req -new -key privatekey.pem -out certrequest.csr
+$ openssl x509 -req -in certrequest.csr -signkey privatekey.pem -out certificate.pem
 ````
 
 License
