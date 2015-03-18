@@ -14,7 +14,6 @@
     "compression": "~1.4.1",
     "method-override": "~2.3.0",
     "glob": "~5.0.2",
-    "mongoose": "~3.8.20",
     "crypto": "0.0.3",
     "lodash": "~3.5.0",
     "passport": "~0.2.1",
@@ -35,8 +34,9 @@
     "passport-http-bearer": "~1.0.1",
     "connect-ensure-login": "~0.1.1",
     "bograch-amqp": "0.0.4",
-    "bograch": "0.0.4",
-    "passport-local": "~1.0.0"
+    "bograch": "0.0.7",
+    "passport-local": "~1.0.0",
+    "mongoose": "~3.8.25"
   },
   "devDependencies": {
     "gulp": "~3.8.10",

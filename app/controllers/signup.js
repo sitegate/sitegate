@@ -34,7 +34,7 @@ exports.post = function (req, res, next) {
         password: req.body.password,
         email: req.body.email,
         messages: {
-          error: i18n.t('account.error.' + (err.name || 'unknown'))
+          error: i18n.t('account.error.' + (err.type || 'unknown'))
         }
       });
     }

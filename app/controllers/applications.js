@@ -37,7 +37,7 @@ exports.postNewApplication = function (req, res) {
     description: req.body.description,
     homepageUrl: req.body.homepageUrl,
     authCallbackUrl: req.body.authCallbackUrl,
-    userId: req.user._id
+    userId: req.user.id
   }, function (err, client) {
     if (err) {
       return res.send(err);
@@ -69,7 +69,8 @@ exports.postApplication = function (req, res) {
     name: req.body.name,
     description: req.body.description,
     homepageUrl: req.body.homepageUrl,
-    authCallbackUrl: req.body.authCallbackUrl
+    authCallbackUrl: req.body.authCallbackUrl,
+    userId: req.user.id
   }, function (err, client) {
     if (err) {
       return res.send(err);

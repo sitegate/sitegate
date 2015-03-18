@@ -15,4 +15,4 @@ client.register([
   'getTrustedClients', 'authenticate'
 ]);
 
-module.exports = client;
+module.exports = client.methods;

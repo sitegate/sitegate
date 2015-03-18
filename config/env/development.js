@@ -2,22 +2,22 @@
 'use strict';
 
 module.exports = {
-  db: 'mongodb://localhost/ssoapp-dev',
+  db: 'mongodb://localhost/sitegate-dev',
   amqpURL: 'amqp://guest:guest@localhost:5672',
   facebook: {
     clientID: process.env.FACEBOOK_ID || '391179464377243',
     clientSecret: process.env.FACEBOOK_SECRET || 'edfafc7715060f8cb4c7212833a3c87a',
-    callbackURL: 'http://account.sitegatedev.com:3000/auth/facebook/callback'
+    callbackURL: 'https://account.sitegatedev.com:3000/auth/facebook/callback'
   },
   twitter: {
     clientID: process.env.TWITTER_KEY || 'j5UFdNnFLv6t24syOiDglfRIX',
     clientSecret: process.env.TWITTER_SECRET || 'GZMmhyaUcsaQULXQknfmXCEh8KTG91UGBeQED19ASvhsaDO7Ba',
-    callbackURL: 'http://account.sitegatedev.com:3000/auth/twitter/callback'
+    callbackURL: 'https://account.sitegatedev.com:3000/auth/twitter/callback'
   },
   google: {
     clientID: process.env.GOOGLE_ID || '295363747259-4f4o7483ce5q74a6v31n05s23ke37dii.apps.googleusercontent.com',
     clientSecret: process.env.GOOGLE_SECRET || 'rcBTWhsCnytAl6bXr3iTnjPs',
-    callbackURL: 'http://account.sitegatedev.com:3000/auth/google/callback'
+    callbackURL: 'https://account.sitegatedev.com:3000/auth/google/callback'
   },
   linkedin: {
     clientID: process.env.LINKEDIN_ID || 'APP_ID',

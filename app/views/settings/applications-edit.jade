@@ -22,7 +22,7 @@ block settingsContent
       input#appHomepageUrl(type='text', name='homepageUrl', value=homepageUrl)
     .field
       label(for='appDescription')= t('app.description')
-      textarea#appDescription(type='text', name='description', value=description)
+      textarea#appDescription(type='text', name='description')= description
     .field
       label(for='appAuthCallbackUrl')= t('app.authCallbackUrl')
       input#appAuthCallbackUrl(type='text', name='authCallbackUrl', value=authCallbackUrl)

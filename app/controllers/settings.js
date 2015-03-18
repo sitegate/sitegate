@@ -7,9 +7,11 @@ var i18n = require('i18next');
 var userClient = require('../clients/user-client');
 
 exports.profile = function (req, res, next) {
-  userClient.getById(req.user.id, function (err, user) {
+  userClient.getById({
+    id: req.user.id
+  }, function (err, user) {
     res.render('settings/profile', {
-      user: req.user,
+      user: user,
       homepageUrl: config.sitegateClient.domain +
         config.sitegateClient.privateHomepage,
       messages: {
@@ -58,23 +60,31 @@ exports.updateProfile = function (req, res, next) {
 };
 
 exports.accounts = function (req, res, next) {
-  res.render('settings/accounts', {
-    title: i18n.t('settings.socialConnections'),
-    homepageUrl: config.sitegateClient.domain +
-      config.sitegateClient.privateHomepage,
-    user: req.user
+  userClient.getById({
+    id: req.user.id
+  }, function (err, user) {
+    res.render('settings/accounts', {
+      title: i18n.t('settings.socialConnections'),
+      homepageUrl: config.sitegateClient.domain +
+        config.sitegateClient.privateHomepage,
+      user: user
+    });
   });
 };
 
 function renderPasswordPage(req, res, locals) {
   locals = locals || {};
 
-  res.render('settings/password', {
-    title: 'Generator-Express MVC',
-    hasPassword: typeof req.user.hash !== 'undefined',
-    homepageUrl: config.sitegateClient.domain +
-      config.sitegateClient.privateHomepage,
-    messages: locals.messages
+  userClient.getById({
+    id: req.user.id
+  }, function (err, user) {
+    res.render('settings/password', {
+      title: 'Generator-Express MVC',
+      hasPassword: typeof user.hash !== 'undefined',
+      homepageUrl: config.sitegateClient.domain +
+        config.sitegateClient.privateHomepage,
+      messages: locals.messages
+    });
   });
 }
 
@@ -112,7 +122,7 @@ exports.changePassword = function (req, res) {
     if (err) {
       return renderPasswordPage(req, res, {
         messages: {
-          error: req.i18n.t('settings.password.' + err.type || 'unknown')
+          error: req.i18n.t('account.error.' + err.type || 'unknown')
         }
       });
     }
@@ -132,7 +142,7 @@ exports.changePassword = function (req, res) {
 
 exports.resendEmailVerification = function (req, res) {
   userClient.sendVerificationEmail({
-    userId: req.user._id,
+    userId: req.user.id,
     host: req.headers.host,
     appTitle: config.app.title
   }, function (err) {

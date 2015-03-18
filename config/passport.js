@@ -8,7 +8,7 @@ var glob = require('glob');
 module.exports = function () {
   passport.serializeUser(function (user, done) {
     done(null, {
-      id: user._id.toString(),
+      id: user.id,
       username: user.username,
       email: user.email
     });
