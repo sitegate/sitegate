@@ -6,9 +6,9 @@ var clientClient = require('../../app/clients/client-client');
 
 module.exports = function () {
   passport.use(new ClientPasswordStrategy(
-    function (clientId, clientSecret, done) {
-      clientClient.getById({
-        id: clientId
+    function (clientPublicId, clientSecret, done) {
+      clientClient.getByPublicId({
+        publicId: clientPublicId
       }, function (err, client) {
         if (err) {
           return done(err);

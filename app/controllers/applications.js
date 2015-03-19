@@ -43,7 +43,7 @@ exports.postNewApplication = function (req, res) {
       return res.send(err);
     }
 
-    return res.redirect('/settings/applications/' + client._id);
+    return res.redirect('/settings/applications/' + client.id);
   });
 };
 

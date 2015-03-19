@@ -11,7 +11,9 @@ var server = oauth2orize.createServer();
 // Register serialialization function
 server.serializeClient(function (client, cb) {
   return cb(null, {
-    id: client.id
+    id: client.id,
+    publicId: client.publicId,
+    secret: client.secret
   });
 });
 
@@ -46,9 +48,9 @@ server.exchange(oauth2orize
 // User authorization endpoint
 exports.authorization = [
   server.authorization(function (clientId, redirectUri, cb) {
-
-    clientClient.getById({
-      id: clientId
+    
+    clientClient.getByPublicId({
+      publicId: clientId
     }, function (err, client) {
       if (err) {
         return cb(err);
@@ -58,20 +60,29 @@ exports.authorization = [
     });
   }),
   function (req, res, next) {
-    if (req.oauth2.client.trusted === true || req.user.trusts(req.oauth2.client)) {
-      server.decision({
-        loadTransaction: false
-      }, function (req, cb) {
-        cb(null, {
-          allow: true
-        });
-      })(req, res, next);
-      return;
-    }
-    res.render('dialog', {
-      transactionID: req.oauth2.transactionID,
-      user: req.user,
-      client: req.oauth2.client
+    oauthClient.isTrusted({
+      clientId: req.oauth2.client.id,
+      userId: req.user.id
+    }, function (err, isTrusted) {
+      if (err) {
+        //
+      }
+
+      if (isTrusted) {
+        server.decision({
+          loadTransaction: false
+        }, function (req, cb) {
+          cb(null, {
+            allow: true
+          });
+        })(req, res, next);
+        return;
+      }
+      res.render('dialog', {
+        transactionID: req.oauth2.transactionID,
+        user: req.user,
+        client: req.oauth2.client
+      });
     });
   }
 ];
