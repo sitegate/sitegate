@@ -39,7 +39,7 @@
     },
     "error": {
       "unknown": "Some error occured",
-      "incorrectUsername": "Incorrect username. Please try again.",
+      "incorrectUsernameOrEmail": "Incorrect username or email. Please try again.",
       "incorrectPassword": "Incorrect password. Please try again.",
       "missingPassword": "Password is missing",
       "missingUsername": "Username is missing",

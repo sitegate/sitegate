@@ -20,23 +20,13 @@ exports.get = function (req, res, next) {
  * Signin after passport authentication
  */
 exports.post = function (req, res, next) {
-  passport.authenticate('local', function (err, user, info) {
-    if (!user) {
-      return renderSignIn(res, {
-        username: req.body.username,
-        password: req.body.password,
-        messages: {
-          error: i18n.t('account.error.' + (info.result || 'unknown'))
-        }
-      });
-    }
-    
+  passport.authenticate('local', function (err, user) {
     if (err) {
       return renderSignIn(res, {
         username: req.body.username,
         password: req.body.password,
         messages: {
-          error: i18n.t('account.error.unknown')
+          error: i18n.t('account.error.' + (err.type || 'unknown'))
         }
       });
     }
