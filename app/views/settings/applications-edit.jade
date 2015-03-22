@@ -9,7 +9,7 @@ block settingsContent
   .ui.attached.segment
     dl
       dt Client ID
-      dd= id
+      dd= publicId
       dt Client Secret
       dd= secret
   form.ui.attached.segment.form(method='post')
@@ -22,12 +22,12 @@ block settingsContent
       input#appHomepageUrl(type='text', name='homepageUrl', value=homepageUrl)
     .field
       label(for='appDescription')= t('app.description')
-      textarea#appDescription(type='text', name='description', value=description)
+      textarea#appDescription(type='text', name='description')= description
     .field
       label(for='appAuthCallbackUrl')= t('app.authCallbackUrl')
       input#appAuthCallbackUrl(type='text', name='authCallbackUrl', value=authCallbackUrl)
     button.ui.primary.button= t('app.update')
-    button#appDelete.ui.red.basic.button(type='button', data-client-id=_id.toString())= t('app.delete')
+    button#appDelete.ui.red.basic.button(type='button', data-client-id=id)= t('app.delete')
 block scripts
   script(type="text/javascript", src="/js/settings/applications-new.js")
   script(type="text/javascript", src="/js/settings/applications-edit.js")

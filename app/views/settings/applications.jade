@@ -11,7 +11,7 @@ block settingsContent
     else
       .ui.list
         each client in clients
-          a.item(href='/settings/applications/' + client._id)
+          a.item(href='/settings/applications/' + client.id)
             i.anchor.icon
             != client.name
   h5.ui.top.attached.block.header
@@ -26,8 +26,8 @@ block settingsContent
         each client in trustedClients
           .item
             .ui.right.floated.tiny.buttons
-              a.ui.tiny.button(href='/settings/connections/' + client._id)= t('app.view')
-              button.ui.tiny.red.inverted.revoke.button(data-client-id=client._id.toString())= t('app.revoke')
+              a.ui.tiny.button(href='/settings/connections/' + client.id)= t('app.view')
+              button.ui.tiny.red.inverted.revoke.button(data-client-id=client.id.toString())= t('app.revoke')
             i.anchor.icon
             .content.aligned= client.name
 block styles
