@@ -5,6 +5,20 @@ SiteGate is a **Node.js Express** website that handles the user sign in/up proce
 
 Usage example: https://github.com/zkochan/sitegate-client-example
 
+Why is it better than the alternatives?
+========
+* It consists of several independent microservices.
+* It supports internationalization. Currently it's only in English but will have Ukrainian, Hungarian, German and Russian translations of the interface soon.
+* It is designed as a standalone application with its own data storage, so updates will be easier.
+* It is also an OAuth2 server.
+
+What are the microservices it consists of?
+=======
+* [SiteGate User](https://github.com/zkochan/sitegate-user)
+* [SiteGate Client](https://github.com/zkochan/sitegate-client)
+* [SiteGate OAuth](https://github.com/zkochan/sitegate-oauth)
+* [SiteGate Mailer](https://github.com/zkochan/sitegate-mailer)
+
 What does it consist of?
 ========
 
@@ -16,12 +30,6 @@ SiteGate uses:
 * [MongoDB](http://www.mongodb.org/downloads) as our database.
 * [Express](http://expressjs.com/) is our web framework for Node.js.
 * [Semantic UI](http://semantic-ui.com/) for the fancy design.
- 
-Why is it better than the alternatives?
-========
-* It supports internationalization. Currently it's only in English but will have Ukrainian, Hungarian, German and Russian translations of the interface soon.
-* It is designed as a standalone application with its own data storage, so updates will be easier.
-* It is also an OAuth2 server.
 
 Installation
 ========
