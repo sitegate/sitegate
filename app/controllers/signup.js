@@ -1,7 +1,7 @@
 /* jshint node:true */
 'use strict';
 
-var userClient = require('../clients/user-client');
+var User = require('../clients/user');
 var config = require('../../config/config');
 var i18n = require('i18next');
 
@@ -27,7 +27,7 @@ exports.post = function (req, res, next) {
   user.displayName = user.firstName + ' ' + user.lastName;
   user.emailVerified = false;
 
-  userClient.register(user, function (err, user) {
+  User.register(user, function (err, user) {
     if (err) {
       return renderSignUp(res, {
         username: req.body.username,

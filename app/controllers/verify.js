@@ -1,11 +1,11 @@
 /* jshint node:true */
 'use strict';
 
-var userClient = require('../clients/user-client');
+var User = require('../clients/user');
 var errorHandler = require('../error-handler');
 
 exports.email = function (req, res, next) {
-  userClient.verifyEmail({
+  User.verifyEmail({
     token: req.params.token
   }, function (err, user) {
     if (err) {

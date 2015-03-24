@@ -2,9 +2,9 @@
 
 var oauth2orize = require('oauth2orize');
 var uid = require('../helpers/uid');
-var userClient = require('../clients/user-client');
-var clientClient = require('../clients/client-client');
-var oauthClient = require('../clients/oauth-client');
+var User = require('../clients/user');
+var Client = require('../clients/client');
+var OAuth = require('../clients/oauth');
 
 var server = oauth2orize.createServer();
 
@@ -26,7 +26,7 @@ server.deserializeClient(function (client, cb) {
 server.grant(oauth2orize
   .grant
   .code(function (client, redirectUri, user, ares, cb) {
-    oauthClient.createCode({
+    OAuth.createCode({
       clientId: client.id,
       redirectUri: redirectUri,
       userId: user.id
@@ -37,7 +37,7 @@ server.grant(oauth2orize
 server.exchange(oauth2orize
   .exchange
   .code(function (client, code, redirectUri, cb) {
-    oauthClient.exchange({
+    OAuth.exchange({
       clientId: client.id,
       code: code,
       redirectUri: redirectUri
@@ -49,7 +49,7 @@ server.exchange(oauth2orize
 exports.authorization = [
   server.authorization(function (clientId, redirectUri, cb) {
     
-    clientClient.getByPublicId({
+    Client.getByPublicId({
       publicId: clientId
     }, function (err, client) {
       if (err) {
@@ -60,7 +60,7 @@ exports.authorization = [
     });
   }),
   function (req, res, next) {
-    oauthClient.isTrusted({
+    OAuth.isTrusted({
       clientId: req.oauth2.client.id,
       userId: req.user.id
     }, function (err, isTrusted) {
@@ -90,7 +90,7 @@ exports.authorization = [
 // User decision endpoint
 exports.decision = [
   function (req, res, next) {
-    userClient.trustClient({
+    User.trustClient({
       userId: req.user.id,
       clientId: req.body.clientId
     }, next);

@@ -2,12 +2,12 @@
 
 var passport = require('passport');
 var BasicStrategy = require('passport-http').BasicStrategy;
-var clientClient = require('../../app/clients/client-client');
+var Client = require('../../app/clients/client');
 
 module.exports = function () {
   passport.use(new BasicStrategy(
     function (clientPublicId, secret, cb) {
-      clientClient.getByPublicId({
+      Client.getByPublicId({
         publicId: clientPublicId
       }, function (err, client) {
         if (err) {

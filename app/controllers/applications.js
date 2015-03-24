@@ -2,26 +2,26 @@
 
 var i18n = require('i18next');
 var uid = require('../helpers/uid');
-var clientClient = require('../clients/client-client');
-var userClient = require('../clients/user-client');
+var Client = require('../clients/client');
+var User = require('../clients/user');
 
 exports.applications = function (req, res) {
-  clientClient.findByCreatorId({
+  Client.findByCreatorId({
     userId: req.user.id
   }, function (err, clients) {
     if (err) {
       //
     }
     
-    var userClients = clients;
+    var Users = clients;
         
-    userClient.getTrustedClients({
+    User.getTrustedClients({
       userId: req.user.id
     }, function (err, clients) {      
       res.render('settings/applications', {
         title: i18n.t('app.apps'),
         trustedClients: clients,
-        clients: userClients
+        clients: Users
       });
     });
   });
@@ -32,7 +32,7 @@ exports.getNewApplication = function (req, res) {
 };
 
 exports.postNewApplication = function (req, res) {
-  clientClient.create({
+  Client.create({
     name: req.body.name,
     description: req.body.description,
     homepageUrl: req.body.homepageUrl,
@@ -48,9 +48,7 @@ exports.postNewApplication = function (req, res) {
 };
 
 exports.getApplication = function (req, res) {
-  clientClient.getById({
-    id: req.params.id
-  }, function (err, client) {
+  Client.getById(req.params.id, function (err, client) {
     if (err) {
       return res.send(err);
     }
@@ -64,7 +62,7 @@ exports.getApplication = function (req, res) {
 };
 
 exports.postApplication = function (req, res) {
-  clientClient.update({
+  Client.update({
     clientId: req.params.id,
     name: req.body.name,
     description: req.body.description,
@@ -81,9 +79,7 @@ exports.postApplication = function (req, res) {
 };
 
 exports.deleteApplication = function (req, res) {
-  clientClient.getById({
-    id: req.params.id
-  }, function (err, client) {
+  Client.getById(req.params.id, function (err, client) {
     if (err) {
       return res.status(400).send(err);
     }
@@ -96,7 +92,7 @@ exports.deleteApplication = function (req, res) {
       return res.status(400).send('Only the creator can remove a client');
     }
 
-    clientClient.remove({
+    Client.remove({
       clientId: req.params.id
     }, function (err) {
       if (err) {
@@ -128,9 +124,7 @@ exports.postRevokeAll = function (req, res) {
 };
 
 exports.getConnection = function (req, res) {
-  clientClient.getById({
-    id: req.params.id
-  }, function (err, client) {
+  Client.getById(req.params.id, function (err, client) {
     if (err) {
       //
     }

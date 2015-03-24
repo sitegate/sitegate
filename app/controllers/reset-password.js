@@ -4,7 +4,7 @@
 var errorHandler = require('../error-handler');
 var i18n = require('i18next');
 var config = require('../../config/config');
-var userClient = require('../clients/user-client');
+var User = require('../clients/user');
 
 function renderResetPassword(res, locals) {
   locals = locals || {};
@@ -17,7 +17,7 @@ exports.get = function (req, res, next) {
 };
 
 exports.post = function (req, res, next) {
-  userClient.resetPasswordByEmail({
+  User.resetPasswordByEmail({
     email: req.body.email,
     host: req.headers.host,
     appTitle: config.app.title
@@ -41,7 +41,7 @@ exports.post = function (req, res, next) {
 };
 
 exports.validateResetToken = function (req, res) {
-  userClient.validateResetToken({
+  User.validateResetToken({
     token: req.params.token
   }, function (err) {
     if (err) {
@@ -67,7 +67,7 @@ exports.newPassword = function (req, res) {
     });
   }
 
-  userClient.resetPassword({
+  User.resetPassword({
     token: req.params.token,
     newPassword: passwordDetails.newPassword
   }, function (err, user) {

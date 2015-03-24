@@ -2,12 +2,12 @@
 
 var passport = require('passport');
 var BearerStrategy = require('passport-http-bearer').Strategy;
-var oauthClient = require('../../app/clients/oauth-client');
+var OAuth = require('../../app/clients/oauth');
 
 module.exports = function () {
   passport.use(new BearerStrategy(
     function (accessToken, done) {
-      oauthClient.authToken({
+      OAuth.authToken({
         accessToken: accessToken
       }, done);
     }

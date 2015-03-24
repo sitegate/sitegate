@@ -4,12 +4,10 @@
 var config = require('../../config/config');
 var errorHandler = require('../error-handler');
 var i18n = require('i18next');
-var userClient = require('../clients/user-client');
+var User = require('../clients/user');
 
 exports.profile = function (req, res, next) {
-  userClient.getById({
-    id: req.user.id
-  }, function (err, user) {
+  User.getById(req.user.id, function (err, user) {
     res.render('settings/profile', {
       user: user,
       homepageUrl: config.sitegateClient.domain +
@@ -26,7 +24,7 @@ exports.updateProfile = function (req, res, next) {
     username: req.body['user.username'],
     email: req.body['user.email']
   };
-  userClient.update({
+  User.update({
     id: req.user.id,
     username: req.body['user.username'],
     email: req.body['user.email']
@@ -60,9 +58,7 @@ exports.updateProfile = function (req, res, next) {
 };
 
 exports.accounts = function (req, res, next) {
-  userClient.getById({
-    id: req.user.id
-  }, function (err, user) {
+  User.getById(req.user.id, function (err, user) {
     res.render('settings/accounts', {
       title: i18n.t('settings.socialConnections'),
       homepageUrl: config.sitegateClient.domain +
@@ -75,9 +71,7 @@ exports.accounts = function (req, res, next) {
 function renderPasswordPage(req, res, locals) {
   locals = locals || {};
 
-  userClient.getById({
-    id: req.user.id
-  }, function (err, user) {
+  User.getById(req.user.id, function (err, user) {
     res.render('settings/password', {
       title: 'Generator-Express MVC',
       hasPassword: typeof user.hash !== 'undefined',
@@ -114,7 +108,7 @@ exports.changePassword = function (req, res) {
     });
   }
 
-  userClient.changePassword({
+  User.changePassword({
     userId: req.user.id,
     currentPassword: passwordDetails.currentPassword,
     newPassword: passwordDetails.newPassword
@@ -141,7 +135,7 @@ exports.changePassword = function (req, res) {
 };
 
 exports.resendEmailVerification = function (req, res) {
-  userClient.sendVerificationEmail({
+  User.sendVerificationEmail({
     userId: req.user.id,
     host: req.headers.host,
     appTitle: config.app.title

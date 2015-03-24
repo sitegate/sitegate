@@ -4,7 +4,7 @@
 /**
  * Module dependencies.
  */
-var userClient = require('../clients/user-client');
+var User = require('../clients/user');
 var passport = require('passport');
 
 /**
@@ -32,7 +32,7 @@ exports.oauthCallback = function (strategy) {
 
 exports.disconnect = function (strategy) {
   return function (req, res, next) {
-    userClient.disconnectProvider({
+    User.disconnectProvider({
       userId: req.user.id,
       strategy: strategy
     }, function (err) {
@@ -49,7 +49,7 @@ exports.disconnect = function (strategy) {
  * Helper function to save or update a OAuth user profile
  */
 exports.saveOAuthUserProfile = function (req, providerUserProfile, done) {
-  userClient.saveOAuthUserProfile({
+  User.saveOAuthUserProfile({
     loggedUser: req.user,
     providerUserProfile: providerUserProfile
   }, done);

@@ -2,12 +2,12 @@
 
 var passport = require('passport');
 var ClientPasswordStrategy = require('passport-oauth2-client-password').Strategy;
-var clientClient = require('../../app/clients/client-client');
+var Client = require('../../app/clients/client');
 
 module.exports = function () {
   passport.use(new ClientPasswordStrategy(
     function (clientPublicId, clientSecret, done) {
-      clientClient.getByPublicId({
+      Client.getByPublicId({
         publicId: clientPublicId
       }, function (err, client) {
         if (err) {
