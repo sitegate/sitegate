@@ -49,9 +49,7 @@ server.exchange(oauth2orize
 exports.authorization = [
   server.authorization(function (clientId, redirectUri, cb) {
     
-    Client.getByPublicId({
-      publicId: clientId
-    }, function (err, client) {
+    Client.getByPublicId(clientId, function (err, client) {
       if (err) {
         return cb(err);
       }

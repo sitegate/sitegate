@@ -6,14 +6,12 @@ var Client = require('../clients/client');
 var User = require('../clients/user');
 
 exports.applications = function (req, res) {
-  Client.findByCreatorId({
-    userId: req.user.id
-  }, function (err, userClients) {
+  Client.findByCreatorId(req.user.id, function (err, userClients) {
     if (err) {
       //
     }
-    
-    User.getTrustedClients(req.user.id, function (err, clients) {      
+
+    User.getTrustedClients(req.user.id, function (err, clients) {
       res.render('settings/applications', {
         title: i18n.t('app.apps'),
         trustedClients: clients,
@@ -87,9 +85,7 @@ exports.deleteApplication = function (req, res) {
       return res.status(400).send('Only the creator can remove a client');
     }
 
-    Client.remove({
-      clientId: req.params.id
-    }, function (err) {
+    Client.remove(req.params.id, function (err) {
       if (err) {
         return res.status(400).send(err);
       }
