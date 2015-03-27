@@ -8,20 +8,16 @@ var User = require('../clients/user');
 exports.applications = function (req, res) {
   Client.findByCreatorId({
     userId: req.user.id
-  }, function (err, clients) {
+  }, function (err, userClients) {
     if (err) {
       //
     }
     
-    var Users = clients;
-        
-    User.getTrustedClients({
-      userId: req.user.id
-    }, function (err, clients) {      
+    User.getTrustedClients(req.user.id, function (err, clients) {      
       res.render('settings/applications', {
         title: i18n.t('app.apps'),
         trustedClients: clients,
-        clients: Users
+        clients: userClients
       });
     });
   });
@@ -62,8 +58,7 @@ exports.getApplication = function (req, res) {
 };
 
 exports.postApplication = function (req, res) {
-  Client.update({
-    clientId: req.params.id,
+  Client.update(req.params.id, {
     name: req.body.name,
     description: req.body.description,
     homepageUrl: req.body.homepageUrl,

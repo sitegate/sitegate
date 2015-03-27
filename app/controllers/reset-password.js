@@ -17,11 +17,7 @@ exports.get = function (req, res, next) {
 };
 
 exports.post = function (req, res, next) {
-  User.resetPasswordByEmail({
-    email: req.body.email,
-    host: req.headers.host,
-    appTitle: config.app.title
-  }, function (err, info) {
+  User.requestPasswordChangeByEmail(req.body.email, function (err, info) {
     if (err) {
       return renderResetPassword(res, {
         messages: {
@@ -41,9 +37,7 @@ exports.post = function (req, res, next) {
 };
 
 exports.validateResetToken = function (req, res) {
-  User.validateResetToken({
-    token: req.params.token
-  }, function (err) {
+  User.validateResetToken(req.params.token, function (err) {
     if (err) {
       return renderResetPassword(res, {
         messages: {
@@ -67,7 +61,7 @@ exports.newPassword = function (req, res) {
     });
   }
 
-  User.resetPassword({
+  User.changePasswordUsingToken({
     token: req.params.token,
     newPassword: passwordDetails.newPassword
   }, function (err, user) {

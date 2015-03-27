@@ -7,11 +7,11 @@ var client = bo.client('amqp', {
 });
 
 client.register([
-  'getById', 'update', 'resetPasswordByEmail',
-  'validateResetToken', 'resetPassword',
+  'getById', 'update', 'requestPasswordChangeByEmail',
+  'validateResetToken', 'changePasswordUsingToken',
   'sendVerificationEmail', 'register',
   'saveOAuthUserProfile', 'disconnectProvider',
-  'trustClient', 'changePassword', 'verifyEmail',
+  'trustClient', 'changePassword', 'verifyEmailByToken',
   'getTrustedClients', 'authenticate'
 ]);
 

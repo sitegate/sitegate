@@ -24,8 +24,7 @@ exports.updateProfile = function (req, res, next) {
     username: req.body['user.username'],
     email: req.body['user.email']
   };
-  User.update({
-    id: req.user.id,
+  User.update(req.user.id, {
     username: req.body['user.username'],
     email: req.body['user.email']
   }, function (err, user, info) {
@@ -135,11 +134,7 @@ exports.changePassword = function (req, res) {
 };
 
 exports.resendEmailVerification = function (req, res) {
-  User.sendVerificationEmail({
-    userId: req.user.id,
-    host: req.headers.host,
-    appTitle: config.app.title
-  }, function (err) {
+  User.sendVerificationEmail(req.user.id, function (err) {
     if (err) {
       return res.status(400);
     }
