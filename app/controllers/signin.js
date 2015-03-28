@@ -8,7 +8,7 @@ var i18n = require('i18next');
 function renderSignIn(res, locals) {
   locals = locals || {};
   locals.title = i18n.t('account.signIn');
-  locals.cancelUrl = config.sitegateClient.domain + config.sitegateClient.publicHomepage;
+  locals.cancelUrl = config.get('sitegateClient.domain') + config.get('sitegateClient.publicHomepage');
   res.render('signin', locals);
 }
 

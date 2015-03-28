@@ -16,6 +16,8 @@ var config = require('./config');
 var i18n = require('i18next');
 var flash = require('connect-flash');
 var redirect = require('express-redirect');
+var path = require('path');
+var rootPath = path.normalize(__dirname + '/..');
 
 module.exports = function (db) {
   // Initialize express app
@@ -24,15 +26,15 @@ module.exports = function (db) {
   redirect(app);
 
   // Globbing model files
-  var models = glob.sync(config.root + '/app/models/**/*.js');
+  var models = glob.sync(rootPath + '/app/models/**/*.js');
   models.forEach(function (model) {
     require(model);
   });
 
-  app.set('views', config.root + '/app/views');
+  app.set('views', rootPath + '/app/views');
   app.set('view engine', 'jade');
 
-  app.locals.appTitle = config.app.title;
+  app.locals.appTitle = config.get('app.title');
 
   // Registering i18n
   i18n.init({
@@ -45,7 +47,7 @@ module.exports = function (db) {
     return require('jade').compile(val, opts)();
   });
 
-  // app.use(favicon(config.root + '/public/img/favicon.ico'));
+  // app.use(favicon(rootPath + '/public/img/favicon.ico'));
   app.use(logger('dev'));
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({
@@ -56,7 +58,7 @@ module.exports = function (db) {
   
   // Static directory should be above session
   app.use(compress());
-  app.use(express.static(config.root + '/public'));
+  app.use(express.static(rootPath + '/public'));
 
   // CookieParser should be above session
   app.use(cookieParser());
@@ -65,10 +67,10 @@ module.exports = function (db) {
   app.use(session({
     saveUninitialized: true,
     resave: true,
-    secret: config.sessionSecret,
+    secret: config.get('session.secret'),
     store: new MongoStore({
       mongooseConnection: db.connection,
-      collection: config.sessionCollection
+      collection: config.get('session.collection')
     })
   }));
 
@@ -84,7 +86,7 @@ module.exports = function (db) {
   app.use(helmet.ienoopen());
   app.disable('x-powered-by');
 
-  var routes = glob.sync(config.root + '/app/routes/*.js');
+  var routes = glob.sync(rootPath + '/app/routes/*.js');
   routes.forEach(function (route) {
     require(route)(app);
   });

@@ -12,9 +12,9 @@ var users = require('../../app/controllers/users');
 module.exports = function () {
   // Use twitter strategy
   passport.use(new TwitterStrategy({
-      consumerKey: config.twitter.clientID,
-      consumerSecret: config.twitter.clientSecret,
-      callbackURL: config.twitter.callbackURL,
+      consumerKey: config.get('twitter.clientID'),
+      consumerSecret: config.get('twitter.clientSecret'),
+      callbackURL: config.get('twitter.callbackURL'),
       passReqToCallback: true
     },
     function (req, token, tokenSecret, profile, done) {

@@ -12,9 +12,9 @@ var users = require('../../app/controllers/users');
 module.exports = function () {
   // Use facebook strategy
   passport.use(new FacebookStrategy({
-      clientID: config.facebook.clientID,
-      clientSecret: config.facebook.clientSecret,
-      callbackURL: config.facebook.callbackURL,
+      clientID: config.get('facebook.clientID'),
+      clientSecret: config.get('facebook.clientSecret'),
+      callbackURL: config.get('facebook.callbackURL'),
       passReqToCallback: true
     },
     function (req, accessToken, refreshToken, profile, done) {

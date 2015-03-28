@@ -12,9 +12,9 @@ var users = require('../../app/controllers/users');
 module.exports = function () {
   // Use google strategy
   passport.use(new GoogleStrategy({
-      clientID: config.google.clientID,
-      clientSecret: config.google.clientSecret,
-      callbackURL: config.google.callbackURL,
+      clientID: config.get('google.clientID'),
+      clientSecret: config.get('google.clientSecret'),
+      callbackURL: config.get('google.callbackURL'),
       passReqToCallback: true
     },
     function (req, accessToken, refreshToken, profile, done) {

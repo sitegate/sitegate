@@ -6,7 +6,7 @@ var https = require('https');
 var fs = require('fs');
 
 // Bootstrap db connection
-var db = mongoose.connect(config.db, function (err) {
+var db = mongoose.connect(config.get('db'), function (err) {
   if (err) {
     console.error('\x1b[31m', 'Could not connect to MongoDB!');
     console.log(err);
@@ -31,5 +31,5 @@ var options = {
   cert: fs.readFileSync('certs/certificate.pem')
 };
 
-// Create our HTTPS server listening on port config.port.
-https.createServer(options, app).listen(config.port);
+// Create our HTTPS server listening on port config.get('port').
+https.createServer(options, app).listen(config.get('port'));

@@ -10,8 +10,8 @@ exports.profile = function (req, res, next) {
   User.getById(req.user.id, function (err, user) {
     res.render('settings/profile', {
       user: user,
-      homepageUrl: config.sitegateClient.domain +
-        config.sitegateClient.privateHomepage,
+      homepageUrl: config.get('sitegateClient.domain') +
+        config.get('sitegateClient.privateHomepage'),
       messages: {
         success: req.flash('profileSuccessMessages')
       }
@@ -60,8 +60,8 @@ exports.accounts = function (req, res, next) {
   User.getById(req.user.id, function (err, user) {
     res.render('settings/accounts', {
       title: i18n.t('settings.socialConnections'),
-      homepageUrl: config.sitegateClient.domain +
-        config.sitegateClient.privateHomepage,
+      homepageUrl: config.get('sitegateClient.domain') +
+        config.get('sitegateClient.privateHomepage'),
       user: user
     });
   });
@@ -74,8 +74,8 @@ function renderPasswordPage(req, res, locals) {
     res.render('settings/password', {
       title: 'Generator-Express MVC',
       hasPassword: typeof user.hash !== 'undefined',
-      homepageUrl: config.sitegateClient.domain +
-        config.sitegateClient.privateHomepage,
+      homepageUrl: config.get('sitegateClient.domain') +
+        config.get('sitegateClient.privateHomepage'),
       messages: locals.messages
     });
   });

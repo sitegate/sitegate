@@ -5,5 +5,5 @@ var bo = require('bograch');
 var AmqpTransporter = require('bograch-amqp');
 
 bo.use(new AmqpTransporter({
-  amqpURL: config.amqpURL
+  amqpURL: config.get('amqpURL')
 }));
