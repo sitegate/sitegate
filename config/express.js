@@ -53,6 +53,10 @@ module.exports = function (db) {
   }));
   app.use(i18n.handle);
   app.use(methodOverride());
+  
+  // Static directory should be above session
+  app.use(compress());
+  app.use(express.static(config.root + '/public'));
 
   // CookieParser should be above session
   app.use(cookieParser());
@@ -79,9 +83,6 @@ module.exports = function (db) {
   app.use(helmet.nosniff());
   app.use(helmet.ienoopen());
   app.disable('x-powered-by');
-
-  app.use(compress());
-  app.use(express.static(config.root + '/public'));
 
   var routes = glob.sync(config.root + '/app/routes/*.js');
   routes.forEach(function (route) {
