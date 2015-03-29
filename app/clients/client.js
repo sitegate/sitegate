@@ -6,7 +6,7 @@ var client = bo.client('amqp', {
   name: 'client'
 });
 
-client.register(['findByCreatorId', 'create', 'getById',
+client.register(['create', 'getById', 'query',
                  'getByPublicId', 'update', 'remove']);
 
 module.exports = client.methods;

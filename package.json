@@ -1,10 +1,16 @@
 {
   "name": "sitegate",
   "version": "0.0.1",
+  "author": "Zoltan Kochan",
   "private": true,
   "scripts": {
     "start": "node app.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/zkochan/sitegate.git"
+  },
+  "licencse": "MIT",
   "dependencies": {
     "body-parser": "~1.12.0",
     "bograch": "0.0.10",

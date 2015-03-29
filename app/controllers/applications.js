@@ -6,7 +6,11 @@ var Client = require('../clients/client');
 var User = require('../clients/user');
 
 exports.applications = function (req, res) {
-  Client.findByCreatorId(req.user.id, function (err, userClients) {
+  Client.query({
+    creatorId: req.user.id,
+    count: 20,
+    fields: ['name']
+  }, function (err, userClients) {
     if (err) {
       //
     }
@@ -60,8 +64,11 @@ exports.postApplication = function (req, res) {
     name: req.body.name,
     description: req.body.description,
     homepageUrl: req.body.homepageUrl,
-    authCallbackUrl: req.body.authCallbackUrl,
-    userId: req.user.id
+    authCallbackUrl: req.body.authCallbackUrl
+  }, {
+    allow: {
+      userId: req.user.id
+    }
   }, function (err, client) {
     if (err) {
       return res.send(err);
