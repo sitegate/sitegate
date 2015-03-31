@@ -9,7 +9,6 @@ var methodOverride = require('method-override');
 var cookieParser = require('cookie-parser');
 var helmet = require('helmet');
 var passport = require('passport');
-var MongoStore = require('connect-mongo')(session);
 var glob = require('glob');
 var compress = require('compression');
 var config = require('./config');
@@ -18,6 +17,8 @@ var flash = require('connect-flash');
 var redirect = require('express-redirect');
 var path = require('path');
 var rootPath = path.normalize(__dirname + '/..');
+var bograch = require('bograch');
+var BograchStore = require('connect-bograch')(session, bograch);
 
 module.exports = function (db) {
   // Initialize express app
@@ -63,14 +64,13 @@ module.exports = function (db) {
   // CookieParser should be above session
   app.use(cookieParser());
 
-  // Express MongoDB session storage
+  // Express Bograch session storage
   app.use(session({
     saveUninitialized: true,
     resave: true,
     secret: config.get('session.secret'),
-    store: new MongoStore({
-      mongooseConnection: db.connection,
-      collection: config.get('session.collection')
+    store: new BograchStore({
+      transporterName: 'amqp'
     })
   }));
 
