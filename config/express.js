@@ -69,8 +69,8 @@ module.exports = function (db) {
     saveUninitialized: true,
     resave: true,
     secret: config.get('session.secret'),
-    store: new BograchStore({
-      transporterName: 'amqp'
+    store: new BograchStore('amqp', {
+      amqpURL: config.get('amqpURL')
     })
   }));
 
