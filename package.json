@@ -16,7 +16,7 @@
     "bograch": "0.0.18",
     "bograch-amqp": "0.0.8",
     "compression": "~1.4.1",
-    "connect-bograch": "0.0.4",
+    "connect-bograch": "0.0.5",
     "connect-ensure-login": "~0.1.1",
     "connect-flash": "~0.1.1",
     "convict": "^0.6.1",
