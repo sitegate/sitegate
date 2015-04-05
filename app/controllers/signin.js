@@ -30,7 +30,7 @@ exports.post = function (req, res, next) {
         }
       });
     }
-    
+
     // Remove sensitive data before login
     user.password = undefined;
     user.salt = undefined;
@@ -38,14 +38,14 @@ exports.post = function (req, res, next) {
     req.login(user, function (err) {
       if (err) {
         return renderSignIn(res, {
-        username: req.body.username,
-        password: req.body.password,
+          username: req.body.username,
+          password: req.body.password,
           messages: {
             error: i18n.t('account.error.unknown')
           }
         });
       }
-      
+
       return require('../go-callback')(req, res, next);
     });
   })(req, res, next);

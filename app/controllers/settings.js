@@ -5,6 +5,7 @@ var config = require('../../config/config');
 var errorHandler = require('../error-handler');
 var i18n = require('i18next');
 var User = require('../clients/user');
+var Session = require('../clients/session');
 
 exports.profile = function (req, res, next) {
   User.getById(req.user.id, function (err, user) {
@@ -119,6 +120,8 @@ exports.changePassword = function (req, res) {
         }
       });
     }
+    
+    Session.destroyByUserId(user.id, req.sessionID);
 
     req.login(user, function (err) {
       if (err) {
