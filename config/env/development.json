@@ -1,9 +1,4 @@
 {
-  "mongodb": {
-    "address": "localhost",
-    "port": "27017",
-    "name": "sitegate-user-dev"
-  },
   "amqp": {
     "login": "guest",
     "password": "guest",

@@ -20,7 +20,7 @@ var rootPath = path.normalize(__dirname + '/..');
 var bograch = require('bograch');
 var BograchStore = require('connect-bograch')(session, bograch);
 
-module.exports = function (db) {
+module.exports = function () {
   // Initialize express app
   var app = express();
 
