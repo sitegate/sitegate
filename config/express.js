@@ -1,7 +1,6 @@
 /* jshint node:true */
 'use strict';
 
-var util = require('util');
 var express = require('express');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
@@ -66,18 +65,12 @@ module.exports = function (db) {
   app.use(cookieParser());
 
   // Express Bograch session storage
-  var amqpURL = util.format('amqp://%s:%s@%s:%s',
-                         config.get('amqp.login'),
-                         config.get('amqp.password'),
-                         config.get('amqp.address'),
-                         config.get('amqp.port'));
-
   app.use(session({
     saveUninitialized: true,
     resave: true,
     secret: config.get('session.secret'),
     store: new BograchStore('amqp', {
-      amqpURL: amqpURL
+      amqpURL: config.get('amqpUrl')
     })
   }));
 
