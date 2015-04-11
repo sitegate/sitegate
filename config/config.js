@@ -1,5 +1,6 @@
 'use strict';
 
+var util = require('util');
 var convict = require('convict');
 
 var config = convict({
@@ -15,20 +16,43 @@ var config = convict({
       default: 'SiteGate'
     }
   },
-  db: {
-    doc: 'MongoDB endpoint.',
-    format: function (val) {
-      if (val.toLowerCase().indexOf('mongodb://') !== 0) {
-        throw new TypeError('Should be a MongoDB endpoint');
-      }
+  mongodb: {
+    address: {
+      doc: 'MongoDB address.',
+      default: 'localhost',
+      env: 'MONGO_PORT_27017_TCP_ADDR'
     },
-    default: 'mongodb://localhost/sitegate-dev',
-    env: 'DB'
+    port: {
+      doc: 'MongoDB port.',
+      format: 'port',
+      default: '27017',
+      env: 'MONGO_PORT_27017_TCP_PORT'
+    },
+    name: {
+      doc: 'MongoDB DB name.',
+      default: 'sitegate-user-dev'
+    }
   },
-  amqpURL: {
-    doc: 'AMQP endpoint.',
-    default: 'amqp://guest:guest@localhost:5672',
-    env: 'AMQP_URL'
+  amqp: {
+    login: {
+      doc: 'AMQP login.',
+      default: 'guest'
+    },
+    password: {
+      doc: 'AMQP password.',
+      default: 'guest'
+    },
+    address: {
+      doc: 'AMQP address.',
+      default: 'localhost',
+      env: 'RABBITMQ_PORT_5672_TCP_ADDR'
+    },
+    port: {
+      doc: 'AMQP port.',
+      format: 'port',
+      default: '5672',
+      env: 'RABBITMQ_PORT_5672_TCP_PORT'
+    }
   },
   port: {
     doc: 'The port to bind',
@@ -154,7 +178,20 @@ var config = convict({
 
 // load environment dependent configuration
 var env = config.get('env');
-config.loadFile('./config/env/' + env + '.json');
+config.loadFile(__dirname + '/env/' + env + '.json');
+
+// Adding the calculated values
+config.load({
+  mongodbUrl: util.format('mongodb://%s:%s/%s',
+                          config.get('mongodb.address'),
+                          config.get('mongodb.port'),
+                          config.get('mongodb.name')),
+  amqpUrl: util.format('amqp://%s:%s@%s:%s',
+                         config.get('amqp.login'),
+                         config.get('amqp.password'),
+                         config.get('amqp.address'),
+                         config.get('amqp.port'))
+});
 
 // perform validation
 config.validate();

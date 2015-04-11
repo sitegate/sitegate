@@ -4,7 +4,7 @@
   "author": "Zoltan Kochan",
   "private": true,
   "scripts": {
-    "start": "node app.js"
+    "start": "gulp"
   },
   "repository": {
     "type": "git",

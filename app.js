@@ -6,7 +6,7 @@ var https = require('https');
 var fs = require('fs');
 
 // Bootstrap db connection
-var db = mongoose.connect(config.get('db'), function (err) {
+var db = mongoose.connect(config.get('mongodbUrl'), function (err) {
   if (err) {
     console.error('\x1b[31m', 'Could not connect to MongoDB!');
     console.log(err);

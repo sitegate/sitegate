@@ -1,0 +1,18 @@
+sitegate:
+  build: .
+  links:
+    - db:mongo
+    - amqp:rabbitmq
+  volumes:
+    - .:/src
+  ports:
+    - 3000:3000
+    - 35729:35729
+  environment:
+    NODE_ENV: development
+    DEBUG: bograch
+
+db:
+  image: mongo
+amqp:
+  image: rabbitmq

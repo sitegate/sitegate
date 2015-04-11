@@ -1,6 +1,15 @@
 {
-  "db": "mongodb://localhost/sitegate-dev",
-  "amqpURL": "amqp://guest:guest@localhost:5672",
+  "mongodb": {
+    "address": "localhost",
+    "port": "27017",
+    "name": "sitegate-user-dev"
+  },
+  "amqp": {
+    "login": "guest",
+    "password": "guest",
+    "address": "localhost",
+    "port": "5672"
+  },
   "facebook": {
     "clientID": "391179464377243",
     "clientSecret": "edfafc7715060f8cb4c7212833a3c87a",

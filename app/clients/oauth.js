@@ -5,7 +5,7 @@ var config = require('../../config/config');
 
 var client = bo.client('amqp', {
   name: 'oauth',
-  amqpURL: config.get('amqpURL')
+  amqpURL: config.get('amqpUrl')
 });
 
 client.register([
