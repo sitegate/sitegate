@@ -11,7 +11,8 @@ User.getByUsername(rootUsername, function (err, user) {
       email: 'root.email@your-domain.com',
       emailVerified: true,
       password: rootPassword,
-      provider: 'local'
+      provider: 'local',
+      role: 'admin'
     };
     User.register(rootUser);
   }
