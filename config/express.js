@@ -41,7 +41,8 @@ module.exports = function () {
   i18n.init({
     fallbackLng: 'en',
     ignoreRoutes: ['images/', 'public/', 'css/', 'js/'],
-    debug: true
+    debug: true,
+    resGetPath: path.resolve(__dirname, '..') + '/locales/__lng__/__ns__.json'
   });
   i18n.registerAppHelper(app);
   i18n.addPostProcessor('jade', function (val, key, opts) {

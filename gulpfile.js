@@ -19,8 +19,8 @@ gulp.task('watch', function () {
 
 gulp.task('develop', function () {
   var options = {
-    key: fs.readFileSync('certs/privatekey.pem'),
-    cert: fs.readFileSync('certs/certificate.pem')
+    key: fs.readFileSync(__dirname + '/certs/privatekey.pem'),
+    cert: fs.readFileSync(__dirname + '/certs/certificate.pem')
   };
   livereload.listen(options);
   nodemon({

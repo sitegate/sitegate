@@ -10,6 +10,7 @@ var client = bo.client('amqp', {
 
 client.register([
   'getById',
+  'getByUsername',
   'update',
   'requestPasswordChangeByEmail',
   'validateResetToken',
