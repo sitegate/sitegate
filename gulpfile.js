@@ -3,18 +3,21 @@
 var gulp = require('gulp');
 var nodemon = require('gulp-nodemon');
 var livereload = require('gulp-livereload');
-var less = require('gulp-less');
+var sass = require('gulp-sass');
 var fs = require('fs');
 
-gulp.task('less', function () {
-  gulp.src('./public/css/**/*.less')
-    .pipe(less())
-    .pipe(gulp.dest('./public/dest/css'))
+gulp.task('sass', function () {
+  gulp.src(__dirname + '/public/css/**/*.sass')
+    .pipe(sass({
+      errLogToConsole: true,
+      indentedSyntax: true
+    }))
+    .pipe(gulp.dest(__dirname + '/public/dest/css'))
     .pipe(livereload());
 });
 
 gulp.task('watch', function () {
-  gulp.watch('./public/css/**/*.less', ['less']);
+  gulp.watch(__dirname + '/public/css/**/*.sass', ['sass']);
 });
 
 gulp.task('develop', function () {
@@ -34,7 +37,7 @@ gulp.task('develop', function () {
 });
 
 gulp.task('default', [
-  'less',
+  'sass',
   'develop',
   'watch'
 ]);
