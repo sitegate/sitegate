@@ -4,9 +4,6 @@ var config = require('./config/config');
 var https = require('https');
 var fs = require('fs');
 
-// Bootstrap bograch config
-require('./config/bograch');
-
 var app = require('./config/express');
 
 // Bootstrap passport config

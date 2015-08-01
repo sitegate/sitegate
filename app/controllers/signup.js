@@ -12,14 +12,14 @@ function renderSignUp(res, locals) {
   res.render('signup', locals);
 }
 
-exports.get = function (req, res, next) {
+exports.get = function(req, res, next) {
   renderSignUp(res);
 };
 
 /**
  * Signup
  */
-exports.post = function (req, res, next) {
+exports.post = function(req, res, next) {
   var user = req.body;
 
   // Add missing user fields
@@ -27,7 +27,7 @@ exports.post = function (req, res, next) {
   user.displayName = user.firstName + ' ' + user.lastName;
   user.emailVerified = false;
 
-  User.register(user, function (err, user) {
+  User.register(user, function(err, user) {
     if (err) {
       return renderSignUp(res, {
         username: req.body.username,
@@ -39,11 +39,11 @@ exports.post = function (req, res, next) {
       });
     }
 
-    req.login(user, function (err) {
+    req.login(user, function(err) {
       if (err) {
         return res.status(400).send(err);
       }
-      
+
       return require('../go-callback')(req, res, next);
     });
   });

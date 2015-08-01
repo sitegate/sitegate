@@ -19,8 +19,8 @@ exports.get = function (req, res, next) {
 /**
  * Signin after passport authentication
  */
-exports.post = function (req, res, next) {
-  passport.authenticate('local', function (err, user) {
+exports.post = function(req, res, next) {
+  passport.authenticate('local', function(err, user) {
     if (err) {
       return renderSignIn(res, {
         username: req.body.username,
@@ -35,7 +35,7 @@ exports.post = function (req, res, next) {
     user.password = undefined;
     user.salt = undefined;
 
-    req.login(user, function (err) {
+    req.login(user, function(err) {
       if (err) {
         return renderSignIn(res, {
           username: req.body.username,

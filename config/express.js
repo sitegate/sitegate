@@ -16,8 +16,8 @@ var flash = require('connect-flash');
 var redirect = require('express-redirect');
 var path = require('path');
 var rootPath = path.normalize(__dirname + '/..');
-var bograch = require('bograch');
-var BograchStore = require('connect-bograch')(session, bograch);
+var UvaStore = require('connect-uva')(session);
+var Client = require('uva-amqp').Client;
 
 // Initialize express app
 var app = express();
@@ -63,14 +63,15 @@ app.use(express.static(rootPath + '/public'));
 // CookieParser should be above session
 app.use(cookieParser());
 
-// Express Bograch session storage
+// Express Uva session storage
 app.use(session({
   saveUninitialized: true,
   resave: true,
   secret: config.get('session.secret'),
-  store: new BograchStore('amqp', {
-    amqpURL: config.get('amqpUrl')
-  })
+  store: new UvaStore(new Client({
+    channel: 'session',
+    url: config.get('amqpUrl')
+  }))
 }));
 
 // use passport session
