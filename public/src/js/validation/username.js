@@ -1,10 +1,10 @@
 'use strict';
 
-var regexValidation = require('./regex');
+import regexValidation from './regex';
 
 function username(value) {
   return regexValidation(value, '^[a-zA-Z0-9]+([-_\.][a-zA-Z0-9]+)*$');
 }
 username.rule = 'username';
 
-module.exports = $.fn.form.settings.rules[username.rule] = username;
+export default $.fn.form.settings.rules[username.rule] = username;

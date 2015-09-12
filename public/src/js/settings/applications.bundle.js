@@ -1,6 +1,6 @@
 'use strict';
 
-var t = require('../shared/t');
+import t from '../shared/t';
 
 $('.revoke.button').click(function() {
   var $this = $(this);

@@ -1,6 +1,6 @@
 'use strict';
 
-var t = require('../shared/t');
+import t from '../shared/t';
 
 $('.ui.form').form({
   fields: {
@@ -36,7 +36,7 @@ $('.ui.form').form({
         {
           type: 'url',
           prompt: t('app.validation.authCallbackUrl.url')
-       }
+        }
      ]
     }
   }

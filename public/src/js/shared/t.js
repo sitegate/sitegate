@@ -1,5 +1,6 @@
 'use strict';
-var i18n = require('i18next-client');
+
+import i18n from 'i18next-client';
 
 i18n.init({
   lng: 'en',
@@ -11,8 +12,6 @@ i18n.init({
   resGetPath: '/locales/__lng__/__ns__.json'
 });
 
-module.exports = function(resourceName) {
-  return function() {
-    return i18n.t(resourceName);
-  };
-};
+export default function(resourceName) {
+  return () => i18n.t(resourceName);
+}

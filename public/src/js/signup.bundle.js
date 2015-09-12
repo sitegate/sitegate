@@ -1,8 +1,8 @@
 'use strict';
 
-var t = require('./shared/t');
-var zxcvbn = require('zxcvbn');
-var username = require('./validation/username');
+import t from './shared/t';
+import zxcvbn from 'zxcvbn';
+import username from './validation/username';
 
 $('.ui.form').form({
   fields: {
@@ -50,17 +50,17 @@ $('.ui.form').form({
         {
           type: 'email',
           prompt: t('accountValidation.email.valid')
-       }
+        }
      ]
     }
   }
 });
 
-var $lock = $('.lock.icon');
-$('input[type="password"]').keyup(function () {
-  var $this = $(this);
-  var score = zxcvbn($this.val()).score;
-  var scoreName;
+let $lock = $('.lock.icon');
+$('input[type="password"]').keyup(function() {
+  let $this = $(this);
+  let score = zxcvbn($this.val()).score;
+  let scoreName;
 
   if (score === 4) {
     scoreName = 'strong';

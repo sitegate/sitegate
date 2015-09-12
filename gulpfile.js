@@ -12,6 +12,7 @@ gulp.task('develop', function () {
     src: './public/src',
     dest: './public/dist',
     watch: true,
+    esnext: true,
     livereload: {
       key: fs.readFileSync(__dirname + '/certs/privatekey.pem'),
       cert: fs.readFileSync(__dirname + '/certs/certificate.pem')

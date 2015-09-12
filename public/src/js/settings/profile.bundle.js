@@ -1,7 +1,7 @@
 'use strict';
 
-var t = require('../shared/t');
-var username = require('../validation/username');
+import t from '../shared/t';
+import username from '../validation/username';
 
 $('.ui.form').form({
   fields: {
@@ -36,7 +36,7 @@ $('.ui.form').form({
         {
           type: 'email',
           prompt: t('accountValidation.email.valid')
-       }
+        }
      ]
     }
   }

@@ -6,5 +6,4 @@ function regexValidation(value, pattern) {
 }
 regexValidation.rule = 'regex';
 
-module.exports =
-  $.fn.form.settings.rules[regexValidation.rule] = regexValidation;
+export default $.fn.form.settings.rules[regexValidation.rule] = regexValidation;
