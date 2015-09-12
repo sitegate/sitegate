@@ -2,7 +2,7 @@
 
 var util = require('util');
 var fs = require('fs');
-var yaml = require('js-yaml');
+var yamlOrJSON = require('yaml-or-json');
 var convict = require('convict');
 
 var config = convict({
@@ -163,8 +163,8 @@ var config = convict({
 
 // load environment dependent configuration
 var env = config.get('env');
-var filePath = __dirname + '/env/' + env + '.yml';
-var configFile = yaml.safeLoad(fs.readFileSync(filePath));
+var filePath = __dirname + '/env/' + env;
+var configFile = yamlOrJSON(filePath);
 
 config.load(configFile);
 

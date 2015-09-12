@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/zkochan/sitegate.git"
+    "url": "git://github.com/sitegate/sitegate.git"
   },
   "licencse": "MIT",
   "dependencies": {
@@ -32,7 +32,6 @@
     "i18next": "^1.10.4",
     "i18next-client": "^1.10.2",
     "jade": "^1.11.0",
-    "js-yaml": "^3.4.2",
     "lodash": "^3.10.1",
     "method-override": "^2.3.5",
     "morgan": "^1.6.1",
@@ -48,6 +47,7 @@
     "passport-twitter": "^1.0.3",
     "serve-favicon": "^2.3.0",
     "uva-amqp": "^0.4.0",
+    "yaml-or-json": "^0.1.0",
     "zxcvbn": "^3.4.0"
   },
   "devDependencies": {
