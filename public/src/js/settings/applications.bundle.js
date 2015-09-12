@@ -21,7 +21,7 @@ $('.revoke-all.button').click(function() {
     $.ajax({
       method: 'POST',
       url: '/settings/applications/revoke-all',
-      success: function () {
+      success: function() {
         $('.trusted.clients').remove();
       }
     });

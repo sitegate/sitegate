@@ -2,7 +2,7 @@
 
 var t = require('../shared/t');
 
-$('#appDelete').click(function () {
+$('#appDelete').click(function() {
   var $this = $(this);
 
   if (window.confirm(t('app.deleteConfirmation'))) {

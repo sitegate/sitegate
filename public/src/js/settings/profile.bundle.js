@@ -46,10 +46,10 @@ $('#resend-email').click(function() {
   $.ajax({
     url: '/resend-email-verification',
     method: 'POST',
-    success: function () {
+    success: function() {
       alert('success');
     },
-    error: function () {
+    error: function() {
       alert('error');
     }
   });
