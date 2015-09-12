@@ -47,7 +47,8 @@
     "passport-oauth2-client-password": "~0.1.2",
     "passport-twitter": "^1.0.3",
     "serve-favicon": "^2.3.0",
-    "uva-amqp": "^0.4.0"
+    "uva-amqp": "^0.4.0",
+    "zxcvbn": "^3.4.0"
   },
   "devDependencies": {
     "gulp": "~3.8.10",

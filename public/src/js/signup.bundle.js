@@ -2,6 +2,7 @@
 'use strict';
 
 var t = require('./shared/t');
+var zxcvbn = require('zxcvbn');
 
 $('.ui.form').form({
   fields: {
@@ -57,12 +58,8 @@ $('.ui.form').form({
 
 var $lock = $('.lock.icon');
 $('input[type="password"]').keyup(function () {
-  if (!window.zxcvbn) {
-    return;
-  }
-
   var $this = $(this);
-  var score = window.zxcvbn($this.val()).score;
+  var score = zxcvbn($this.val()).score;
   var scoreName;
 
   if (score === 4) {
