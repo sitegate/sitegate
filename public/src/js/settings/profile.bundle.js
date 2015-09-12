@@ -1,7 +1,7 @@
 'use strict';
 
 var t = require('../shared/t');
-var username = require('./validation/username');
+var username = require('../validation/username');
 
 $('.ui.form').form({
   fields: {
