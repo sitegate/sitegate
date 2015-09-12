@@ -19,8 +19,8 @@ var oauth2Controller = require('../controllers/oauth2');
 var authController = require('../controllers/auth');
 var applications = require('../controllers/applications');
 
-module.exports = function (app) {
-  app.use(function (req, res, next) {
+module.exports = function(app) {
+  app.use(function(req, res, next) {
     res.locals.url = req.url;
     next();
   });

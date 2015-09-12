@@ -1,6 +1,6 @@
 'use strict';
 
-exports.get = function (req, res, next) {
+exports.get = function(req, res, next) {
   req.logout();
   if (req.session.callbackUrl) {
     var callbackUrl = req.session.callbackUrl;

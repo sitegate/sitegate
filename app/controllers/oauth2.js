@@ -9,7 +9,7 @@ var OAuth = require('../clients/oauth');
 var server = oauth2orize.createServer();
 
 // Register serialialization function
-server.serializeClient(function (client, cb) {
+server.serializeClient(function(client, cb) {
   return cb(null, {
     id: client.id,
     publicId: client.publicId,
@@ -18,14 +18,14 @@ server.serializeClient(function (client, cb) {
 });
 
 // Register deserialization function
-server.deserializeClient(function (client, cb) {
+server.deserializeClient(function(client, cb) {
   return cb(null, client);
 });
 
 // Register authorization code grant type
 server.grant(oauth2orize
   .grant
-  .code(function (client, redirectUri, user, ares, cb) {
+  .code(function(client, redirectUri, user, ares, cb) {
     OAuth.createCode({
       clientId: client.id,
       redirectUri: redirectUri,
@@ -36,7 +36,7 @@ server.grant(oauth2orize
 // Exchange authorization codes for access tokens
 server.exchange(oauth2orize
   .exchange
-  .code(function (client, code, redirectUri, cb) {
+  .code(function(client, code, redirectUri, cb) {
     OAuth.exchange({
       clientId: client.id,
       code: code,
@@ -44,12 +44,11 @@ server.exchange(oauth2orize
     }, cb);
   }));
 
-
 // User authorization endpoint
 exports.authorization = [
-  server.authorization(function (clientId, redirectUri, cb) {
-    
-    Client.getByPublicId(clientId, function (err, client) {
+  server.authorization(function(clientId, redirectUri, cb) {
+
+    Client.getByPublicId(clientId, function(err, client) {
       if (err) {
         return cb(err);
       }
@@ -57,11 +56,11 @@ exports.authorization = [
       return cb(null, client, redirectUri);
     });
   }),
-  function (req, res, next) {
+  function(req, res, next) {
     OAuth.isTrusted({
       clientId: req.oauth2.client.id,
       userId: req.user.id
-    }, function (err, isTrusted) {
+    }, function(err, isTrusted) {
       if (err) {
         //
       }
@@ -69,7 +68,7 @@ exports.authorization = [
       if (isTrusted) {
         server.decision({
           loadTransaction: false
-        }, function (req, cb) {
+        }, function(req, cb) {
           cb(null, {
             allow: true
           });
@@ -87,7 +86,7 @@ exports.authorization = [
 
 // User decision endpoint
 exports.decision = [
-  function (req, res, next) {
+  function(req, res, next) {
     User.trustClient({
       userId: req.user.id,
       clientId: req.body.clientId

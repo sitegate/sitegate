@@ -26,7 +26,7 @@ redirect(app);
 
 // Globbing model files
 var models = glob.sync(rootPath + '/app/models/**/*.js');
-models.forEach(function (model) {
+models.forEach(function(model) {
   require(model);
 });
 
@@ -43,7 +43,7 @@ i18n.init({
   resGetPath: path.resolve(__dirname, '..') + '/locales/__lng__/__ns__.json'
 });
 i18n.registerAppHelper(app);
-i18n.addPostProcessor('jade', function (val, key, opts) {
+i18n.addPostProcessor('jade', function(val, key, opts) {
   return require('jade').compile(val, opts)();
 });
 
@@ -87,18 +87,18 @@ app.use(helmet.ienoopen());
 app.disable('x-powered-by');
 
 var routes = glob.sync(rootPath + '/app/routes/*.js');
-routes.forEach(function (route) {
+routes.forEach(function(route) {
   require(route)(app);
 });
 
-app.use(function (req, res, next) {
+app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
 
 if (app.get('env') === 'development') {
-  app.use(function (err, req, res, next) {
+  app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {
       message: err.message,
@@ -108,7 +108,7 @@ if (app.get('env') === 'development') {
   });
 }
 
-app.use(function (err, req, res, next) {
+app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error', {
     message: err.message,

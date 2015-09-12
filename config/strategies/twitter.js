@@ -8,7 +8,7 @@ var TwitterStrategy = require('passport-twitter').Strategy;
 var config = require('../config');
 var users = require('../../app/controllers/users');
 
-module.exports = function () {
+module.exports = function() {
   // Use twitter strategy
   passport.use(new TwitterStrategy({
       consumerKey: config.get('twitter.clientID'),
@@ -16,7 +16,7 @@ module.exports = function () {
       callbackURL: config.get('twitter.callbackURL'),
       passReqToCallback: true
     },
-    function (req, token, tokenSecret, profile, done) {
+    function(req, token, tokenSecret, profile, done) {
       // Set the provider data and include tokens
       var providerData = profile._json;
       providerData.token = token;

@@ -8,7 +8,7 @@ var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var config = require('../config');
 var users = require('../../app/controllers/users');
 
-module.exports = function () {
+module.exports = function() {
   // Use google strategy
   passport.use(new GoogleStrategy({
       clientID: config.get('google.clientID'),
@@ -16,7 +16,7 @@ module.exports = function () {
       callbackURL: config.get('google.callbackURL'),
       passReqToCallback: true
     },
-    function (req, accessToken, refreshToken, profile, done) {
+    function(req, accessToken, refreshToken, profile, done) {
       // Set the provider data and include tokens
       var providerData = profile._json;
       providerData.accessToken = accessToken;

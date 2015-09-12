@@ -8,7 +8,7 @@ var FacebookStrategy = require('passport-facebook').Strategy;
 var config = require('../config');
 var users = require('../../app/controllers/users');
 
-module.exports = function () {
+module.exports = function() {
   // Use facebook strategy
   passport.use(new FacebookStrategy({
       clientID: config.get('facebook.clientID'),
@@ -16,7 +16,7 @@ module.exports = function () {
       callbackURL: config.get('facebook.callbackURL'),
       passReqToCallback: true
     },
-    function (req, accessToken, refreshToken, profile, done) {
+    function(req, accessToken, refreshToken, profile, done) {
       // Set the provider data and include tokens
       var providerData = profile._json;
       providerData.accessToken = accessToken;

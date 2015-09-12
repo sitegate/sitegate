@@ -4,7 +4,7 @@
 /**
  * Get unique error field name
  */
-var getUniqueErrorMessage = function (err) {
+var getUniqueErrorMessage = function(err) {
   var output;
 
   try {
@@ -23,7 +23,7 @@ var getUniqueErrorMessage = function (err) {
 /**
  * Get the error message from error object
  */
-exports.getErrorMessage = function (err) {
+exports.getErrorMessage = function(err) {
   var message = '';
 
   if (err.code) {

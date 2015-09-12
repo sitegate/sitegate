@@ -5,17 +5,17 @@ var uid = require('../helpers/uid');
 var Client = require('../clients/client');
 var User = require('../clients/user');
 
-exports.applications = function (req, res) {
+exports.applications = function(req, res) {
   Client.query({
     creatorId: req.user.id,
     count: 20,
     fields: ['name']
-  }, function (err, userClients) {
+  }, function(err, userClients) {
     if (err) {
       //
     }
 
-    User.getTrustedClients(req.user.id, function (err, clients) {
+    User.getTrustedClients(req.user.id, function(err, clients) {
       res.render('settings/applications', {
         title: i18n.t('app.apps'),
         trustedClients: clients,
@@ -25,18 +25,18 @@ exports.applications = function (req, res) {
   });
 };
 
-exports.getNewApplication = function (req, res) {
+exports.getNewApplication = function(req, res) {
   res.render('settings/applications-new');
 };
 
-exports.postNewApplication = function (req, res) {
+exports.postNewApplication = function(req, res) {
   Client.create({
     name: req.body.name,
     description: req.body.description,
     homepageUrl: req.body.homepageUrl,
     authCallbackUrl: req.body.authCallbackUrl,
     userId: req.user.id
-  }, function (err, client) {
+  }, function(err, client) {
     if (err) {
       return res.send(err);
     }
@@ -45,8 +45,8 @@ exports.postNewApplication = function (req, res) {
   });
 };
 
-exports.getApplication = function (req, res) {
-  Client.getById(req.params.id, function (err, client) {
+exports.getApplication = function(req, res) {
+  Client.getById(req.params.id, function(err, client) {
     if (err) {
       return res.send(err);
     }
@@ -59,7 +59,7 @@ exports.getApplication = function (req, res) {
   });
 };
 
-exports.postApplication = function (req, res) {
+exports.postApplication = function(req, res) {
   Client.update(req.params.id, {
     name: req.body.name,
     description: req.body.description,
@@ -69,7 +69,7 @@ exports.postApplication = function (req, res) {
     allow: {
       userId: req.user.id
     }
-  }, function (err, client) {
+  }, function(err, client) {
     if (err) {
       return res.send(err);
     }
@@ -78,8 +78,8 @@ exports.postApplication = function (req, res) {
   });
 };
 
-exports.deleteApplication = function (req, res) {
-  Client.getById(req.params.id, function (err, client) {
+exports.deleteApplication = function(req, res) {
+  Client.getById(req.params.id, function(err, client) {
     if (err) {
       return res.status(400).send(err);
     }
@@ -92,7 +92,7 @@ exports.deleteApplication = function (req, res) {
       return res.status(400).send('Only the creator can remove a client');
     }
 
-    Client.remove(req.params.id, function (err) {
+    Client.remove(req.params.id, function(err) {
       if (err) {
         return res.status(400).send(err);
       }
@@ -101,9 +101,9 @@ exports.deleteApplication = function (req, res) {
   });
 };
 
-exports.postRevoke = function (req, res) {
+exports.postRevoke = function(req, res) {
   req.user.trustedClients.splice(req.user.trustedClients.indexOf(req.params.id), 1);
-  req.user.save(function (err) {
+  req.user.save(function(err) {
     if (err) {
       return res.status(400).send(err);
     }
@@ -111,9 +111,9 @@ exports.postRevoke = function (req, res) {
   });
 };
 
-exports.postRevokeAll = function (req, res) {
+exports.postRevokeAll = function(req, res) {
   req.user.trustedClients.splice(0, req.user.trustedClients.length);
-  req.user.save(function (err) {
+  req.user.save(function(err) {
     if (err) {
       return res.status(400).send(err);
     }
@@ -121,8 +121,8 @@ exports.postRevokeAll = function (req, res) {
   });
 };
 
-exports.getConnection = function (req, res) {
-  Client.getById(req.params.id, function (err, client) {
+exports.getConnection = function(req, res) {
+  Client.getById(req.params.id, function(err, client) {
     if (err) {
       //
     }

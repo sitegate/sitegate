@@ -7,7 +7,7 @@ var js = require('fosify-js');
 var sass = require('fosify-sass');
 var fs = require('fs');
 
-gulp.task('develop', function () {
+gulp.task('develop', function() {
   var options = {
     src: './public/src',
     dest: './public/dist',

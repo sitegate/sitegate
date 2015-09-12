@@ -3,15 +3,15 @@
 var User = require('../clients/user');
 var errorHandler = require('../error-handler');
 
-exports.email = function (req, res, next) {
-  User.verifyEmailByToken(req.params.token, function (err, user) {
+exports.email = function(req, res, next) {
+  User.verifyEmailByToken(req.params.token, function(err, user) {
     if (err) {
       return res.status(400).send({
         message: 'Email verification token is invalid or has expired.'
       });
     }
 
-    req.login(user, function (err) {
+    req.login(user, function(err) {
       if (err) {
         return res.status(400).send(err);
       }

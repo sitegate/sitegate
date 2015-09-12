@@ -4,7 +4,7 @@ var User = require('../app/clients/user');
 var rootUsername = 'root';
 var rootPassword = 'root';
 
-User.getByUsername(rootUsername, function (err, user) {
+User.getByUsername(rootUsername, function(err, user) {
   if (!user) {
     var rootUser = {
       username: rootUsername,

@@ -6,8 +6,8 @@ var i18n = require('i18next');
 var User = require('../clients/user');
 var Session = require('../clients/session');
 
-exports.profile = function (req, res, next) {
-  User.getById(req.user.id, function (err, user) {
+exports.profile = function(req, res, next) {
+  User.getById(req.user.id, function(err, user) {
     res.render('settings/profile', {
       user: user,
       homepageUrl: config.get('sitegateClient.domain') +
@@ -19,7 +19,7 @@ exports.profile = function (req, res, next) {
   });
 };
 
-exports.updateProfile = function (req, res, next) {
+exports.updateProfile = function(req, res, next) {
   var userToReturn = {
     username: req.body['user.username'],
     email: req.body['user.email']
@@ -27,7 +27,7 @@ exports.updateProfile = function (req, res, next) {
   User.update(req.user.id, {
     username: req.body['user.username'],
     email: req.body['user.email']
-  }, function (err, user, info) {
+  }, function(err, user, info) {
     if (err) {
       res.render('settings/profile', {
         user: userToReturn,
@@ -36,7 +36,7 @@ exports.updateProfile = function (req, res, next) {
         }
       });
     } else {
-      req.login(user, function (err) {
+      req.login(user, function(err) {
         if (err) {
           return res.render('settings/profile', {
             user: userToReturn,
@@ -56,8 +56,8 @@ exports.updateProfile = function (req, res, next) {
   });
 };
 
-exports.accounts = function (req, res, next) {
-  User.getById(req.user.id, function (err, user) {
+exports.accounts = function(req, res, next) {
+  User.getById(req.user.id, function(err, user) {
     res.render('settings/accounts', {
       title: i18n.t('settings.socialConnections'),
       homepageUrl: config.get('sitegateClient.domain') +
@@ -70,7 +70,7 @@ exports.accounts = function (req, res, next) {
 function renderPasswordPage(req, res, locals) {
   locals = locals || {};
 
-  User.getById(req.user.id, function (err, user) {
+  User.getById(req.user.id, function(err, user) {
     res.render('settings/password', {
       title: 'Generator-Express MVC',
       hasPassword: typeof user.hash !== 'undefined',
@@ -81,11 +81,11 @@ function renderPasswordPage(req, res, locals) {
   });
 }
 
-exports.password = function (req, res, next) {
+exports.password = function(req, res, next) {
   renderPasswordPage(req, res);
 };
 
-exports.changePassword = function (req, res) {
+exports.changePassword = function(req, res) {
   // Init Variables
   var passwordDetails = req.body;
 
@@ -111,7 +111,7 @@ exports.changePassword = function (req, res) {
     userId: req.user.id,
     currentPassword: passwordDetails.currentPassword,
     newPassword: passwordDetails.newPassword
-  }, function (err, user) {
+  }, function(err, user) {
     if (err) {
       return renderPasswordPage(req, res, {
         messages: {
@@ -122,7 +122,7 @@ exports.changePassword = function (req, res) {
 
     Session.destroyByUserId(user.id, req.sessionID);
 
-    req.login(user, function (err) {
+    req.login(user, function(err) {
       if (err) {
         return res.status(400).send(err);
       }
@@ -135,8 +135,8 @@ exports.changePassword = function (req, res) {
   });
 };
 
-exports.resendEmailVerification = function (req, res) {
-  User.sendVerificationEmail(req.user.id, function (err) {
+exports.resendEmailVerification = function(req, res) {
+  User.sendVerificationEmail(req.user.id, function(err) {
     if (err) {
       return res.status(400);
     }

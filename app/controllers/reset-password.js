@@ -11,12 +11,12 @@ function renderResetPassword(res, locals) {
   res.render('reset-password', locals);
 }
 
-exports.get = function (req, res, next) {
+exports.get = function(req, res, next) {
   renderResetPassword(res);
 };
 
-exports.post = function (req, res, next) {
-  User.requestPasswordChangeByEmail(req.body.email, function (err, info) {
+exports.post = function(req, res, next) {
+  User.requestPasswordChangeByEmail(req.body.email, function(err, info) {
     if (err) {
       return renderResetPassword(res, {
         messages: {
@@ -35,8 +35,8 @@ exports.post = function (req, res, next) {
   });
 };
 
-exports.validateResetToken = function (req, res) {
-  User.validateResetToken(req.params.token, function (err) {
+exports.validateResetToken = function(req, res) {
+  User.validateResetToken(req.params.token, function(err) {
     if (err) {
       return renderResetPassword(res, {
         messages: {
@@ -49,7 +49,7 @@ exports.validateResetToken = function (req, res) {
   });
 };
 
-exports.newPassword = function (req, res) {
+exports.newPassword = function(req, res) {
   var passwordDetails = req.body;
 
   if (passwordDetails.newPassword !== passwordDetails.repeatPassword) {
@@ -63,7 +63,7 @@ exports.newPassword = function (req, res) {
   User.changePasswordUsingToken({
     token: req.params.token,
     newPassword: passwordDetails.newPassword
-  }, function (err, user) {
+  }, function(err, user) {
     if (err || !user) {
       return renderResetPassword(res, {
         messages: {
@@ -72,7 +72,7 @@ exports.newPassword = function (req, res) {
       });
     }
 
-    req.login(user, function (err) {
+    req.login(user, function(err) {
       if (err) {
         return res.render('password/new', {
           messages: {

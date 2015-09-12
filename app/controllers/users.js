@@ -9,16 +9,16 @@ var passport = require('passport');
 /**
  * OAuth callback
  */
-exports.oauthCallback = function (strategy) {
-  return function (req, res, next) {
-    passport.authenticate(strategy, function (err, user, redirectURL) {
+exports.oauthCallback = function(strategy) {
+  return function(req, res, next) {
+    passport.authenticate(strategy, function(err, user, redirectURL) {
       if (req.user) {
         return res.redirect('/settings/accounts');
       }
       if (err || !user) {
         return res.redirect('/signin');
       }
-      req.login(user, function (err) {
+      req.login(user, function(err) {
         if (err) {
           return res.redirect('/signin');
         }
@@ -29,12 +29,12 @@ exports.oauthCallback = function (strategy) {
   };
 };
 
-exports.disconnect = function (strategy) {
-  return function (req, res, next) {
+exports.disconnect = function(strategy) {
+  return function(req, res, next) {
     User.disconnectProvider({
       userId: req.user.id,
       strategy: strategy
-    }, function (err) {
+    }, function(err) {
       if (err) {
         return next(err);
       }
@@ -47,7 +47,7 @@ exports.disconnect = function (strategy) {
 /**
  * Helper function to save or update a OAuth user profile
  */
-exports.saveOAuthUserProfile = function (req, providerUserProfile, done) {
+exports.saveOAuthUserProfile = function(req, providerUserProfile, done) {
   User.saveOAuthUserProfile({
     loggedUser: req.user,
     providerUserProfile: providerUserProfile

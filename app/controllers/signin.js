@@ -11,7 +11,7 @@ function renderSignIn(res, locals) {
   res.render('signin', locals);
 }
 
-exports.get = function (req, res, next) {
+exports.get = function(req, res, next) {
   renderSignIn(res);
 };
 

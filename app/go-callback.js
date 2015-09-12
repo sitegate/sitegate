@@ -1,4 +1,3 @@
-/* jshint node:true */
 'use strict';
 
 var errorHandler = require('./error-handler');
@@ -12,7 +11,7 @@ function go(req, res) {
   return res.redirect('/');
 }
 
-module.exports = function (req, res, next) {
+module.exports = function(req, res, next) {
   if (!req.isAuthenticated()) {
     return next();
   }
