@@ -1,4 +1,3 @@
-/* jshint node:true */
 'use strict';
 
 exports.getUserInfo = function (req, res, next) {

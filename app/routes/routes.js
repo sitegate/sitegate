@@ -1,4 +1,3 @@
-/* jshint node:true */
 'use strict';
 
 /**
@@ -58,25 +57,25 @@ module.exports = function (app) {
   app.route('/settings/password')
     .get(settings.password)
     .post(settings.changePassword);
-  
+
   app.route('/settings/applications')
     .get(applications.applications);
-  
+
   app.route('/settings/applications/new')
     .get(applications.getNewApplication)
     .post(applications.postNewApplication);
-  
+
   app.route('/settings/applications/revoke/:id')
     .post(applications.postRevoke);
-  
+
   app.route('/settings/applications/revoke-all')
     .post(applications.postRevokeAll);
-  
+
   app.route('/settings/applications/:id')
     .get(applications.getApplication)
     .post(applications.postApplication)
     .delete(applications.deleteApplication);
-  
+
   app.route('/settings/connections/:id')
     .get(applications.getConnection);
 
@@ -126,7 +125,7 @@ module.exports = function (app) {
   // Create endpoint handlers for oauth2 token
   app.route('/oauth2/token')
     .post(authController.isClientAuthenticated, oauth2Controller.token);
-  
+
   app.route('/api/userinfo')
     .get(passport.authenticate('bearer', {session: false}), userInfo.getUserInfo);
 };

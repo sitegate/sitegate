@@ -1,4 +1,3 @@
-/* jshint node:true */
 'use strict';
 
 var config = require('../../config/config');
@@ -120,7 +119,7 @@ exports.changePassword = function (req, res) {
         }
       });
     }
-    
+
     Session.destroyByUserId(user.id, req.sessionID);
 
     req.login(user, function (err) {

@@ -1,4 +1,3 @@
-/* jshint node:true */
 'use strict';
 
 var errorHandler = require('../error-handler');
