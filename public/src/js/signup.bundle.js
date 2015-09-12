@@ -3,6 +3,7 @@
 
 var t = require('./shared/t');
 var zxcvbn = require('zxcvbn');
+var username = require('./validation/username');
 
 $('.ui.form').form({
   fields: {
@@ -22,7 +23,7 @@ $('.ui.form').form({
           prompt: t('accountValidation.username.maxLength')
         },
         {
-          type: 'username',
+          type: username.rule,
           prompt: t('accountValidation.username.allowedChars')
         }
      ]
