@@ -11,8 +11,8 @@ i18n.init({
   resGetPath: '/locales/__lng__/__ns__.json'
 });
 
-window._t = function (resourceName) {
-  return function () {
+module.exports = function(resourceName) {
+  return function() {
     return i18n.t(resourceName);
   };
 };

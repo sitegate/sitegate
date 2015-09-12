@@ -1,37 +1,35 @@
 /* jshint browser:true, jquery:true */
+'use strict';
 
-(function (_t) {
-  'use strict';
+var t = require('../shared/t');
 
-  $('.ui.form')
-    .form({
-      fields: {
-        newPassword: {
-          identifier: 'newPassword',
-          rules: [
-            {
-              type: 'empty',
-              prompt: _t('settings.newPassword.required')
-            },
-            {
-              type: 'length[6]',
-              prompt: _t('settings.newPassword.minLength')
-            }
-         ]
+$('.ui.form').form({
+  fields: {
+    newPassword: {
+      identifier: 'newPassword',
+      rules: [
+        {
+          type: 'empty',
+          prompt: t('settings.newPassword.required')
         },
-        repeatPassword: {
-          identifier: 'repeatPassword',
-          rules: [
-            {
-              type: 'empty',
-              prompt: _t('settings.verifyPassword.required')
-            },
-            {
-              type: 'match[newPassword]',
-              prompt: _t('settings.verifyPassword.matchNewPassword')
-           }
-         ]
+        {
+          type: 'length[6]',
+          prompt: t('settings.newPassword.minLength')
         }
-      }
-    });
-})(window._t);
+     ]
+    },
+    repeatPassword: {
+      identifier: 'repeatPassword',
+      rules: [
+        {
+          type: 'empty',
+          prompt: t('settings.verifyPassword.required')
+        },
+        {
+          type: 'match[newPassword]',
+          prompt: t('settings.verifyPassword.matchNewPassword')
+       }
+     ]
+    }
+  }
+});

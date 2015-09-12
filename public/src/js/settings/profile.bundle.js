@@ -1,58 +1,56 @@
 /* jshint browser:true, jquery:true */
+'use strict';
 
-(function (_t) {
-  'use strict';
+var t = require('../shared/t');
 
-  $('.ui.form')
-    .form({
-      fields: {
-        username: {
-          identifier: 'user.username',
-          rules: [
-            {
-              type: 'empty',
-              prompt: _t('accountValidation.username.required')
-            },
-            {
-              type: 'length[5]',
-              prompt: _t('accountValidation.username.minLength')
-            },
-            {
-              type: 'maxLength[20]',
-              prompt: _t('accountValidation.username.maxLength')
-            },
-            {
-              type: 'username',
-              prompt: _t('accountValidation.username.allowedChars')
-            }
-         ]
+$('.ui.form').form({
+  fields: {
+    username: {
+      identifier: 'user.username',
+      rules: [
+        {
+          type: 'empty',
+          prompt: t('accountValidation.username.required')
         },
-        email: {
-          identifier: 'user.email',
-          rules: [
-            {
-              type: 'empty',
-              prompt: _t('accountValidation.email.required')
-            },
-            {
-              type: 'email',
-              prompt: _t('accountValidation.email.valid')
-           }
-         ]
+        {
+          type: 'length[5]',
+          prompt: t('accountValidation.username.minLength')
+        },
+        {
+          type: 'maxLength[20]',
+          prompt: t('accountValidation.username.maxLength')
+        },
+        {
+          type: 'username',
+          prompt: t('accountValidation.username.allowedChars')
         }
-      }
-    });
+     ]
+    },
+    email: {
+      identifier: 'user.email',
+      rules: [
+        {
+          type: 'empty',
+          prompt: t('accountValidation.email.required')
+        },
+        {
+          type: 'email',
+          prompt: t('accountValidation.email.valid')
+       }
+     ]
+    }
+  }
+});
 
-  $('#resend-email').click(function () {
-    $.ajax({
-      url: '/resend-email-verification',
-      method: 'POST',
-      success: function () {
-        alert('success');
-      },
-      error: function () {
-        alert('error');
-      }
-    });
+$('#resend-email').click(function() {
+  $.ajax({
+    url: '/resend-email-verification',
+    method: 'POST',
+    success: function () {
+      alert('success');
+    },
+    error: function () {
+      alert('error');
+    }
   });
-})(window._t);
+});

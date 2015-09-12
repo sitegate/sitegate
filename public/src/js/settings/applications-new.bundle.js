@@ -1,46 +1,44 @@
 /* jshint browser:true, jquery:true */
+'use strict';
 
-(function (_t) {
-  'use strict';
+var t = require('../shared/t');
 
-  $('.ui.form')
-    .form({
-      fields: {
-        name: {
-          identifier: 'name',
-          rules: [
-            {
-              type: 'empty',
-              prompt: _t('app.validation.nameRequired')
-            }
-         ]
-        },
-        homepageUrl: {
-          identifier: 'homepageUrl',
-          rules: [
-            {
-              type: 'empty',
-              prompt: _t('app.validation.homepageUrl.required')
-            },
-            {
-              type: 'url',
-              prompt: _t('app.validation.homepageUrl.url')
-            }
-         ]
-        },
-        authCallbackUrl: {
-          identifier: 'authCallbackUrl',
-          rules: [
-            {
-              type: 'empty',
-              prompt: _t('app.validation.authCallbackUrl.required')
-            },
-            {
-              type: 'url',
-              prompt: _t('app.validation.authCallbackUrl.url')
-           }
-         ]
+$('.ui.form').form({
+  fields: {
+    name: {
+      identifier: 'name',
+      rules: [
+        {
+          type: 'empty',
+          prompt: t('app.validation.nameRequired')
         }
-      }
-    });
-})(window._t);
+     ]
+    },
+    homepageUrl: {
+      identifier: 'homepageUrl',
+      rules: [
+        {
+          type: 'empty',
+          prompt: t('app.validation.homepageUrl.required')
+        },
+        {
+          type: 'url',
+          prompt: t('app.validation.homepageUrl.url')
+        }
+     ]
+    },
+    authCallbackUrl: {
+      identifier: 'authCallbackUrl',
+      rules: [
+        {
+          type: 'empty',
+          prompt: t('app.validation.authCallbackUrl.required')
+        },
+        {
+          type: 'url',
+          prompt: t('app.validation.authCallbackUrl.url')
+       }
+     ]
+    }
+  }
+});

@@ -1,29 +1,27 @@
 /* jshint browser:true, jquery:true */
+'use strict';
 
-(function (_t) {
-  'use strict';
+var t = require('./shared/t');
 
-  $('.ui.form')
-    .form({
-      fields: {
-        username: {
-          identifier: 'username',
-          rules: [
-            {
-              type: 'empty',
-              prompt: _t('accountValidation.usernameOrEmail.required')
-            }
-         ]
-        },
-        password: {
-          identifier: 'password',
-          rules: [
-            {
-              type: 'empty',
-              prompt: _t('accountValidation.password.required')
-            }
-         ]
+$('.ui.form').form({
+  fields: {
+    username: {
+      identifier: 'username',
+      rules: [
+        {
+          type: 'empty',
+          prompt: t('accountValidation.usernameOrEmail.required')
         }
-      }
-    });
-})(window._t);
+     ]
+    },
+    password: {
+      identifier: 'password',
+      rules: [
+        {
+          type: 'empty',
+          prompt: t('accountValidation.password.required')
+        }
+     ]
+    }
+  }
+});
