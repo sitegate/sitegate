@@ -1,7 +1,11 @@
 {
   "name": "sitegate",
   "version": "0.0.1",
-  "author": "Zoltan Kochan",
+  "author": {
+    "name": "Zoltan Kochan",
+    "email": "zoltan.kochan@gmail.com",
+    "url": "http://kochan.io"
+  },
   "private": true,
   "scripts": {
     "start": "gulp"
@@ -23,10 +27,10 @@
     "express": "^4.13.3",
     "express-redirect": "~1.1.1",
     "express-session": "^1.11.3",
-    "fosify-js": "^0.6.0",
     "glob": "^5.0.14",
     "helmet": "^0.10.0",
     "i18next": "^1.10.4",
+    "i18next-client": "^1.10.2",
     "jade": "^1.11.0",
     "js-yaml": "^3.4.2",
     "lodash": "^3.10.1",
