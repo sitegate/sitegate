@@ -18,6 +18,7 @@ Usage example: https://github.com/sitegate/client-example
 
 ## What are the microservices it consists of?
 
+* [SiteGate Session](https://github.com/sitegate/session)
 * [SiteGate User](https://github.com/sitegate/user)
 * [SiteGate Client](https://github.com/sitegate/client)
 * [SiteGate OAuth](https://github.com/sitegate/oauth)
