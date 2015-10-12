@@ -46,6 +46,11 @@
     "passport-oauth2-client-password": "~0.1.2",
     "passport-twitter": "^1.0.3",
     "serve-favicon": "^2.3.0",
+    "sitegate-client": "^0.1.0",
+    "sitegate-mailer": "^0.1.0",
+    "sitegate-oauth": "^0.1.0",
+    "sitegate-session": "^0.1.0",
+    "sitegate-user": "^0.1.0",
     "uva-amqp": "^0.4.0",
     "yaml-or-json": "^0.1.0",
     "zxcvbn": "^3.4.0"

@@ -25,3 +25,34 @@ github:
   clientID: APP_ID
   clientSecret: APP_SECRET
   callbackURL: http://localhost:3000/auth/github/callback
+userService:
+  mongodb:
+    address: localhost
+    port: 27017
+    name: sitegate-user-dev
+clientService:
+  mongodb:
+    address: localhost
+    port: 27017
+    name: sitegate-client-dev
+oauthService:
+  mongodb:
+    address: localhost
+    port: 27017
+    name: sitegate-oauth-dev
+sessionService:
+  mongodb:
+    address: localhost
+    port: 27017
+    name: sitegate-session-dev
+mailerService:
+  mailer:
+    from: MAILER_FROM
+    options:
+      service: MAILER_SERVICE_PROVIDER
+      auth:
+        user: MAILER_EMAIL_ID
+        pass: MAILER_PASSWORD
+  app:
+    title: SiteGate
+    host: "https://account.sitegatedev.com:3000"

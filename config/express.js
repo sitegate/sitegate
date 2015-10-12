@@ -17,7 +17,6 @@ var redirect = require('express-redirect');
 var path = require('path');
 var rootPath = path.normalize(__dirname + '/..');
 var UvaStore = require('connect-uva')(session);
-var Client = require('uva-amqp').Client;
 
 // Initialize express app
 var app = express();
@@ -68,10 +67,10 @@ app.use(session({
   saveUninitialized: true,
   resave: true,
   secret: config.get('session.secret'),
-  store: new UvaStore(new Client({
-    channel: 'session',
-    url: config.get('amqpUrl')
-  }))
+  store: new UvaStore({
+    register: function() {},
+    methods: require('../app/clients/session')
+  })
 }));
 
 // use passport session

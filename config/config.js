@@ -158,6 +158,106 @@ var config = convict({
       default: 'https://account.sitegatedev.com:3000/auth/github/callback',
       env: 'GITHUB_CALLBACK'
     }
+  },
+  userService: {
+    mongodb: {
+      address: {
+        doc: 'MongoDB address.',
+        default: 'localhost',
+        env: 'MONGO_PORT_27017_TCP_ADDR'
+      },
+      port: {
+        doc: 'MongoDB port.',
+        format: 'port',
+        default: '27017',
+        env: 'MONGO_PORT_27017_TCP_PORT'
+      },
+      name: {
+        doc: 'MongoDB DB name.',
+        default: 'sitegate-user-dev'
+      }
+    }
+  },
+  clientService: {
+    mongodb: {
+      address: {
+        doc: 'MongoDB address.',
+        default: 'localhost',
+        env: 'CLIENT_MONGO_PORT_27017_TCP_ADDR'
+      },
+      port: {
+        doc: 'MongoDB port.',
+        format: 'port',
+        default: '27017',
+        env: 'CLIENT_MONGO_PORT_27017_TCP_PORT'
+      },
+      name: {
+        doc: 'MongoDB DB name.',
+        default: 'sitegate-user-dev'
+      }
+    }
+  },
+  oauthService: {
+    mongodb: {
+      address: {
+        doc: 'MongoDB address.',
+        default: 'localhost',
+        env: 'OAUTH_MONGO_PORT_27017_TCP_ADDR'
+      },
+      port: {
+        doc: 'MongoDB port.',
+        format: 'port',
+        default: '27017',
+        env: 'OAUTH_MONGO_PORT_27017_TCP_PORT'
+      },
+      name: {
+        doc: 'MongoDB DB name.',
+        default: 'sitegate-user-dev'
+      }
+    }
+  },
+  sessionService: {
+    mongodb: {
+      address: {
+        doc: 'MongoDB address.',
+        default: 'localhost',
+        env: 'SESSION_MONGO_PORT_27017_TCP_ADDR'
+      },
+      port: {
+        doc: 'MongoDB port.',
+        format: 'port',
+        default: '27017',
+        env: 'SESSION_MONGO_PORT_27017_TCP_PORT'
+      },
+      name: {
+        doc: 'MongoDB DB name.',
+        default: 'sitegate-user-dev'
+      }
+    }
+  },
+  mailerService: {
+    mailer: {
+      from: {
+        default: '',
+        env: 'MAILER_FROM'
+      },
+      options: {
+        service: {
+          default: '',
+          env: 'MAILER_SERVICE_PROVIDER'
+        },
+        auth: {
+          user: {
+            default: '',
+            env: 'MAILER_EMAIL_ID'
+          },
+          pass: {
+            default: '',
+            env: 'MAILER_PASSWORD'
+          }
+        }
+      }
+    }
   }
 });
 
@@ -170,11 +270,37 @@ config.load(configFile);
 
 // Adding the calculated values
 config.load({
-  amqpUrl: util.format('amqp://%s:%s@%s:%s',
-                         config.get('amqp.login'),
-                         config.get('amqp.password'),
-                         config.get('amqp.address'),
-                         config.get('amqp.port'))
+  amqpUrl: util.format(
+    'amqp://%s:%s@%s:%s',
+    config.get('amqp.login'),
+    config.get('amqp.password'),
+    config.get('amqp.address'),
+    config.get('amqp.port')
+  ),
+  userServiceMongodbUrl: util.format(
+    'mongodb://%s:%s/%s',
+    config.get('userService.mongodb.address'),
+    config.get('userService.mongodb.port'),
+    config.get('userService.mongodb.name')
+  ),
+  clientServiceMongodbUrl: util.format(
+    'mongodb://%s:%s/%s',
+    config.get('clientService.mongodb.address'),
+    config.get('clientService.mongodb.port'),
+    config.get('clientService.mongodb.name')
+  ),
+  oauthServiceMongodbUrl: util.format(
+    'mongodb://%s:%s/%s',
+    config.get('oauthService.mongodb.address'),
+    config.get('oauthService.mongodb.port'),
+    config.get('oauthService.mongodb.name')
+  ),
+  sessionServiceMongodbUrl: util.format(
+    'mongodb://%s:%s/%s',
+    config.get('sessionService.mongodb.address'),
+    config.get('sessionService.mongodb.port'),
+    config.get('sessionService.mongodb.name')
+  )
 });
 
 // perform validation
