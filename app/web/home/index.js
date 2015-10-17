@@ -1,13 +1,16 @@
 'use strict';
 
-exports.register = function(plugin, options, next) {
+var homepageView = require('../../views/home');
 
+exports.register = function(plugin, options, next) {
   plugin.route({
     method: 'GET',
-    path: '/about',
-    handler: function(request, reply) {
-
-      reply('This is homepage');
+    path: '/',
+    config: {
+      auth: 'session',
+      handler: function(request, reply) {
+        reply.vtree(homepageView({}));
+      }
     }
   });
 

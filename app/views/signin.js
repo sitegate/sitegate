@@ -1,6 +1,7 @@
 'use strict';
 
 var h = require('virtual-dom/h');
+var vtag = require('vtag')(h);
 var publicLayout = require('./public-layout');
 var t = require('i18next').t;
 var config = require('../../config/config');
@@ -9,6 +10,12 @@ var socialSignin = require('./partials/social-signin');
 
 module.exports = function(opts) {
   return publicLayout(opts, {
+    styles: [
+      vtag.css('/dist/css/signin.css')
+    ],
+    scripts: [
+      vtag.js('/dist/js/signin.js')
+    ],
     content: [
       h('h1#sign-header.ui.icon.center.aligned.header', [
         h('i.sign.in.icon'),

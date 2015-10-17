@@ -18,8 +18,8 @@ module.exports = [{
     auth: 'google',
     handler: handlers.sessionManagement
   }
-}, {
-  path: '/logout',
+}/*, {
+  path: '/signout',
   method: 'GET',
   config: {
     handler: function(request, reply) {
@@ -27,4 +27,4 @@ module.exports = [{
       return reply.redirect('/');
     }
   }
-}];
+}*/];

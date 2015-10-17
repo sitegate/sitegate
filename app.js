@@ -18,6 +18,7 @@ if (config.get('env') === 'development') {
 var config = require('./config/config');
 var fs = require('fs');
 var Hapi = require('hapi');
+var path = require('path');
 require('./config/i18n');
 
 //TODO: Change these for your own certificates.  This was generated
@@ -34,6 +35,11 @@ var server = new Hapi.Server();
 server.connection({ port: config.get('port'), tls: tls });
 
 server.register([
+  // registering microservices
+  { register: require('./app/plugins/client') },
+  { register: require('./app/plugins/user') },
+  { register: require('./app/plugins/session') },
+
   { register: require('hapi-auth-cookie') },
   { register: require('bell') },
   {
@@ -41,23 +47,27 @@ server.register([
     options: {
       facebook: config.get('provider.facebook'),
       google: config.get('provider.google'),
-      session: config.get('session'),
-      sessionService: require('./app/clients/session')
+      session: config.get('session')
     }
   },
-  { register: require('./app/web/signin') }
+  { register: require('hapi-vtree') },
+  { register: require('inert') },
+  { register: require('./app/web/signin') },
+  { register: require('./app/web/home') },
+  { register: require('./app/web/public') }
 ], function(err) {
   if (err) {
     throw err;
   }
 
+/*
   server.route({
     method: 'GET',
     path: '/',
     handler: function(request, reply) {
       reply('Hello!');
     }
-  });
+  });*/
 
   server.route({
     method: 'GET',
