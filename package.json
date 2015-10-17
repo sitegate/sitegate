@@ -16,6 +16,7 @@
   },
   "licencse": "MIT",
   "dependencies": {
+    "bell": "^5.4.0",
     "body-parser": "^1.13.3",
     "compression": "^1.5.2",
     "connect-ensure-login": "~0.1.1",
@@ -28,6 +29,8 @@
     "express-redirect": "~1.1.1",
     "express-session": "^1.11.3",
     "glob": "^5.0.14",
+    "hapi": "^10.4.1",
+    "hapi-auth-cookie": "^3.1.0",
     "helmet": "^0.10.0",
     "i18next": "^1.10.4",
     "i18next-client": "^1.10.2",
@@ -45,6 +48,7 @@
     "passport-local": "~1.0.0",
     "passport-oauth2-client-password": "~0.1.2",
     "passport-twitter": "^1.0.3",
+    "ramda": "^0.18.0",
     "serve-favicon": "^2.3.0",
     "sitegate-client": "^0.1.0",
     "sitegate-mailer": "^0.1.0",
@@ -52,6 +56,7 @@
     "sitegate-session": "^0.1.0",
     "sitegate-user": "^0.1.0",
     "uva-amqp": "^0.4.0",
+    "vdom-to-html": "^2.1.1",
     "yaml-or-json": "^0.1.0",
     "zxcvbn": "^3.4.0"
   },

@@ -1,3 +1,5 @@
+app:
+  title: SiteGate
 amqp:
   login: guest
   password: guest
@@ -5,26 +7,37 @@ amqp:
   port: 5672
 session:
   secret: sitegate-secret
-facebook:
-  clientID: '391179464377243'
-  clientSecret: edfafc7715060f8cb4c7212833a3c87a
-  callbackURL: https://account.sitegatedev.com:3000/auth/facebook/callback
-twitter:
-  clientID: j5UFdNnFLv6t24syOiDglfRIX
-  clientSecret: GZMmhyaUcsaQULXQknfmXCEh8KTG91UGBeQED19ASvhsaDO7Ba
-  callbackURL: https://account.sitegatedev.com:3000/auth/twitter/callback
-google:
-  clientID: 295363747259-4f4o7483ce5q74a6v31n05s23ke37dii.apps.googleusercontent.com
-  clientSecret: rcBTWhsCnytAl6bXr3iTnjPs
-  callbackURL: https://account.sitegatedev.com:3000/auth/google/callback
-linkedin:
-  clientID: APP_ID
-  clientSecret: APP_SECRET
-  callbackURL: http://localhost:3000/auth/linkedin/callback
-github:
-  clientID: APP_ID
-  clientSecret: APP_SECRET
-  callbackURL: http://localhost:3000/auth/github/callback
+provider:
+  facebook:
+    provider: facebook
+    password: j0f43bslregf
+    clientId: '391179464377243'
+    clientSecret: edfafc7715060f8cb4c7212833a3c87a
+    location: https://account.sitegatedev.com:3000/auth/facebook/callback
+  twitter:
+    provider: twitter
+    password: j0f43bslregf
+    clientId: j5UFdNnFLv6t24syOiDglfRIX
+    clientSecret: GZMmhyaUcsaQULXQknfmXCEh8KTG91UGBeQED19ASvhsaDO7Ba
+    callbackURL: https://account.sitegatedev.com:3000/auth/twitter/callback
+  google:
+    provider: google
+    password: j0f43bslregf
+    clientId: 295363747259-4f4o7483ce5q74a6v31n05s23ke37dii.apps.googleusercontent.com
+    clientSecret: rcBTWhsCnytAl6bXr3iTnjPs
+    location: https://account.sitegatedev.com:3000/auth/google/callback
+  linkedin:
+    provider: linkedin
+    password: j0f43bslregf
+    clientID: APP_ID
+    clientSecret: APP_SECRET
+    callbackURL: http://localhost:3000/auth/linkedin/callback
+  github:
+    provider: github
+    password: j0f43bslregf
+    clientID: APP_ID
+    clientSecret: APP_SECRET
+    callbackURL: http://localhost:3000/auth/github/callback
 userService:
   mongodb:
     address: localhost
