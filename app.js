@@ -47,6 +47,7 @@ server.register([
     options: {
       facebook: config.get('provider.facebook'),
       google: config.get('provider.google'),
+      twitter: config.get('provider.twitter'),
       session: config.get('session')
     }
   },

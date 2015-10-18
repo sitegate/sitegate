@@ -9,6 +9,8 @@ exports.register = function(server, opts, next) {
 
   server.auth.strategy('google', 'bell', opts.google);
 
+  server.auth.strategy('twitter', 'bell', opts.twitter);
+
   server.auth.strategy('session', 'cookie', {
     password: opts.session.secret,
     cookie: 'sid-sg', // cookie name to use, usually sid-<appname>
@@ -17,16 +19,16 @@ exports.register = function(server, opts, next) {
     validateFunc: function(req, session, cb) {
       var sessionService = req.server.plugins.session;
 
-      sessionService.get(session.sid, function(err, session) {
+      sessionService.get(session.sid, function(err, sessionDoc) {
         if (err) {
           return cb(err, false);
         }
 
-        if (!session) {
+        if (!sessionDoc) {
           return cb(null, false);
         }
 
-        return cb(null, true, session);
+        return cb(null, true, sessionDoc);
       });
     }
   });

@@ -15,10 +15,10 @@ exports.register = function(plugin, options, next) {
     method: 'POST',
     path: '/signin',
     handler: function(req, reply) {
-      var User = req.server.plugins.user;
-      var Session = req.server.plugins.session;
+      var userService = req.server.plugins.user;
+      var sessionService = req.server.plugins.session;
 
-      User.authenticate({
+      userService.authenticate({
         usernameOrEmail: req.payload.username,
         password: req.payload.password
       }, function(err, user) {
@@ -28,17 +28,16 @@ exports.register = function(plugin, options, next) {
         }
 
         var sid = Math.random();
-        Session.set(sid, {
+        sessionService.set(sid, {
           userId: user.id
         }, {
           ttl: 60 * 60 * 24 * 14 // 2 weeks
-        }, function(err, session) {
+        }, function(err, sessionDoc) {
           if (err) {
             reply(err);
             return;
           }
 
-          console.log();
           req.auth.session.set({sid: sid});
 
           reply.redirect('/');
@@ -51,11 +50,11 @@ exports.register = function(plugin, options, next) {
     method: ['GET', 'POST', 'DELETE'],
     path: '/signout',
     handler: function(req, reply) {
-      var Session = req.server.plugins.session;
+      var sessionService = req.server.plugins.session;
       var credentials = req.auth.credentials || { session: {} };
       var session = credentials.session || {};
 
-      Session.destroy(session.id, function(err, sessionDoc) {
+      sessionService.destroy(session.sid, function(err, sessionDoc) {
         if (err) {
           return reply(err);
         }

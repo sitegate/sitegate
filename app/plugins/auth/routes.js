@@ -18,6 +18,13 @@ module.exports = [{
     auth: 'google',
     handler: handlers.sessionManagement
   }
+}, {
+  path: '/auth/twitter',
+  method: 'GET',
+  config: {
+    auth: 'twitter',
+    handler: handlers.sessionManagement
+  }
 }/*, {
   path: '/signout',
   method: 'GET',

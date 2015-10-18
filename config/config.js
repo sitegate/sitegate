@@ -80,16 +80,10 @@ var config = convict({
         doc: 'Facebook App secret.',
         default: 'edfafc7715060f8cb4c7212833a3c87a',
         env: 'FACEBOOK_SECRET'
-      },
-      location: {
-        doc: 'Facebook callback URL.',
-        format: 'url',
-        default: 'https://account.sitegatedev.com:3000/auth/facebook/callback',
-        env: 'FACEBOOK_CALLBACK'
       }
     },
     twitter: {
-      clientID: {
+      clientId: {
         doc: 'Twitter App ID.',
         default: 'j5UFdNnFLv6t24syOiDglfRIX',
         env: 'TWITTER_KEY'
@@ -98,12 +92,6 @@ var config = convict({
         doc: 'Twitter App secret',
         default: 'GZMmhyaUcsaQULXQknfmXCEh8KTG91UGBeQED19ASvhsaDO7Ba',
         env: 'TWITTER_SECRET'
-      },
-      callbackURL: {
-        doc: 'Twitter callback URL.',
-        format: 'url',
-        default: 'https://account.sitegatedev.com:3000/auth/twitter/callback',
-        env: 'TWITTER_CALLBACK'
       }
     },
     google: {
