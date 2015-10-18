@@ -39,6 +39,7 @@
     "i18next-client": "^1.10.2",
     "inert": "^3.1.0",
     "jade": "^1.11.0",
+    "joi": "^6.9.1",
     "lodash": "^3.10.1",
     "method-override": "^2.3.5",
     "morgan": "^1.6.1",

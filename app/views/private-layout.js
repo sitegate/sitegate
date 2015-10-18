@@ -5,12 +5,12 @@ var layout = require('./layout');
 var R = require('ramda');
 var t = require('i18next').t;
 
-module.exports = function(opts, partials) {
-  return layout(opts, R.merge(partials, {
+module.exports = function(vm, partials) {
+  return layout(vm, R.merge(partials, {
     coreContent: [
       h('.ui.menu',
         h('.main.container', [
-          h('a.item', { href: opts.homepageUrl }, [
+          h('a.item', { href: vm.homepageUrl }, [
             h('i.home.icon'),
             t('menu.home')
           ]),

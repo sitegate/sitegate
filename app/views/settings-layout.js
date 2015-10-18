@@ -11,8 +11,8 @@ function link(targetUrl, text) {
   }, text);
 }
 
-module.exports = function(opts, partials) {
-  return privateLayout(opts, R.merge(partials, {
+module.exports = function(vm, partials) {
+  return privateLayout(vm, R.merge(partials, {
     content: h('.ui.grid', [
       h('.four.wide.column',
         h('.ui.vertical.fluid.menu', [

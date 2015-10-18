@@ -56,7 +56,9 @@ server.register([
   { register: require('./app/web/signin') },
   { register: require('./app/web/home') },
   { register: require('./app/web/public') },
-  { register: require('./app/web/profile') }
+  { register: require('./app/web/settings/profile') },
+  { register: require('./app/web/settings/accounts') },
+  { register: require('./app/web/settings/password') }
 ], function(err) {
   if (err) {
     throw err;

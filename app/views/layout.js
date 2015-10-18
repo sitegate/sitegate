@@ -4,8 +4,8 @@ var h = require('virtual-dom/h');
 var vtag = require('vtag')(h);
 var config = require('../../config/config');
 
-module.exports = function(opts, partials) {
-  var title = (opts.title ? opts.title + ' | ' : '') + config.get('app.title');
+module.exports = function(vm, partials) {
+  var title = (vm.title ? vm.title + ' | ' : '') + config.get('app.title');
 
   return h('html', { lang: 'en' }, [
     h('head', [

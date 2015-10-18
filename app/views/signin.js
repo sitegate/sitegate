@@ -8,8 +8,8 @@ var config = require('../../config/config');
 var messageBlock = require('./partials/message-block');
 var socialSignin = require('./partials/social-signin');
 
-module.exports = function(opts) {
-  return publicLayout(opts, {
+module.exports = function(vm) {
+  return publicLayout(vm, {
     styles: [
       vtag.css('/dist/css/signin.css')
     ],
@@ -32,14 +32,14 @@ module.exports = function(opts) {
         h('.column', [
           h('h2', t('account.usingCredentials')),
           h('form.ui.form', { method: 'post'}, [
-            messageBlock(opts.messages),
+            messageBlock(vm.messages),
             h('.field',
               h('.ui.left.icon.input', [
                 h('input', {
                   type: 'text',
                   placeholder: t('account.usernameOrEmail'),
                   name: 'username',
-                  value: opts.username
+                  value: vm.username
                 }),
                 h('i.user.icon')
               ])
@@ -50,7 +50,7 @@ module.exports = function(opts) {
                   type: 'password',
                   placeholder: t('account.password.password'),
                   name: 'password',
-                  value: opts.password
+                  value: vm.password
                 }),
                 h('i.lock.icon')
               ])
