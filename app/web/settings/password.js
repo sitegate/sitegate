@@ -9,7 +9,6 @@ exports.register = function(plugin, options, next) {
     method: 'GET',
     path: '/settings/password',
     config: {
-      auth: 'session',
       pre: [pre.user],
       handler: function(req, reply) {
         reply.vtree(passwordView({
@@ -23,7 +22,6 @@ exports.register = function(plugin, options, next) {
     method: 'POST',
     path: '/settings/password',
     config: {
-      auth: 'session',
       validate: {
         payload: {
           newPassword: Joi.string().min(1),

@@ -39,8 +39,17 @@ server.register([
   { register: require('./app/plugins/client') },
   { register: require('./app/plugins/user') },
   { register: require('./app/plugins/session') },
+  {
+    register: require('humble-session'),
+    options: {
+      password: config.get('session.secret'),
+      cookie: 'sid-sg', // cookie name to use, usually sid-<appname>
+      isSecure: true,
+      sessionStoreName: 'session'
+    }
+  },
+  { register: require('humble-auth') },
 
-  { register: require('hapi-auth-cookie') },
   { register: require('bell') },
   {
     register: require('./app/plugins/auth/auth'),
@@ -77,7 +86,6 @@ server.register([
     method: 'GET',
     path: '/secret',
     config: {
-      auth: 'session',
       handler: function(request, reply) {
         reply('secret!');
       }

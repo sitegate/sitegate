@@ -2,12 +2,14 @@
 
 //Add all the routes related to Auth Plugin here.
 var handlers = require('./handlers');
+var preSession = require('humble-session').pre;
 
 module.exports = [{
   path: '/auth/facebook',
   method: 'GET',
   config: {
     auth: 'facebook',
+    pre: [preSession],
     handler: handlers.sessionManagement
   }
 
@@ -16,6 +18,7 @@ module.exports = [{
   method: 'GET',
   config: {
     auth: 'google',
+    pre: [preSession],
     handler: handlers.sessionManagement
   }
 }, {
@@ -23,6 +26,7 @@ module.exports = [{
   method: 'GET',
   config: {
     auth: 'twitter',
+    pre: [preSession],
     handler: handlers.sessionManagement
   }
 }/*, {

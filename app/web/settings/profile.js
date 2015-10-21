@@ -9,7 +9,6 @@ exports.register = function(plugin, options, next) {
     method: 'GET',
     path: '/settings/profile',
     config: {
-      auth: 'session',
       pre: [pre.user],
       handler: function(req, reply) {
         reply.vtree(profileView({
@@ -28,7 +27,6 @@ exports.register = function(plugin, options, next) {
     method: 'POST',
     path: '/settings/profile',
     config: {
-      auth: 'session',
       handler: function(req, reply) {
         var userService = req.server.plugins.user;
 

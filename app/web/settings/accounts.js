@@ -8,7 +8,6 @@ exports.register = function(plugin, options, next) {
     method: 'GET',
     path: '/settings/accounts',
     config: {
-      auth: 'session',
       pre: [pre.user],
       handler: function(req, reply) {
         reply.vtree(accountsView({

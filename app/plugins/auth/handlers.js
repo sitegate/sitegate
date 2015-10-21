@@ -29,24 +29,12 @@ function getProfile(account) {
 
 //Handler functions used by the routes.
 exports.sessionManagement = function(req, reply) {
-  var sessionService = req.server.plugins.session;
   var userService = req.server.plugins.user;
 
   async.waterfall([
     function(cb) {
-      var sid = bro(req).iCanHaz('auth.credentials.session.sid');
-      if (!sid) {
-        cb(null, null);
-      }
-      sessionService.get(sid, cb);
-    },
-    function(sessionDoc, cb) {
-      if (arguments.length === 1) {
-        cb = sessionDoc;
-      }
-      var loggedUser = sessionDoc ? {
-        id: sessionDoc.userId
-      } : null;
+      var loggedUser = req.pre.session && req.pre.session.user &&
+        re.pre.session.user.id ? { id: re.pre.session.user.id } : null;
 
       var providerUserProfile = getProfile(req.auth.credentials);
 
@@ -65,17 +53,16 @@ exports.sessionManagement = function(req, reply) {
     if (!sid) {
       sid = Math.random();
     }
-    sessionService.set(sid, {
-      userId: user.id
-    }, {
-      ttl: 60 * 60 * 24 * 14 // 2 weeks
-    }, function(err, sessionDoc) {
+
+    reply.setSession({
+      user: {
+        id: user.id
+      }
+    }, function(err) {
       if (err) {
         console.log(err);
         return;
       }
-
-      req.auth.session.set({ sid: sid });
 
       reply.redirect('/');
     });

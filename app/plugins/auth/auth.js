@@ -11,26 +11,8 @@ exports.register = function(server, opts, next) {
 
   server.auth.strategy('twitter', 'bell', opts.twitter);
 
-  server.auth.strategy('session', 'cookie', {
-    password: opts.session.secret,
-    cookie: 'sid-sg', // cookie name to use, usually sid-<appname>
-    redirectTo: '/signin',
-    isSecure: true,
-    validateFunc: function(req, session, cb) {
-      var sessionService = req.server.plugins.session;
-
-      sessionService.get(session.sid, function(err, sessionDoc) {
-        if (err) {
-          return cb(err, false);
-        }
-
-        if (!sessionDoc) {
-          return cb(null, false);
-        }
-
-        return cb(null, true, sessionDoc);
-      });
-    }
+  server.auth.strategy('default', 'session', true, {
+    redirectTo: '/signin'
   });
 
   //Added a separate file for just routes.

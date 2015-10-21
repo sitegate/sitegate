@@ -16,7 +16,7 @@ module.exports = function(vm) {
         href: '/auth/' + provider + '/disconnect'
       }, [
         h('i.' + iconClass + '.icon'),
-        'Disconnect',
+        'Disconnect ',
         t('social.' + provider)
       ]);
     }

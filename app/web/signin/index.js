@@ -1,11 +1,15 @@
 'use strict';
 
 var signinView = require('../../views/signin');
+var preSession = require('humble-session').pre;
 
 exports.register = function(plugin, options, next) {
   plugin.route({
     method: 'GET',
     path: '/signin',
+    config: {
+      auth: false
+    },
     handler: function(request, reply) {
       reply.vtree(signinView({}));
     }
@@ -14,6 +18,9 @@ exports.register = function(plugin, options, next) {
   plugin.route({
     method: 'POST',
     path: '/signin',
+    config: {
+      auth: false
+    },
     handler: function(req, reply) {
       var userService = req.server.plugins.user;
       var sessionService = req.server.plugins.session;
@@ -27,18 +34,15 @@ exports.register = function(plugin, options, next) {
           return;
         }
 
-        var sid = Math.random();
-        sessionService.set(sid, {
-          userId: user.id
-        }, {
-          ttl: 60 * 60 * 24 * 14 // 2 weeks
-        }, function(err, sessionDoc) {
+        reply.setSession({
+          user: {
+            id: user.id
+          }
+        }, function(err) {
           if (err) {
             reply(err);
             return;
           }
-
-          req.auth.session.set({sid: sid});
 
           reply.redirect('/');
         });
@@ -49,23 +53,18 @@ exports.register = function(plugin, options, next) {
   plugin.route({
     method: ['GET', 'POST', 'DELETE'],
     path: '/signout',
-    handler: function(req, reply) {
-      var sessionService = req.server.plugins.session;
-      var credentials = req.auth.credentials || { session: {} };
-      var session = credentials.session || {};
+    config: {
+      pre: [preSession],
+      handler: function(req, reply) {
+        delete req.pre.session.user;
+        reply.setSession(req.pre.session, function(err) {
+          if (err) {
+            return reply(err);
+          }
 
-      sessionService.destroy(session.sid, function(err, sessionDoc) {
-        if (err) {
-          return reply(err);
-        }
-
-        if (!sessionDoc) {
-          return reply({ message: 'Session not found.' }).code(404);
-        }
-
-        req.auth.session.clear();
-        reply.redirect('/signin');
-      });
+          reply.redirect('/signin');
+        });
+      }
     }
   });
 

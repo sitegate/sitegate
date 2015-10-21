@@ -7,7 +7,6 @@ exports.register = function(plugin, options, next) {
     method: 'GET',
     path: '/',
     config: {
-      auth: 'session',
       handler: function(request, reply) {
         reply.vtree(homepageView({}));
       }
