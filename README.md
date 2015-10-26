@@ -45,7 +45,7 @@ Add this line to your hosts file:
 Run these commands in a console:
 ````
 $ git clone git@github.com:zkochan/sitegate.git && cd ./sitegate
-$ npm install && bower install
+$ npm install
 $ gulp
 ````
 Generate your local SSL certificates in the ./certs folder. You can use these commands:

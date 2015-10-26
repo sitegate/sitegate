@@ -63,6 +63,8 @@ server.register([
   { register: require('hapi-vtree') },
   { register: require('inert') },
   { register: require('./app/web/signin') },
+  { register: require('./app/web/signup') },
+  { register: require('./app/web/reset-password') },
   { register: require('./app/web/home') },
   { register: require('./app/web/public') },
   { register: require('./app/web/settings/profile') },

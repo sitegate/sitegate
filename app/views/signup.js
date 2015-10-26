@@ -14,17 +14,17 @@ module.exports = function(vm) {
       vtag.css('/dist/css/signin.css')
     ],
     scripts: [
-      vtag.js('/dist/js/signin.js')
+      vtag.js('/dist/js/signup.js')
     ],
     content: [
       h('h1#sign-header.ui.icon.center.aligned.header', [
         h('i.sign.in.icon'),
         h('.content', [
-          t('account.signInTo', { appTitle: config.get('app.title') }),
+          t('account.signUpTo', { appTitle: config.get('app.title') }),
           h('.sub.header', [
-            t('account.dontHaveAccount'),
+            t('account.alreadyHaveAccount'),
             ' | ',
-            h('a', { href: '/signup' }, t('account.signUpNow'))
+            h('a', { href: '/signin' }, t('account.signInNow'))
           ])
         ])
       ]),
@@ -37,11 +37,22 @@ module.exports = function(vm) {
               h('.ui.left.icon.input', [
                 h('input', {
                   type: 'text',
-                  placeholder: t('account.usernameOrEmail'),
+                  placeholder: t('account.username'),
                   name: 'username',
                   value: vm.username
                 }),
                 h('i.user.icon')
+              ])
+            ),
+            h('.field',
+              h('.ui.left.icon.input', [
+                h('input', {
+                  type: 'text',
+                  placeholder: t('account.email'),
+                  name: 'email',
+                  value: vm.email
+                }),
+                h('i.mail.icon')
               ])
             ),
             h('.field',
@@ -56,12 +67,9 @@ module.exports = function(vm) {
               ])
             ),
             h('button.fluid.ui.big.primary.submit.button',
-              { type: 'submit'}, t('account.login')
+              { type: 'submit'}, t('account.createAccount')
             )
-          ]),
-          h('a.reset.link', {
-            href: '/reset-password'
-          }, t('account.cantAccessAccount'))
+          ])
         ]),
         h('.ui.vertical.divider', t('account.or')),
         h('.center.aligned.column.social.signin.container', [
