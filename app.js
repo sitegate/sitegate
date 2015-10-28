@@ -67,6 +67,7 @@ server.register([
   { register: require('./app/web/reset-password') },
   { register: require('./app/web/home') },
   { register: require('./app/web/public') },
+  { register: require('./app/web/email') },
   { register: require('./app/web/settings/profile') },
   { register: require('./app/web/settings/accounts') },
   { register: require('./app/web/settings/password') }

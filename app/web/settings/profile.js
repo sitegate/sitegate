@@ -3,6 +3,8 @@
 var profileView = require('../../views/settings/profile');
 var errorHandler = require('../../error-handler');
 var pre = require('./pre');
+var Boom = require('boom');
+var preSession = require('humble-session').pre;
 
 exports.register = function(plugin, options, next) {
   plugin.route({
@@ -52,6 +54,28 @@ exports.register = function(plugin, options, next) {
           }));
         });
       }
+    }
+  });
+
+  plugin.route({
+    method: 'POST',
+    path: '/resend-email-verification',
+    config: {
+      auth: 'default',
+      pre: [preSession]
+    },
+    handler: function(req, reply) {
+      var userService = req.server.plugins.user;
+
+      userService.sendVerificationEmail(req.pre.session.user.id, function(err) {
+        if (err) {
+          return reply(Boom.wrap(err));
+        }
+
+        return reply({
+          message: 'Verification has been sent out'
+        });
+      });
     }
   });
 
