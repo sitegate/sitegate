@@ -49,6 +49,7 @@ server.register([
     }
   },
   { register: require('humble-auth') },
+  { register: require('humble-flash') },
 
   { register: require('bell') },
   {

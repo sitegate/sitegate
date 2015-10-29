@@ -19,10 +19,8 @@ exports.register = function(plugin, options, next) {
             return reply(Boom.notFound(msg));
           }
 
-          // TODO: add success message
-          //req.flash('profileSuccessMessages', 'You have successfully verified your email address');
-          req.pre.session.user = R.pick(['id'], user);
-          reply.setSession(req.pre.session, function(err) {
+          reply.flash('profileSuccessMessages', 'You have successfully verified your email address');
+          reply.login(R.pick(['id'], user), function(err) {
             if (err) {
               return reply(Boom.create(400, 'Couldn\'t log in', err));
             }

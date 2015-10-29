@@ -5,23 +5,27 @@ var errorHandler = require('../../error-handler');
 var pre = require('./pre');
 var Boom = require('boom');
 var preSession = require('humble-session').pre;
+var humbleFlash = require('humble-flash');
 
 exports.register = function(plugin, options, next) {
   plugin.route({
     method: 'GET',
     path: '/settings/profile',
     config: {
-      pre: [pre.user],
-      handler: function(req, reply) {
-        reply.vtree(profileView({
-          user: req.pre.user/*,
-          homepageUrl: config.get('sitegateClient.domain') +
-            config.get('sitegateClient.privateHomepage'),
-          messages: {
-            success: req.flash('profileSuccessMessages')
-          }*/
-        }));
-      }
+      pre: [
+        pre.user,
+        humbleFlash.createPreHandler('profileSuccessMessages')
+      ]
+    },
+    handler: function(req, reply) {
+      reply.vtree(profileView({
+        user: req.pre.user,
+        /*homepageUrl: config.get('sitegateClient.domain') +
+          config.get('sitegateClient.privateHomepage'),*/
+        messages: {
+          success: req.pre.profileSuccessMessages
+        }
+      }));
     }
   });
 
