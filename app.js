@@ -71,7 +71,8 @@ server.register([
   { register: require('./app/web/email') },
   { register: require('./app/web/settings/profile') },
   { register: require('./app/web/settings/accounts') },
-  { register: require('./app/web/settings/password') }
+  { register: require('./app/web/settings/password') },
+  { register: require('./app/web/application') }
 ], function(err) {
   if (err) {
     throw err;
