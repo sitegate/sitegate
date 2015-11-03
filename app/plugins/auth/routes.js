@@ -29,6 +29,23 @@ module.exports = [{
     pre: [preSession],
     handler: handlers.sessionManagement
   }
+}, {
+  path: '/auth/{strategy}/disconnect',
+  method: 'GET',
+  handler: function(req, reply) {
+    var userService = req.server.plugins.user;
+
+    userService.disconnectProvider({
+      userId: req.auth.credentials.id,
+      strategy: req.params.strategy
+    }, function(err) {
+      if (err) {
+        return reply(err);
+      }
+
+      return reply.redirect('/settings/accounts');
+    });
+  }
 }/*, {
   path: '/signout',
   method: 'GET',

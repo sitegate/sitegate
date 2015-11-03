@@ -19,10 +19,12 @@ function getProfile(account) {
   }
   if (account.provider === 'twitter') {
     console.log(account);
+    throw Error('Not implemented');
     return {};
   }
   if (account.provider === 'google') {
     console.log(account);
+    throw Error('Not implemented');
     return {};
   }
 }
@@ -34,7 +36,7 @@ exports.sessionManagement = function(req, reply) {
   async.waterfall([
     function(cb) {
       var loggedUser = req.pre.session && req.pre.session.user &&
-        re.pre.session.user.id ? { id: re.pre.session.user.id } : null;
+        req.pre.session.user.id ? { id: req.pre.session.user.id } : null;
 
       var providerUserProfile = getProfile(req.auth.credentials);
 

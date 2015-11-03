@@ -19,6 +19,14 @@ module.exports = function(vm) {
         'Disconnect ',
         t('social.' + provider)
       ]);
+    } else {
+      return h('a.fluid.big.ui.black.basic.button', {
+        href: '/auth/' + provider
+      }, [
+        h('i.' + iconClass + '.icon'),
+        'Connect ',
+        t('social.' + provider)
+      ]);
     }
   }
 
