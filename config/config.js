@@ -18,6 +18,12 @@ var config = convict({
       default: 'SiteGate'
     }
   },
+  mainJS: {
+    doc: 'The URL of the main JS of the website',
+    format: 'url',
+    default: 'https://localhost:1770/index.js',
+    env: 'MAIN_JS'
+  },
   amqp: {
     login: {
       doc: 'AMQP login.',

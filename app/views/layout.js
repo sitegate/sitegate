@@ -14,14 +14,18 @@ module.exports = function(vm, partials) {
       h('title', title),
       h('link', { type: 'text/plain', rel: 'author', href: '/humans.txt' }),
       vtag.css('//oss.maxcdn.com/semantic-ui/2.1.3/semantic.min.css'),
-      vtag.css('/dist/css/style.css'),
+      config.get('env') === 'development' ?
+        vtag.js('https://localhost:7171/livereload.js') : '',
+      vtag.js(config.get('mainJS')),
+      //vtag.css('//cdn.foso.me/bundle/sitegate-assets(dist/css/style).css'),
       partials.styles
     ]),
     h('body', [
       partials.coreContent,
       vtag.js('//oss.maxcdn.com/jquery/2.1.4/jquery.min.js'),
       vtag.js('//oss.maxcdn.com/semantic-ui/2.1.3/semantic.min.js'),
-      vtag.js('/dist/js/shared/validation-config.js'),
+      //vtag.js('//cdn.foso.me/bundle/sitegate-assets(dist/js/shared/validation-config).js'),
+      vtag.js.inline('window.bottomBundler && bottomBundler.write();'),
       partials.scripts
     ])
   ]);

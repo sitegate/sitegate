@@ -1,0 +1,24 @@
+{
+  "name": "sitegate-assets",
+  "version": "0.0.0",
+  "description": "Sitegate assets",
+  "main": "./dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublish": "gulp build"
+  },
+  "author": "Zoltan Kochan",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-preset-es2015": "^6.3.13",
+    "fosify-js": "^1.0.2",
+    "fosify-sass": "^1.0.0",
+    "foso": "^1.0.3",
+    "gulp": "^3.9.0"
+  },
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
+  }
+}

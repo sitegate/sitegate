@@ -2,36 +2,30 @@
 
 var gulp = require('gulp');
 var nodemon = require('gulp-nodemon');
-var foso = require('foso');
-var js = require('fosify-js');
-var sass = require('fosify-sass');
+var livereload = require('gulp-livereload');
 var fs = require('fs');
 
-gulp.task('develop', function() {
-  var options = {
-    src: './public/src',
-    dest: './public/dist',
-    watch: true,
-    esnext: true,
-    livereload: {
-      key: fs.readFileSync(__dirname + '/certs/privatekey.pem'),
-      cert: fs.readFileSync(__dirname + '/certs/certificate.pem')
-    }
-  };
+gulp.task('develop-assets', require('./assets/tasks/develop'));
 
-  foso
-    .please(options)
-    .fosify(js)
-    .fosify(sass)
-    .now();
+gulp.task('develop', ['develop-assets'], function() {
+  process.env.NODE_ENV = 'development';
+
+  var options = {
+    port: '7171',
+    key: fs.readFileSync(__dirname + '/certs/privatekey.pem'),
+    cert: fs.readFileSync(__dirname + '/certs/certificate.pem')
+  };
+  livereload.listen(options);
 
   nodemon({
     script: 'app.js',
     ext: 'js jade',
+    ignore: [
+      '**/node_modules/**',
+      'assets/*'
+    ]
   }).on('restart', function() {
-    setTimeout(function() {
-      foso.changed();
-    }, 500);
+    setTimeout(() => livereload.changed('app.js'), 500);
   });
 });
 
