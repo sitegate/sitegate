@@ -5,7 +5,7 @@ var js = require('fosify-js');
 var sass = require('fosify-sass');
 var path = require('path');
 var fs = require('fs');
-var Server = require('../../../../foso/cdn').Server;
+var Server = require('foso-cdn').Server;
 
 module.exports = function(cb) {
   var foso = new Foso();

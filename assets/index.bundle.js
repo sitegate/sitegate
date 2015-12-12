@@ -1,6 +1,6 @@
 'use strict';
 
-var Bundler = require('../../../foso/dtm').Bundler;
+var Bundler = require('foso-dtm').Bundler;
 
 /* somewhere in the head section of the page */
 let bottomBundler =
