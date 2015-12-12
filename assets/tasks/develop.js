@@ -5,6 +5,7 @@ var js = require('fosify-js');
 var sass = require('fosify-sass');
 var path = require('path');
 var fs = require('fs');
+var Server = require('../../../../foso/cdn').Server;
 
 module.exports = function(cb) {
   var foso = new Foso();
@@ -16,16 +17,19 @@ module.exports = function(cb) {
       './dist/**'
     ],
     watch: true,
-    serve: true,
-    livereload: {
-      key: fs.readFileSync(path.resolve(__dirname, '../../certs/privatekey.pem')),
-      cert: fs.readFileSync(path.resolve(__dirname, '../../certs/certificate.pem'))
-    }
+    serve: false,
+    livereload: true
   };
 
   foso
     .register([js, sass], options)
     .then(() => foso.bundle())
+    .then(function() {
+      var server = new Server({
+        src: path.resolve(__dirname, '../')
+      });
+      return server.start();
+    })
     .then(cb)
     .catch(cb);
 };

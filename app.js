@@ -16,23 +16,12 @@ if (config.get('env') === 'development') {
 
 */
 var config = require('./config/config');
-var fs = require('fs');
 var Hapi = require('hapi');
 var path = require('path');
 require('./config/i18n');
 
-//TODO: Change these for your own certificates.  This was generated
-//through the commands:
-//openssl genrsa -out privatekey.pem 1024
-//openssl req -new -key privatekey.pem -out certrequest.csr
-//openssl x509 -req -in certrequest.csr -signkey privatekey.pem -out certificate.pem
-var tls = {
-  key: fs.readFileSync(__dirname + '/certs/privatekey.pem'),
-  cert: fs.readFileSync(__dirname + '/certs/certificate.pem')
-};
-
 var server = new Hapi.Server();
-server.connection({ port: config.get('port'), tls: tls });
+server.connection({ port: config.get('port') });
 
 server.register([
   // registering microservices

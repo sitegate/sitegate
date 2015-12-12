@@ -21,7 +21,7 @@ var config = convict({
   mainJS: {
     doc: 'The URL of the main JS of the website',
     format: 'url',
-    default: 'https://localhost:1770/index.js',
+    default: 'http://localhost:9595/bundle/sitegate-assets(dist/index).js',
     env: 'MAIN_JS'
   },
   amqp: {

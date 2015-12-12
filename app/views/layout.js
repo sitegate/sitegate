@@ -15,7 +15,7 @@ module.exports = function(vm, partials) {
       h('link', { type: 'text/plain', rel: 'author', href: '/humans.txt' }),
       vtag.css('//oss.maxcdn.com/semantic-ui/2.1.3/semantic.min.css'),
       config.get('env') === 'development' ?
-        vtag.js('https://localhost:7171/livereload.js') : '',
+        vtag.js('http://localhost:7171/livereload.js') : '',
       vtag.js(config.get('mainJS')),
       //vtag.css('//cdn.foso.me/bundle/sitegate-assets(dist/css/style).css'),
       partials.styles

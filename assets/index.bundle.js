@@ -11,7 +11,6 @@ window.bottomBundler = new Bundler('js', {
 if (location.pathname === '/signin') {
   bottomBundler.addPackage({
     name: 'sitegate-assets',
-    local: true,
     files: ['dist/js/signin']
   });
 }
