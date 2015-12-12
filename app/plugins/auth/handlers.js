@@ -56,10 +56,8 @@ exports.sessionManagement = function(req, reply) {
       sid = Math.random();
     }
 
-    reply.setSession({
-      user: {
-        id: user.id
-      }
+    req.login({
+      id: user.id
     }, function(err) {
       if (err) {
         console.log(err);

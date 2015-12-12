@@ -12,7 +12,6 @@ module.exports = [{
     pre: [preSession],
     handler: handlers.sessionManagement
   }
-
 }, {
   path: '/auth/google',
   method: 'GET',

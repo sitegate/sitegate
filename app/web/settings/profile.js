@@ -10,6 +10,14 @@ var humbleFlash = require('humble-flash');
 exports.register = function(plugin, options, next) {
   plugin.route({
     method: 'GET',
+    path: '/settings',
+    handler: function(req, reply) {
+      reply.redirect('/settings/profile');
+    }
+  });
+
+  plugin.route({
+    method: 'GET',
     path: '/settings/profile',
     config: {
       pre: [
