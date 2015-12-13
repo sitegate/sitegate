@@ -10,12 +10,6 @@ var socialSignin = require('./partials/social-signin');
 
 module.exports = function(vm) {
   return publicLayout(vm, {
-    styles: [
-      vtag.css('//cdn.foso.me/bundle/sitegate-assets(dist/css/signin).css')
-    ],
-    scripts: [
-      vtag.js('//cdn.foso.me/bundle/sitegate-assets(dist/js/signin).js')
-    ],
     content: [
       h('h1#sign-header.ui.icon.center.aligned.header', [
         h('i.sign.in.icon'),
