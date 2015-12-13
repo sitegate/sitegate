@@ -17,14 +17,14 @@ module.exports = function(vm, partials) {
       config.get('env') === 'development' ?
         vtag.js('http://localhost:7171/livereload.js') : '',
       vtag.js(config.get('mainJS')),
-      vtag.js.inline('window.stylesBundler && stylesBundler.write();')
+      vtag.js.inline('window.stylesBundler && stylesBundler.load();')
     ]),
     h('body', [
       partials.coreContent,
       vtag.js('//oss.maxcdn.com/jquery/2.1.4/jquery.min.js'),
       vtag.js('//oss.maxcdn.com/semantic-ui/2.1.3/semantic.min.js'),
       //vtag.js('//cdn.foso.me/bundle/sitegate-assets(dist/js/shared/validation-config).js'),
-      vtag.js.inline('window.bottomBundler && bottomBundler.write();')
+      vtag.js.inline('window.bottomBundler && bottomBundler.load(true);')
     ])
   ]);
 };
