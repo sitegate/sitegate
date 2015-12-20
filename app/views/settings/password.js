@@ -41,7 +41,6 @@ module.exports = function(vm) {
       h('button.ui.primary.submit.button', {
         type: 'submit'
       }, t('common.saveChanges'))
-    ])),
-    scripts: vtag.js('/dist/js/settings/password.js')
+    ]))
   });
 };

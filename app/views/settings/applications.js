@@ -52,8 +52,6 @@ module.exports = function(vm) {
           })
         )
       )
-    ],
-    scripts: vtag.js('/dist/js/settings/applications.js'),
-    styles: vtag.css('/dist/css/settings/applications.css')
+    ]
   });
 };

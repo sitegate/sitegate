@@ -55,3 +55,43 @@ if (location.pathname === '/reset-password') {
     files: 'dist/css/reset-password'
   });
 }
+if (location.pathname === '/settings/profile') {
+  bottomBundler.addPackage({
+    name: __package,
+    files: 'dist/js/settings/profile'
+  });
+}
+if (location.pathname === '/settings/accounts') {
+  stylesBundler.addPackage({
+    name: __package,
+    files: 'dist/css/settings/accounts'
+  });
+}
+if (location.pathname === '/settings/password') {
+  bottomBundler.addPackage({
+    name: __package,
+    files: 'dist/js/settings/password'
+  });
+}
+if (location.pathname === '/settings/applications') {
+  bottomBundler.addPackage({
+    name: __package,
+    files: 'dist/js/settings/applications'
+  });
+  stylesBundler.addPackage({
+    name: __package,
+    files: 'dist/css/settings/applications'
+  });
+}
+if (location.pathname === '/settings/applications/new') {
+  bottomBundler.addPackage({
+    name: __package,
+    files: 'dist/js/settings/applications-new'
+  });
+}
+if (location.pathname === '/settings/applications/new') {
+  bottomBundler.addPackage({
+    name: __package,
+    files: 'dist/js/settings/applications-new'
+  });
+}

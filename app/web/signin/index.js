@@ -1,7 +1,7 @@
 'use strict';
 
-var signinView = require('../../views/signin');
-var preSession = require('humble-session').pre;
+const signinView = require('../../views/signin');
+const preSession = require('humble-session').pre;
 
 exports.register = function(plugin, options, next) {
   plugin.route({
@@ -22,27 +22,21 @@ exports.register = function(plugin, options, next) {
       auth: false
     },
     handler: function(req, reply) {
-      var userService = req.server.plugins.user;
-      var sessionService = req.server.plugins.session;
+      let userService = req.server.plugins.user;
+      let sessionService = req.server.plugins.session;
 
       userService.authenticate({
         usernameOrEmail: req.payload.username,
         password: req.payload.password
       }, function(err, user) {
-        if (err) {
-          reply(err);
-          return;
-        }
+        if (err) return reply(err);
 
         reply.setSession({
           user: {
             id: user.id
           }
         }, function(err) {
-          if (err) {
-            reply(err);
-            return;
-          }
+          if (err) return reply(err);
 
           reply.redirect('/');
         });

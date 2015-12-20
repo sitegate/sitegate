@@ -36,7 +36,6 @@ module.exports = function(vm) {
       socialConnection('facebook', 'facebook'),
       socialConnection('twitter', 'twitter'),
       socialConnection('google', 'google plus')
-    ]),
-    styles: vtag.css('/dist/css/settings/accounts.css')
+    ])
   });
 };

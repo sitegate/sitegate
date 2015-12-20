@@ -1,21 +1,24 @@
 {
-    "preset": "google",
-    "fileExtensions": [".js", "jscs"],
+  "preset": "google",
+  "fileExtensions": [".js", "jscs"],
 
-    "requireParenthesesAroundIIFE": true,
-    "maximumLineLength": 120,
-    "validateLineBreaks": "LF",
-    "validateIndentation": 2,
+  "requireParenthesesAroundIIFE": true,
+  "maximumLineLength": 120,
+  "validateLineBreaks": "LF",
+  "validateIndentation": 2,
 
-    "disallowKeywords": ["with"],
-    "disallowSpacesInsideObjectBrackets": null,
-    "disallowImplicitTypeConversion": ["string"],
+  "disallowKeywords": ["with"],
+  "disallowSpacesInsideObjectBrackets": null,
+  "disallowImplicitTypeConversion": ["string"],
 
-    "safeContextKeyword": "_this",
+  "safeContextKeyword": "_this",
 
-    "excludeFiles": [
-        "test/data/**"
-    ],
+  "excludeFiles": [
+    "test/data/**"
+  ],
 
-    "requirePaddingNewLinesAfterUseStrict": true
+  "requirePaddingNewLinesAfterUseStrict": true,
+  "requireCurlyBraces": [
+    "do"
+  ]
 }

@@ -49,7 +49,6 @@ module.exports = function(vm) {
         })
       ]),
       h('button.ui.primary.button', t('app.register'))
-    ]),
-    scripts: vtag.js('/dist/js/settings/applications-new.js')
+    ])
   });
 };
