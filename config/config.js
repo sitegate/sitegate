@@ -258,9 +258,14 @@ var config = convict({
 });
 
 // load environment dependent configuration
-var env = config.get('env');
-var filePath = __dirname + '/env/' + env;
-var configFile = yamlOrJSON(filePath);
+let env = config.get('env');
+let filePath = __dirname + '/env/' + env;
+let configFile;
+try {
+  configFile = yamlOrJSON(filePath);
+} catch (err) {
+  configFile = {};
+}
 
 config.load(configFile);
 
