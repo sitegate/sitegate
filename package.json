@@ -7,7 +7,8 @@
     "url": "http://kochan.io"
   },
   "scripts": {
-    "start": "gulp"
+    "start": "node app",
+    "develop": "gulp"
   },
   "repository": {
     "type": "git",
