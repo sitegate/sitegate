@@ -1,11 +1,12 @@
 'use strict';
 
-var Foso = require('foso');
-var js = require('fosify-js');
-var sass = require('fosify-sass');
-var path = require('path');
+const gulp = require('gulp');
+const Foso = require('foso');
+const js = require('fosify-js');
+const sass = require('fosify-sass');
+const path = require('path');
 
-module.exports = function(cb) {
+gulp.task('build', function(cb) {
   var foso = new Foso();
   foso
     .register([js, sass], {
@@ -18,4 +19,4 @@ module.exports = function(cb) {
     .then(() => foso.bundle())
     .then(cb)
     .catch(cb);
-};
+});

@@ -15,12 +15,12 @@ if (config.get('env') === 'development') {
 }
 
 */
-var config = require('./config/config');
-var Hapi = require('hapi');
-var path = require('path');
+const config = require('./config/config');
+const Hapi = require('hapi');
+const path = require('path');
 require('./config/i18n');
 
-var server = new Hapi.Server();
+let server = new Hapi.Server();
 server.connection({ port: config.get('port') });
 
 server.register([
@@ -33,7 +33,7 @@ server.register([
     options: {
       password: config.get('session.secret'),
       cookie: 'sid-sg', // cookie name to use, usually sid-<appname>
-      isSecure: true,
+      isSecure: config.get('env') !== 'development',
       sessionStoreName: 'session'
     }
   },

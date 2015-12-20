@@ -14,8 +14,9 @@
     "fosify-js": "^1.0.3",
     "fosify-sass": "^1.0.0",
     "foso": "^1.0.3",
-    "foso-cdn": "0.0.2",
-    "gulp": "^3.9.0"
+    "foso-cdn": "0.0.4",
+    "gulp": "^3.9.0",
+    "require-dir": "^0.3.0"
   },
   "babel": {
     "presets": [

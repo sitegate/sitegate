@@ -1,16 +1,17 @@
 'use strict';
 
-var Foso = require('foso');
-var js = require('fosify-js');
-var sass = require('fosify-sass');
-var path = require('path');
-var fs = require('fs');
-var Server = require('foso-cdn').Server;
+const gulp = require('gulp');
+const Foso = require('foso');
+const js = require('fosify-js');
+const sass = require('fosify-sass');
+const path = require('path');
+const fs = require('fs');
+const Server = require('foso-cdn').Server;
 
-module.exports = function(cb) {
-  var foso = new Foso();
+gulp.task('develop', function(cb) {
+  let foso = new Foso();
 
-  var options = {
+  let options = {
     src: path.resolve(__dirname, '../'),
     dest: path.resolve(__dirname, '../dist'),
     ignore: [
@@ -25,11 +26,11 @@ module.exports = function(cb) {
     .register([js, sass], options)
     .then(() => foso.bundle())
     .then(function() {
-      var server = new Server({
+      let server = new Server({
         src: path.resolve(__dirname, '../')
       });
       return server.start();
     })
     .then(cb)
     .catch(cb);
-};
+});

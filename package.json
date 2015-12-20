@@ -70,6 +70,7 @@
   },
   "devDependencies": {
     "gulp": "~3.8.10",
+    "gulp-hub": "^0.7.1",
     "gulp-livereload": "^3.8.1",
     "gulp-nodemon": "^2.0.4"
   },

@@ -1,12 +1,11 @@
 'use strict';
 
-var gulp = require('gulp');
-var nodemon = require('gulp-nodemon');
-var livereload = require('gulp-livereload');
+const gulp = require('gulp');
+const nodemon = require('gulp-nodemon');
+const livereload = require('gulp-livereload');
+const hub = require('gulp-hub');
 
-gulp.task('develop-assets', require('./assets/tasks/develop'));
-
-gulp.task('develop', ['develop-assets'], function() {
+gulp.task('develop', function() {
   process.env.NODE_ENV = 'development';
 
   livereload.listen({
@@ -28,3 +27,5 @@ gulp.task('develop', ['develop-assets'], function() {
 gulp.task('default', [
   'develop'
 ]);
+
+hub(['assets/gulpfile.js', 'gulpfile.js']);

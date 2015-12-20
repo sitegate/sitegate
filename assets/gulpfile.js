@@ -1,9 +1,7 @@
 'use strict';
 
-var gulp = require('gulp');
+const gulp = require('gulp');
+const requireDir = require('require-dir');
+requireDir('./tasks');
 
-gulp.task('default', ['build']);
-
-gulp.task('build', require('./tasks/build'));
-
-gulp.task('develop', require('./tasks/develop'));
+gulp.task('default', ['develop']);
