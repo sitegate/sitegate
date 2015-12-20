@@ -77,6 +77,13 @@ var config = convict({
   },
   provider: {
     facebook: {
+      provider: {
+        default: 'facebook'
+      },
+      enabled: {
+        default: false,
+        env: 'FACEBOOK_ENABLED'
+      },
       clientId: {
         doc: 'Facebook App ID.',
         default: '391179464377243',
@@ -89,6 +96,13 @@ var config = convict({
       }
     },
     twitter: {
+      provider: {
+        default: 'twitter'
+      },
+      enabled: {
+        default: false,
+        env: 'TWITTER_ENABLED'
+      },
       clientId: {
         doc: 'Twitter App ID.',
         default: 'j5UFdNnFLv6t24syOiDglfRIX',
@@ -101,6 +115,13 @@ var config = convict({
       }
     },
     google: {
+      provider: {
+        default: 'google'
+      },
+      enabled: {
+        default: false,
+        env: 'GOOGLE_ENABLED'
+      },
       clientId: {
         doc: 'Google App ID.',
         default: '',
@@ -119,6 +140,13 @@ var config = convict({
       }
     },
     linkedin: {
+      provider: {
+        default: 'linkedin'
+      },
+      enabled: {
+        default: false,
+        env: 'LINKEDIN_ENABLED'
+      },
       clientID: {
         doc: 'Linkedin App ID.',
         default: 'APP_ID',
@@ -137,6 +165,13 @@ var config = convict({
       }
     },
     github: {
+      provider: {
+        default: 'github'
+      },
+      enabled: {
+        default: false,
+        env: 'GITHUB_ENABLED'
+      },
       clientID: {
         doc: 'GitHub App ID.',
         default: 'APP_ID',
@@ -262,7 +297,7 @@ let env = config.get('env');
 let filePath = __dirname + '/env/' + env;
 let configFile;
 try {
-  configFile = yamlOrJSON(filePath);
+  configFile = yamlOrJSON(filePath) || {};
 } catch (err) {
   configFile = {};
 }
