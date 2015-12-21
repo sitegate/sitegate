@@ -1,11 +1,11 @@
 'use strict';
 
-var util = require('util');
-var fs = require('fs');
-var yamlOrJSON = require('yaml-or-json');
-var convict = require('convict');
+const util = require('util');
+const fs = require('fs');
+const yamlOrJSON = require('yaml-or-json');
+const convict = require('convict');
 
-var config = convict({
+let config = convict({
   env: {
     doc: 'The applicaton environment.',
     format: ['production', 'development', 'test'],

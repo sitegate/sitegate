@@ -1,3 +1,15 @@
 mainJS: https://cdn.foso.me/bundle/sitegate-assets@0.0.1.min.js
 session:
   secure: true
+userService:
+  mongodb:
+    name: sitegate-user
+clientService:
+  mongodb:
+    name: sitegate-client
+oauthService:
+  mongodb:
+    name: sitegate-oauth-dev
+sessionService:
+  mongodb:
+    name: sitegate-session
