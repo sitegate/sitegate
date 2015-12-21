@@ -1,8 +1,8 @@
 'use strict';
 
-var signupView = require('../../views/signup');
-var preSession = require('humble-session').pre;
-var t = require('i18next').t;
+const signupView = require('../../views/signup');
+const preSession = require('humble-session').pre;
+const t = require('i18next').t;
 
 exports.register = function(plugin, options, next) {
   plugin.route({
@@ -23,9 +23,9 @@ exports.register = function(plugin, options, next) {
       auth: false
     },
     handler: function(req, reply) {
-      var userService = req.server.plugins.user;
+      let userService = req.server.plugins.user;
 
-      var user = req.payload;
+      let user = req.payload;
 
       // Add missing user fields
       user.provider = 'local';
@@ -49,9 +49,7 @@ exports.register = function(plugin, options, next) {
             id: user.id
           }
         }, function(err) {
-          if (err) {
-            return reply(err).status(400);
-          }
+          if (err) return reply(err).status(400);
 
           //TODO: go to the page that the user wanted initially
           return reply.redirect('/');

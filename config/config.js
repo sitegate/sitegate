@@ -61,6 +61,11 @@ var config = convict({
       doc: 'Session collection',
       default: 'sessions',
       env: 'SESSION_COLLECTION'
+    },
+    secure: {
+      doc: 'Session is secure (cookie saved only on HTTPS)',
+      default: false,
+      env: 'SESSION_SECURE'
     }
   },
   sitegateClient: {
@@ -77,51 +82,29 @@ var config = convict({
   },
   provider: {
     facebook: {
-      provider: {
-        default: 'facebook'
-      },
-      enabled: {
-        default: false,
-        env: 'FACEBOOK_ENABLED'
-      },
+      default: null,
       clientId: {
         doc: 'Facebook App ID.',
-        default: '391179464377243',
         env: 'FACEBOOK_ID'
       },
       clientSecret: {
         doc: 'Facebook App secret.',
-        default: 'edfafc7715060f8cb4c7212833a3c87a',
         env: 'FACEBOOK_SECRET'
       }
     },
     twitter: {
-      provider: {
-        default: 'twitter'
-      },
-      enabled: {
-        default: false,
-        env: 'TWITTER_ENABLED'
-      },
+      default: null,
       clientId: {
         doc: 'Twitter App ID.',
-        default: 'j5UFdNnFLv6t24syOiDglfRIX',
         env: 'TWITTER_KEY'
       },
       clientSecret: {
         doc: 'Twitter App secret',
-        default: 'GZMmhyaUcsaQULXQknfmXCEh8KTG91UGBeQED19ASvhsaDO7Ba',
         env: 'TWITTER_SECRET'
       }
     },
     google: {
-      provider: {
-        default: 'google'
-      },
-      enabled: {
-        default: false,
-        env: 'GOOGLE_ENABLED'
-      },
+      default: null,
       clientId: {
         doc: 'Google App ID.',
         default: '',
@@ -129,7 +112,6 @@ var config = convict({
       },
       clientSecret: {
         doc: 'Google App secret',
-        default: 'rcBTWhsCnytAl6bXr3iTnjPs',
         env: 'GOOGLE_SECRET'
       },
       location: {
@@ -140,13 +122,7 @@ var config = convict({
       }
     },
     linkedin: {
-      provider: {
-        default: 'linkedin'
-      },
-      enabled: {
-        default: false,
-        env: 'LINKEDIN_ENABLED'
-      },
+      default: null,
       clientID: {
         doc: 'Linkedin App ID.',
         default: 'APP_ID',
@@ -165,13 +141,7 @@ var config = convict({
       }
     },
     github: {
-      provider: {
-        default: 'github'
-      },
-      enabled: {
-        default: false,
-        env: 'GITHUB_ENABLED'
-      },
+      default: null,
       clientID: {
         doc: 'GitHub App ID.',
         default: 'APP_ID',

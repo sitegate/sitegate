@@ -33,7 +33,7 @@ server.register([
     options: {
       password: config.get('session.secret'),
       cookie: 'sid-sg', // cookie name to use, usually sid-<appname>
-      isSecure: config.get('env') !== 'development',
+      isSecure: config.get('session.secure'),
       sessionStoreName: 'session'
     }
   },

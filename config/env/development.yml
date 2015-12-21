@@ -10,33 +10,28 @@ session:
 provider:
   facebook:
     provider: facebook
-    enabled: true
     password: j0f43bslregf
     clientId: '391179464377243'
     clientSecret: edfafc7715060f8cb4c7212833a3c87a
   twitter:
     provider: twitter
-    enabled: true
     password: j0f43bslregf
     clientId: j5UFdNnFLv6t24syOiDglfRIX
     clientSecret: GZMmhyaUcsaQULXQknfmXCEh8KTG91UGBeQED19ASvhsaDO7Ba
   google:
     provider: google
-    enabled: true
     password: j0f43bslregf
     clientId: 295363747259-4f4o7483ce5q74a6v31n05s23ke37dii.apps.googleusercontent.com
     clientSecret: rcBTWhsCnytAl6bXr3iTnjPs
     location: https://account.sitegatedev.com:3000/auth/google/callback
   linkedin:
     provider: linkedin
-    enabled: true
     password: j0f43bslregf
     clientID: APP_ID
     clientSecret: APP_SECRET
     callbackURL: http://localhost:3000/auth/linkedin/callback
   github:
     provider: github
-    enabled: true
     password: j0f43bslregf
     clientID: APP_ID
     clientSecret: APP_SECRET
