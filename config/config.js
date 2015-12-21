@@ -83,6 +83,7 @@ var config = convict({
   provider: {
     facebook: {
       default: null,
+      format: '*',
       clientId: {
         doc: 'Facebook App ID.',
         env: 'FACEBOOK_ID'
@@ -94,6 +95,7 @@ var config = convict({
     },
     twitter: {
       default: null,
+      format: '*',
       clientId: {
         doc: 'Twitter App ID.',
         env: 'TWITTER_KEY'
@@ -105,6 +107,7 @@ var config = convict({
     },
     google: {
       default: null,
+      format: '*',
       clientId: {
         doc: 'Google App ID.',
         default: '',
@@ -123,6 +126,7 @@ var config = convict({
     },
     linkedin: {
       default: null,
+      format: '*',
       clientID: {
         doc: 'Linkedin App ID.',
         default: 'APP_ID',
@@ -142,6 +146,7 @@ var config = convict({
     },
     github: {
       default: null,
+      format: '*',
       clientID: {
         doc: 'GitHub App ID.',
         default: 'APP_ID',

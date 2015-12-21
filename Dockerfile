@@ -6,7 +6,7 @@ WORKDIR /src
 
 # Install packages
 COPY package.json /src/package.json
-RUN npm install
+RUN npm install --production
 
 # Make everything available for start
 COPY . /src

@@ -1,6 +1,6 @@
 {
   "name": "sitegate-assets",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Sitegate assets",
   "main": "./dist/index.js",
   "scripts": {
