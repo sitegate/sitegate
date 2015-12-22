@@ -58,12 +58,11 @@ sessionService:
     name: sitegate-session-dev
 mailerService:
   mailer:
-    from: MAILER_FROM
+    from: 'test-no-reply@example.com'
     options:
-      service: MAILER_SERVICE_PROVIDER
       auth:
-        user: MAILER_EMAIL_ID
-        pass: MAILER_PASSWORD
+        api_key: 'api_key'
+        domain: 'mg.example.com'
   app:
     title: SiteGate
     host: "https://account.sitegatedev.com:3000"

@@ -15,8 +15,9 @@ let config = convict({
   app: {
     title: {
       doc: 'The title of the App.',
-      default: 'SiteGate'
-    }
+      default: 'SiteGate',
+      env: 'APP_TITLE'
+    },
   },
   mainJS: {
     doc: 'The URL of the main JS of the website',
@@ -260,7 +261,27 @@ let config = convict({
           pass: {
             default: '',
             env: 'MAILER_PASSWORD'
+          },
+          api_key: {
+            default: '',
+            env: 'MAILER_API_KEY'
+          },
+          domain: {
+            default: '',
+            env: 'MAILER_DOMAIN'
           }
+        }
+      },
+      app: {
+        title: {
+          doc: 'The title of the App.',
+          default: 'SiteGate',
+          env: 'MAILER_APP_TITLE'
+        },
+        host: {
+          doc: 'The host of the app.',
+          format: 'url',
+          env: 'MAILER_APP_HOST'
         }
       }
     }
