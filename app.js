@@ -1,20 +1,10 @@
 'use strict';
 
-/*
-var config = require('./config/config');
-var https = require('https');
-var fs = require('fs');
+process.on('uncaughtException', function(err) {
+  console.log('An uncaught exception happened.');
+  console.log(err);
+});
 
-var app = require('./config/express');
-
-// Bootstrap passport config
-require('./config/passport')();
-
-if (config.get('env') === 'development') {
-  require('./config/setup-root');
-}
-
-*/
 const config = require('./config/config');
 const Hapi = require('hapi');
 const path = require('path');
