@@ -272,20 +272,20 @@ let config = convict({
           }
         }
       },
-      app: {
-        title: {
-          doc: 'The title of the App.',
-          default: 'SiteGate',
-          env: 'MAILER_APP_TITLE'
-        },
-        host: {
-          doc: 'The host of the app.',
-          format: 'url',
-          env: 'MAILER_APP_HOST'
-        }
-      }
-    }
-  }
+    },
+    app: {
+      title: {
+        doc: 'The title of the App.',
+        default: 'SiteGate',
+        env: 'MAILER_APP_TITLE',
+      },
+      host: {
+        doc: 'The host of the app.',
+        format: 'url',
+        env: 'MAILER_APP_HOST',
+      },
+    },
+  },
 });
 
 // load environment dependent configuration
