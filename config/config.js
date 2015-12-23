@@ -87,10 +87,12 @@ let config = convict({
       format: '*',
       clientId: {
         doc: 'Facebook App ID.',
+        default: '',
         env: 'FACEBOOK_ID'
       },
       clientSecret: {
         doc: 'Facebook App secret.',
+        default: '',
         env: 'FACEBOOK_SECRET'
       }
     },
@@ -99,10 +101,12 @@ let config = convict({
       format: '*',
       clientId: {
         doc: 'Twitter App ID.',
+        default: '',
         env: 'TWITTER_KEY'
       },
       clientSecret: {
         doc: 'Twitter App secret',
+        default: '',
         env: 'TWITTER_SECRET'
       }
     },
@@ -116,6 +120,7 @@ let config = convict({
       },
       clientSecret: {
         doc: 'Google App secret',
+        default: '',
         env: 'GOOGLE_SECRET'
       },
       location: {
@@ -279,10 +284,11 @@ let config = convict({
         default: 'SiteGate',
         env: 'MAILER_APP_TITLE',
       },
-      host: {
-        doc: 'The host of the app.',
+      origin: {
+        doc: 'The origin of the app.',
+        default: '',
         format: 'url',
-        env: 'MAILER_APP_HOST',
+        env: 'MAILER_APP_ORIGIN',
       },
     },
   },
