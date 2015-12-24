@@ -18,6 +18,7 @@ server.register([
   { register: require('./app/plugins/client') },
   { register: require('./app/plugins/user') },
   { register: require('./app/plugins/session') },
+  { register: require('./app/plugins/oauth') },
   {
     register: require('humble-session'),
     options: {
@@ -40,6 +41,8 @@ server.register([
       session: config.get('session')
     }
   },
+  { register: require('humble-oauth2orize') },
+  { register: require('./app/plugins/oauth2') },
   { register: require('hapi-vtree') },
   { register: require('inert') },
   { register: require('./app/web/signin') },

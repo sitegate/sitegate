@@ -287,7 +287,7 @@ let config = convict({
       origin: {
         doc: 'The origin of the app.',
         default: '',
-        format: 'url',
+        format: String,
         env: 'MAILER_APP_ORIGIN',
       },
     },
