@@ -7,9 +7,10 @@ const hub = require('gulp-hub');
 
 gulp.task('develop', function() {
   process.env.NODE_ENV = 'development';
+  process.env.LR_PORT = '7171';
 
   livereload.listen({
-    port: '7171'
+    port: process.env.LR_PORT
   });
 
   nodemon({

@@ -4,6 +4,11 @@ var h = require('virtual-dom/h');
 var vtag = require('vtag')(h);
 var config = require('../../config/config');
 
+function livereloadTag() {
+  if (!process.env.LR_PORT) return '';
+  return vtag.js('http://localhost:' + process.env.LR_PORT + '/livereload.js');
+}
+
 module.exports = function(vm, partials) {
   var title = (vm.title ? vm.title + ' | ' : '') + config.get('app.title');
 
@@ -14,8 +19,7 @@ module.exports = function(vm, partials) {
       h('title', title),
       h('link', { type: 'text/plain', rel: 'author', href: '/humans.txt' }),
       vtag.css('//oss.maxcdn.com/semantic-ui/2.1.3/semantic.min.css'),
-      config.get('env') === 'development' ?
-        vtag.js('http://localhost:7171/livereload.js') : '',
+      livereloadTag(),
       vtag.js(config.get('mainJS')),
       vtag.js.inline('window.stylesBundler && stylesBundler.load();')
     ]),
