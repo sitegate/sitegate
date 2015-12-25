@@ -63,25 +63,6 @@ server.register([
     throw err;
   }
 
-/*
-  server.route({
-    method: 'GET',
-    path: '/',
-    handler: function(request, reply) {
-      reply('Hello!');
-    }
-  });*/
-
-  server.route({
-    method: 'GET',
-    path: '/secret',
-    config: {
-      handler: function(request, reply) {
-        reply('secret!');
-      }
-    }
-  });
-
   server.start(function() {
     console.log('Server running at:', server.info.uri);
   });
