@@ -2,8 +2,8 @@
 
 var R = require('ramda');
 var errorHandler = require('../../error-handler');
-var resetPasswordView = require('../../views/reset-password');
-var newPasswordView = require('../../views/password/new');
+var resetPasswordView = require('./views/reset-password');
+var newPasswordView = require('./views/new');
 var preSession = require('humble-session').pre;
 var t = require('i18next').t;
 var Boom = require('boom');

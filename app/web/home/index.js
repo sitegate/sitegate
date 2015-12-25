@@ -1,6 +1,6 @@
 'use strict';
 
-var homepageView = require('../../views/home');
+var homepageView = require('./views/home');
 
 exports.register = function(plugin, options, next) {
   plugin.route({

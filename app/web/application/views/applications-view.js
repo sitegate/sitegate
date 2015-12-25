@@ -1,7 +1,7 @@
 'use strict';
 
 var h = require('virtual-dom/h');
-var settingsLayout = require('../settings-layout');
+var settingsLayout = require('../../../views/settings-layout');
 var t = require('i18next').t;
 var vtag = require('vtag')(h);
 

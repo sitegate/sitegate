@@ -1,10 +1,10 @@
 'use strict';
 
-var h = require('virtual-dom/h');
-var settingsLayout = require('../settings-layout');
-var t = require('i18next').t;
-var vtag = require('vtag')(h);
-var messageBlock = require('../partials/message-block');
+const h = require('virtual-dom/h');
+const settingsLayout = require('../../../views/settings-layout');
+const t = require('i18next').t;
+const vtag = require('vtag')(h);
+const messageBlock = require('../../../views/partials/message-block');
 
 module.exports = function(vm) {
   return settingsLayout(vm, {

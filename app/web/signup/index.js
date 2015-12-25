@@ -1,6 +1,6 @@
 'use strict';
 
-const signupView = require('../../views/signup');
+const signupView = require('./views/signup');
 const preSession = require('humble-session').pre;
 const t = require('i18next').t;
 

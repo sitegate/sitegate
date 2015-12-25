@@ -1,7 +1,7 @@
 'use strict';
 
 const uid = require('../../helpers/uid');
-const dialogView = require('../../views/dialog');
+const dialogView = require('./views/dialog');
 
 module.exports = function(server, opts, next) {
   let oauth2orize = server.plugins['humble-oauth2orize'];

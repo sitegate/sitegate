@@ -2,9 +2,9 @@
 
 var h = require('virtual-dom/h');
 var vtag = require('vtag')(h);
-var publicLayout = require('./public-layout');
+var publicLayout = require('../../../views/public-layout');
 var t = require('i18next').t;
-var config = require('../../config/config');
+var config = require('../../../../config/config');
 
 module.exports = function(vm) {
   return publicLayout(vm, {

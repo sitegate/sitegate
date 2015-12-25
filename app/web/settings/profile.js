@@ -1,6 +1,6 @@
 'use strict';
 
-var profileView = require('../../views/settings/profile');
+var profileView = require('./views/profile');
 var errorHandler = require('../../error-handler');
 var pre = require('./pre');
 var Boom = require('boom');

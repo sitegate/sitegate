@@ -1,6 +1,6 @@
 'use strict';
 
-var passwordView = require('../../views/settings/password');
+var passwordView = require('./views/password');
 var Joi = require('joi');
 var pre = require('./pre');
 

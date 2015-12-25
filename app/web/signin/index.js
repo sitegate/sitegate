@@ -1,6 +1,6 @@
 'use strict';
 
-const signinView = require('../../views/signin');
+const signinView = require('./views/signin');
 const preSession = require('humble-session').pre;
 
 exports.register = function(plugin, options, next) {

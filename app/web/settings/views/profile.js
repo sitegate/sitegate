@@ -1,11 +1,11 @@
 'use strict';
 
 var h = require('virtual-dom/h');
-var settingsLayout = require('../settings-layout');
+var settingsLayout = require('../../../views/settings-layout');
 var R = require('ramda');
 var t = require('i18next').t;
 var vtag = require('vtag')(h);
-var messageBlock = require('../partials/message-block');
+var messageBlock = require('../../../views/partials/message-block');
 
 function verificationButton(emailVerified) {
   if (emailVerified) {

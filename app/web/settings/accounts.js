@@ -1,6 +1,6 @@
 'use strict';
 
-var accountsView = require('../../views/settings/accounts');
+var accountsView = require('./views/accounts');
 var pre = require('./pre');
 
 exports.register = function(plugin, options, next) {

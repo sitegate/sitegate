@@ -1,11 +1,11 @@
 'use strict';
 
-var applicationsView = require('../../views/settings/applications');
-var editAppView = require('../../views/settings/applications-edit');
-var newAppView = require('../../views/settings/applications-new');
-var preSession = require('humble-session').pre;
-var t = require('i18next').t;
-var Boom = require('boom');
+const applicationsView = require('./views/applications');
+const editAppView = require('./views/applications-edit');
+const newAppView = require('./views/applications-new');
+const preSession = require('humble-session').pre;
+const t = require('i18next').t;
+const Boom = require('boom');
 
 exports.register = function(plugin, options, next) {
   plugin.route({

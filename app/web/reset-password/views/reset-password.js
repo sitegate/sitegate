@@ -2,11 +2,11 @@
 
 var h = require('virtual-dom/h');
 var vtag = require('vtag')(h);
-var publicLayout = require('./public-layout');
+var publicLayout = require('../../../views/public-layout');
 var t = require('i18next').t;
-var config = require('../../config/config');
-var messageBlock = require('./partials/message-block');
-var socialSignin = require('./partials/social-signin');
+var config = require('../../../../config/config');
+var messageBlock = require('../../../views/partials/message-block');
+var socialSignin = require('../../../views/partials/social-signin');
 
 module.exports = function(vm) {
   return publicLayout(vm, {
