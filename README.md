@@ -44,15 +44,9 @@ Add this line to your hosts file:
 ```
 Run these commands in a console:
 ````
-$ git clone git@github.com:zkochan/sitegate.git && cd ./sitegate
+$ git clone git@github.com:sitegate/sitegate.git && cd ./sitegate
 $ npm install
 $ gulp
-````
-Generate your local SSL certificates in the ./certs folder. You can use these commands:
-````
-$ openssl genrsa -out privatekey.pem 1024
-$ openssl req -new -key privatekey.pem -out certrequest.csr
-$ openssl x509 -req -in certrequest.csr -signkey privatekey.pem -out certificate.pem
 ````
 
 
