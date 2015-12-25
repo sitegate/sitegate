@@ -10,6 +10,10 @@ const Hapi = require('hapi');
 const path = require('path');
 require('./config/i18n');
 
+if (config.get('env') === 'development') {
+  require('./config/setup-root');
+}
+
 let server = new Hapi.Server();
 server.connection({ port: config.get('port') });
 
