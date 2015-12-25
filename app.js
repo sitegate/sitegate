@@ -30,7 +30,9 @@ server.register([
   },
   { register: require('humble-auth') },
   { register: require('humble-flash') },
-
+  { register: require('hapi-auth-bearer-token') },
+  { register: require('hapi-auth-basic') },
+  { register: require('hapi-auth-form') },
   { register: require('bell') },
   {
     register: require('./app/plugins/auth/auth'),
@@ -54,7 +56,8 @@ server.register([
   { register: require('./app/web/settings/profile') },
   { register: require('./app/web/settings/accounts') },
   { register: require('./app/web/settings/password') },
-  { register: require('./app/web/application') }
+  { register: require('./app/web/application') },
+  { register: require('./app/web/user-info') },
 ], function(err) {
   if (err) {
     throw err;

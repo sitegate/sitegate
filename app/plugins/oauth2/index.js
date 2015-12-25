@@ -9,6 +9,45 @@ module.exports = function(server, opts, next) {
   let userService = server.plugins.user;
   let clientService = server.plugins.client;
 
+  server.auth.strategy('bearer', 'bearer-access-token', {
+    allowQueryToken: false,
+    allowMultipleHeaders: false,
+    accessTokenName: 'Bearer',
+    validateFunc: function(token, cb) {
+      oauthService.authToken(token, function(err, userOrClient, info) {
+        if (err) return cb(null, false, { token: token });
+
+        cb(null, true, userOrClient);
+      });
+    }
+  });
+
+  function authenticateClient(clientPublicId, secret, cb) {
+    clientService.getByPublicId(clientPublicId, function(err, client) {
+      if (err) return cb(err);
+
+      // No client found with that id or bad password
+      if (!client || client.secret !== secret) {
+        return cb(null, false);
+      }
+
+      // Success
+      return cb(null, true, client);
+    });
+  }
+
+  server.auth.strategy('basic-client', 'basic', {
+    validateFunc: function(request, clientPublicId, secret, cb) {
+      authenticateClient(clientPublicId, secret, cb);
+    }
+  });
+
+  server.auth.strategy('form-client', 'form', {
+    usernameField: 'client_id',
+    passwordField: 'client_secret',
+    validateFunc: authenticateClient,
+  });
+
   /* Register serialialization function */
   oauth2orize.serializeClient(function(client, cb) {
     return cb(null, {
@@ -47,6 +86,9 @@ module.exports = function(server, opts, next) {
   server.route({
     method: 'GET',
     path: '/oauth2/authorize',
+    config: {
+      auth: 'default',
+    },
     handler: function(req, reply) {
       let userId = req.auth.credentials.id;
       oauth2orize.authorize(req, reply, function(xreq, xres) {
@@ -65,7 +107,6 @@ module.exports = function(server, opts, next) {
             oauth2orize.decision(req, reply, {
               loadTransaction: false
             }, function(req, cb) {
-              console.log('ttt');
               cb(null, {
                 allow: true
               });
@@ -91,6 +132,9 @@ module.exports = function(server, opts, next) {
   server.route({
     method: 'POST',
     path: '/oauth2/authorize',
+    config: {
+      auth: 'default',
+    },
     handler: function(req, reply) {
       let userService = req.server.plugins.user;
 
@@ -107,7 +151,17 @@ module.exports = function(server, opts, next) {
   server.route({
     method: 'POST',
     path: '/oauth2/token',
-    handler: (req, reply) => oauth2orize.token(req, reply)
+    config: {
+      auth: {
+        strategies: [
+          'basic-client',
+          'form-client',
+        ]
+      },
+    },
+    handler: function(req, reply) {
+      oauth2orize.token(req, reply);
+    },
   });
 
   next();
