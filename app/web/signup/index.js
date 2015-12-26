@@ -4,16 +4,20 @@ const signupView = require('./views/signup');
 const preSession = require('humble-session').pre;
 const t = require('i18next').t;
 
-exports.register = function(plugin, options, next) {
+module.exports = function(plugin, options, next) {
   plugin.route({
     method: 'GET',
     path: '/signup',
     config: {
-      auth: false
+      auth: {
+        mode: 'try',
+      },
     },
-    handler: function(request, reply) {
+    handler(request, reply) {
+      if (request.auth.isAuthenticated) return reply.redirect('/');
+
       reply.vtree(signupView({}));
-    }
+    },
   });
 
   plugin.route({
@@ -22,7 +26,7 @@ exports.register = function(plugin, options, next) {
     config: {
       auth: false
     },
-    handler: function(req, reply) {
+    handler(req, reply) {
       let userService = req.server.plugins.user;
 
       let user = req.payload;
@@ -61,6 +65,6 @@ exports.register = function(plugin, options, next) {
   next();
 };
 
-exports.register.attributes = {
+module.exports.attributes = {
   name: 'web/signup'
 };

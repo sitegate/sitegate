@@ -8,9 +8,13 @@ exports.register = function(plugin, options, next) {
     method: 'GET',
     path: '/signin',
     config: {
-      auth: false
+      auth: {
+        mode: 'try',
+      },
     },
-    handler: function(request, reply) {
+    handler(request, reply) {
+      if (request.auth.isAuthenticated) return reply.redirect('/');
+
       reply.vtree(signinView({}));
     }
   });
@@ -21,7 +25,7 @@ exports.register = function(plugin, options, next) {
     config: {
       auth: false
     },
-    handler: function(req, reply) {
+    handler(req, reply) {
       let userService = req.server.plugins.user;
       let sessionService = req.server.plugins.session;
 
@@ -49,7 +53,7 @@ exports.register = function(plugin, options, next) {
     path: '/signout',
     config: {
       pre: [preSession],
-      handler: function(req, reply) {
+      handler(req, reply) {
         delete req.pre.session.user;
         reply.setSession(req.pre.session, function(err) {
           if (err) {
