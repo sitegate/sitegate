@@ -13,5 +13,9 @@ i18n.init({
 });
 
 export default function(resourceName) {
+  return i18n.t(resourceName);
+}
+
+export function tfn(resourceName) {
   return () => i18n.t(resourceName);
 }

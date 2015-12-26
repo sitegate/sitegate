@@ -1,6 +1,6 @@
 'use strict';
 
-import t from '../shared/t';
+import {tfn} from '../shared/t';
 
 $('.ui.form').form({
   fields: {
@@ -9,7 +9,7 @@ $('.ui.form').form({
       rules: [
         {
           type: 'empty',
-          prompt: t('settings.currentPassword.required')
+          prompt: tfn('settings.currentPassword.required')
         }
      ]
     },
@@ -18,11 +18,11 @@ $('.ui.form').form({
       rules: [
         {
           type: 'empty',
-          prompt: t('settings.newPassword.required')
+          prompt: tfn('settings.newPassword.required')
         },
         {
           type: 'length[6]',
-          prompt: t('settings.newPassword.minLength')
+          prompt: tfn('settings.newPassword.minLength')
         }
      ]
     },
@@ -31,11 +31,11 @@ $('.ui.form').form({
       rules: [
         {
           type: 'empty',
-          prompt: t('settings.verifyPassword.required')
+          prompt: tfn('settings.verifyPassword.required')
         },
         {
           type: 'match[newPassword]',
-          prompt: t('settings.verifyPassword.matchNewPassword')
+          prompt: tfn('settings.verifyPassword.matchNewPassword')
         }
      ]
     }

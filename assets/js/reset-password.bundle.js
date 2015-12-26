@@ -1,6 +1,6 @@
 'use strict';
 
-import t from './shared/t';
+import {tfn} from './shared/t';
 
 $('.ui.form').form({
   fields: {
@@ -9,11 +9,11 @@ $('.ui.form').form({
       rules: [
         {
           type: 'empty',
-          prompt: t('accountValidation.email.required')
+          prompt: tfn('accountValidation.email.required')
         },
         {
           type: 'email',
-          prompt: t('accountValidation.email.valid')
+          prompt: tfn('accountValidation.email.valid')
         }
      ]
     }

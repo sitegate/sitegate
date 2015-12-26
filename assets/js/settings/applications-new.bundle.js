@@ -1,6 +1,6 @@
 'use strict';
 
-import t from '../shared/t';
+import {tfn} from '../shared/t';
 
 $('.ui.form').form({
   fields: {
@@ -9,7 +9,7 @@ $('.ui.form').form({
       rules: [
         {
           type: 'empty',
-          prompt: t('app.validation.nameRequired')
+          prompt: tfn('app.validation.nameRequired')
         }
      ]
     },
@@ -18,11 +18,11 @@ $('.ui.form').form({
       rules: [
         {
           type: 'empty',
-          prompt: t('app.validation.homepageUrl.required')
+          prompt: tfn('app.validation.homepageUrl.required')
         },
         {
           type: 'url',
-          prompt: t('app.validation.homepageUrl.url')
+          prompt: tfn('app.validation.homepageUrl.url')
         }
      ]
     },
@@ -31,11 +31,11 @@ $('.ui.form').form({
       rules: [
         {
           type: 'empty',
-          prompt: t('app.validation.authCallbackUrl.required')
+          prompt: tfn('app.validation.authCallbackUrl.required')
         },
         {
           type: 'url',
-          prompt: t('app.validation.authCallbackUrl.url')
+          prompt: tfn('app.validation.authCallbackUrl.url')
         }
      ]
     }

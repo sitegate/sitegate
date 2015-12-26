@@ -3,13 +3,13 @@
 import t from '../shared/t';
 
 $('.revoke.button').click(function() {
-  var $this = $(this);
+  let $this = $(this);
 
   if (window.confirm(t('app.revokeConfirmation'))) {
     $.ajax({
       method: 'POST',
       url: '/settings/applications/revoke/' + $this.data('client-id'),
-      success: function() {
+      success() {
         $this.parents('.item').remove();
       }
     });
@@ -21,7 +21,7 @@ $('.revoke-all.button').click(function() {
     $.ajax({
       method: 'POST',
       url: '/settings/applications/revoke-all',
-      success: function() {
+      success() {
         $('.trusted.clients').remove();
       }
     });

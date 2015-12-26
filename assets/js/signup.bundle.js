@@ -1,6 +1,6 @@
 'use strict';
 
-import t from './shared/t';
+import {tfn} from './shared/t';
 import zxcvbn from 'zxcvbn';
 import username from './validation/username';
 
@@ -11,19 +11,19 @@ $('.ui.form').form({
       rules: [
         {
           type: 'empty',
-          prompt: t('accountValidation.username.required')
+          prompt: tfn('accountValidation.username.required')
         },
         {
           type: 'length[5]',
-          prompt: t('accountValidation.username.minLength')
+          prompt: tfn('accountValidation.username.minLength')
         },
         {
           type: 'maxLength[20]',
-          prompt: t('accountValidation.username.maxLength')
+          prompt: tfn('accountValidation.username.maxLength')
         },
         {
           type: username.rule,
-          prompt: t('accountValidation.username.allowedChars')
+          prompt: tfn('accountValidation.username.allowedChars')
         }
      ]
     },
@@ -32,11 +32,11 @@ $('.ui.form').form({
       rules: [
         {
           type: 'empty',
-          prompt: t('accountValidation.password.required')
+          prompt: tfn('accountValidation.password.required')
         },
         {
           type: 'length[6]',
-          prompt: t('accountValidation.password.minLength')
+          prompt: tfn('accountValidation.password.minLength')
         }
      ]
     },
@@ -45,11 +45,11 @@ $('.ui.form').form({
       rules: [
         {
           type: 'empty',
-          prompt: t('accountValidation.email.required')
+          prompt: tfn('accountValidation.email.required')
         },
         {
           type: 'email',
-          prompt: t('accountValidation.email.valid')
+          prompt: tfn('accountValidation.email.valid')
         }
      ]
     }

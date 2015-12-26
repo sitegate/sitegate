@@ -9,7 +9,7 @@ $('#appDelete').click(function() {
     $.ajax({
       method: 'DELETE',
       url: '/settings/applications/' + $this.data('client-id'),
-      success: function() {
+      success() {
         window.location.href = window.location.origin +
           '/settings/applications';
       }
