@@ -12,6 +12,11 @@ module.exports = function(plugin, options, next) {
       auth: {
         mode: 'try',
       },
+      plugins: {
+        'humble-auth': {
+          redirectTo: false,
+        },
+      },
     },
     handler(request, reply) {
       if (request.auth.isAuthenticated) return reply.redirect('/');

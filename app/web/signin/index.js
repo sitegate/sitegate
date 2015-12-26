@@ -11,6 +11,11 @@ exports.register = function(plugin, options, next) {
       auth: {
         mode: 'try',
       },
+      plugins: {
+        'humble-auth': {
+          redirectTo: false,
+        },
+      },
     },
     handler(request, reply) {
       if (request.auth.isAuthenticated) return reply.redirect('/');
@@ -23,7 +28,7 @@ exports.register = function(plugin, options, next) {
     method: 'POST',
     path: '/signin',
     config: {
-      auth: false
+      auth: false,
     },
     handler(req, reply) {
       let userService = req.server.plugins.user;
