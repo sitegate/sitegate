@@ -26,6 +26,6 @@
   "dependencies": {
     "foso-dtm": "0.0.3",
     "i18next-client": "^1.10.2",
-    "zxcvbn": "^3.4.0"
+    "zxcvbn": "^4.2.0"
   }
 }
