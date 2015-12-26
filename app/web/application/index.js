@@ -7,7 +7,6 @@ const appView = require('./views/applications-view');
 const preSession = require('humble-session').pre;
 const t = require('i18next').t;
 const Boom = require('boom');
-const preUser = require('../pre-user');
 
 exports.register = function(plugin, options, next) {
   plugin.route({
@@ -176,17 +175,13 @@ exports.register = function(plugin, options, next) {
   plugin.route({
     method: 'POST',
     path: '/settings/applications/revoke/{id}',
-    config: {
-      pre: [preUser],
-    },
     handler: function(req, reply) {
       let userService = req.server.plugins.user;
 
-      req.pre.user
-        .trustedClients
-        .splice(req.pre.user.trustedClients.indexOf(req.params.id), 1);
-
-      userService.update(req.pre.user.id, req.pre.user, function(err) {
+      userService.revokeClientAccess({
+        userId: req.auth.credentials.id,
+        clientId: req.params.id,
+      }, function(err) {
         if (err) return reply(Boom.wrap(err));
 
         reply('Success');
@@ -197,17 +192,12 @@ exports.register = function(plugin, options, next) {
   plugin.route({
     method: 'POST',
     path: '/settings/applications/revoke-all',
-    config: {
-      pre: [preUser],
-    },
     handler: function(req, reply) {
       let userService = req.server.plugins.user;
 
-      req.pre.user
-        .trustedClients
-        .splice(0, req.pre.user.trustedClients.length);
-
-      userService.update(req.pre.user.id, req.pre.user, function(err) {
+      userService.revokeAllClientsAccess({
+        userId: req.auth.credentials.id
+      }, function(err) {
         if (err) return reply(Boom.wrap(err));
 
         reply('Success');

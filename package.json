@@ -38,7 +38,7 @@
     "sitegate-mailer": "^0.2.2",
     "sitegate-oauth": "^0.1.0",
     "sitegate-session": "^0.2.0",
-    "sitegate-user": "^0.1.0",
+    "sitegate-user": "^0.2.0",
     "uva-amqp": "^0.4.0",
     "vdom-to-html": "^2.1.1",
     "virtual-dom": "^2.1.1",
