@@ -83,11 +83,18 @@ if (location.pathname === '/settings/applications') {
     files: 'dist/css/settings/applications'
   });
 }
-if (location.pathname === '/settings/applications/new') {
-  bottomBundler.addPackage({
-    name: __package,
-    files: 'dist/js/settings/applications-new'
-  });
+if (location.pathname.indexOf('/settings/applications/') === 0) {
+  if (location.pathname === '/settings/applications/new') {
+    bottomBundler.addPackage({
+      name: __package,
+      files: 'dist/js/settings/applications-new'
+    });
+  } else {
+    bottomBundler.addPackage({
+      name: __package,
+      files: 'dist/js/settings/applications-edit'
+    });
+  }
 }
 if (location.pathname.indexOf('/settings/connections/') === 0) {
   bottomBundler.addPackage({

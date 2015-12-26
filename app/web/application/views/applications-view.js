@@ -8,7 +8,7 @@ var vtag = require('vtag')(h);
 module.exports = function(vm) {
   return settingsLayout(vm, {
     settingsContent: [
-      h('.ui.tertiary.attached.segments',
+      h('.ui.tertiary.attached.segment',
         h('.ui.breadcrumb', [
           h('a.section', {
             href: '/settings/applications'
