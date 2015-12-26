@@ -1,6 +1,6 @@
 'use strict';
 
-exports.user = {
+module.exports = {
   assign: 'user',
   method: function(req, reply) {
     var userService = req.server.plugins.user;

@@ -1,15 +1,15 @@
 'use strict';
 
-var passwordView = require('./views/password');
-var Joi = require('joi');
-var pre = require('./pre');
+const passwordView = require('./views/password');
+const Joi = require('joi');
+const preUser = require('../pre-user');
 
 exports.register = function(plugin, options, next) {
   plugin.route({
     method: 'GET',
     path: '/settings/password',
     config: {
-      pre: [pre.user],
+      pre: [preUser],
       handler: function(req, reply) {
         reply.vtree(passwordView({
           hasPassword: typeof req.pre.user.hash !== 'undefined'

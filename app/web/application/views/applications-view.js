@@ -24,7 +24,9 @@ module.exports = function(vm) {
         }, vm.homepageUrl),
         h('p', vm.description),
         h('button.ui.red.inverted.revoke.button', {
-          'data-client-id': vm.id
+          attributes: {
+            'data-client-id': vm.id
+          }
         }, t('app.revoke'))
       ])
     ],

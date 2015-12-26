@@ -43,7 +43,9 @@ module.exports = function(vm) {
                   href: '/settings/connections/' + client.id
                 }, t('app.view')),
                 h('button.ui.tiny.red.inverted.revoke.button', {
-                  'data-client-id': client.id.toString()
+                  attributes: {
+                    'data-client-id': client.id.toString()
+                  }
                 }, t('app.revoke'))
               ]),
               h('i.anchor.icon'),

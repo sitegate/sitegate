@@ -2,7 +2,7 @@
 
 var profileView = require('./views/profile');
 var errorHandler = require('../../error-handler');
-var pre = require('./pre');
+var preUser = require('../pre-user');
 var Boom = require('boom');
 var preSession = require('humble-session').pre;
 var humbleFlash = require('humble-flash');
@@ -21,7 +21,7 @@ exports.register = function(plugin, options, next) {
     path: '/settings/profile',
     config: {
       pre: [
-        pre.user,
+        preUser,
         humbleFlash.createPreHandler('profileSuccessMessages')
       ]
     },
