@@ -181,12 +181,10 @@ exports.register = function(plugin, options, next) {
     },
     handler: function(req, reply) {
       let userService = req.server.plugins.user;
-      console.log(req.pre.user.trustedClients);
 
       req.pre.user
         .trustedClients
         .splice(req.pre.user.trustedClients.indexOf(req.params.id), 1);
-        console.log(req.pre.user.trustedClients);
 
       userService.update(req.pre.user.id, req.pre.user, function(err) {
         if (err) return reply(Boom.wrap(err));
