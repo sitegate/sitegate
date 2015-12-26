@@ -2,6 +2,7 @@
 
 const uid = require('../../helpers/uid');
 const dialogView = require('./views/dialog');
+const sessionPre = require('humble-session').pre;
 
 module.exports = function(server, opts, next) {
   let oauth2orize = server.plugins['humble-oauth2orize'];
@@ -88,36 +89,39 @@ module.exports = function(server, opts, next) {
     path: '/oauth2/authorize',
     config: {
       auth: 'default',
+      pre: [sessionPre],
     },
     handler: function(req, reply) {
       let userId = req.auth.credentials.id;
       oauth2orize.authorize(req, reply, function(xreq, xres) {
-        oauthService.isTrusted({
-          clientId: xreq.oauth2.client.id,
-          userId: userId
-        }, function(err, isTrusted) {
-          if (err) {
-            console.log(err);
-            return;
-          }
+        reply.setSession(req.pre.session, function() {
+          oauthService.isTrusted({
+            clientId: xreq.oauth2.client.id,
+            userId: userId
+          }, function(err, isTrusted) {
+            if (err) {
+              console.log(err);
+              return;
+            }
 
-          if (isTrusted) {
-            req.oauth2 = xreq.oauth2;
-            req.payload = req.payload || {};
-            oauth2orize.decision(req, reply, {
-              loadTransaction: false
-            }, function(req, cb) {
-              cb(null, {
-                allow: true
+            if (isTrusted) {
+              req.oauth2 = xreq.oauth2;
+              req.payload = req.payload || {};
+              oauth2orize.decision(req, reply, {
+                loadTransaction: false
+              }, function(req, cb) {
+                cb(null, {
+                  allow: true
+                });
               });
-            });
-            return;
-          }
-          return reply.vtree(dialogView({
-            transactionID: xreq.oauth2.transactionID,
-            user: req.auth.credentials,
-            client: xreq.oauth2.client
-          }));
+              return;
+            }
+            return reply.vtree(dialogView({
+              transactionID: xreq.oauth2.transactionID,
+              user: req.auth.credentials,
+              client: xreq.oauth2.client
+            }));
+          });
         });
       }, function(clientId, redirectUri, cb) {
         clientService.getByPublicId(clientId, function(err, client) {
