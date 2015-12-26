@@ -89,9 +89,9 @@ if (location.pathname === '/settings/applications/new') {
     files: 'dist/js/settings/applications-new'
   });
 }
-if (location.pathname === '/settings/applications/new') {
+if (location.pathname.indexOf('/settings/connections/') === 0) {
   bottomBundler.addPackage({
     name: __package,
-    files: 'dist/js/settings/applications-new'
+    files: 'dist/js/settings/applications-view'
   });
 }
