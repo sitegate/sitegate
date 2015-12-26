@@ -140,6 +140,10 @@ module.exports = function(server, opts, next) {
       auth: 'default',
     },
     handler: function(req, reply) {
+      if (req.payload.cancel) {
+        return oauth2orize.decision(req, reply);
+      }
+
       let userService = req.server.plugins.user;
 
       userService.trustClient({
