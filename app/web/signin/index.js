@@ -1,7 +1,6 @@
 'use strict';
 
 const signinView = require('./views/signin');
-const preSession = require('humble-session').pre;
 
 exports.register = function(plugin, options, next) {
   plugin.route({
@@ -56,19 +55,13 @@ exports.register = function(plugin, options, next) {
   plugin.route({
     method: ['GET', 'POST', 'DELETE'],
     path: '/signout',
-    config: {
-      pre: [preSession],
-      handler(req, reply) {
-        delete req.pre.session.user;
-        reply.setSession(req.pre.session, function(err) {
-          if (err) {
-            return reply(err);
-          }
+    handler(req, reply) {
+      reply.logout(function(err) {
+        if (err) return reply(err);
 
-          reply.redirect('/signin');
-        });
-      }
-    }
+        reply.redirect('/signin');
+      });
+    },
   });
 
   next();
