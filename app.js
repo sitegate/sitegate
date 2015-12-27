@@ -5,6 +5,10 @@ process.on('uncaughtException', function(err) {
   console.log(err);
 });
 
+process.on('unhandledRejection', function(reason, p) {
+  console.log('Possibly Unhandled Rejection at: Promise ', p, ' reason: ', reason);
+});
+
 const config = require('./config/config');
 const Hapi = require('hapi');
 const path = require('path');
