@@ -18,7 +18,12 @@ if (config.get('env') === 'development') {
   require('./config/setup-root');
 }
 
-let server = new Hapi.Server();
+let server = new Hapi.Server({
+  debug: {
+    log: ['error'],
+    request: ['error'],
+  },
+});
 server.connection({ port: config.get('port') });
 
 server.register([
