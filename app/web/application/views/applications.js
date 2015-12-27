@@ -9,9 +9,9 @@ module.exports = function(vm) {
   var hasTrustedClients = !!(vm.trustedClients && vm.trustedClients.length > 0);
   return settingsLayout(vm, {
     settingsContent: [
-      h('h5.ui.top.attached.block.header', [
+      h('h5.ui.top.attached.block.header.clearing.segment', [
         t('app.devApps'),
-        h('a.ui.basic.small.button', {
+        h('a.ui.basic.small.right.floated.button', {
           href: '/settings/applications/new'
         }, t('app.registerNew'))
       ]),

@@ -20,7 +20,7 @@ module.exports = function(vm) {
         t('social.' + provider)
       ]);
     } else {
-      return h('a.fluid.big.ui.black.basic.button', {
+      return h('a.fluid.big.ui.basic.button', {
         href: '/auth/' + provider
       }, [
         h('i.' + iconClass + '.icon'),
