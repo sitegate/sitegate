@@ -28,8 +28,6 @@ exports.register = function(plugin, options, next) {
     handler: function(req, reply) {
       reply.vtree(profileView({
         user: req.pre.user,
-        /*homepageUrl: config.get('sitegateClient.domain') +
-          config.get('sitegateClient.privateHomepage'),*/
         messages: {
           success: req.pre.profileSuccessMessages
         }

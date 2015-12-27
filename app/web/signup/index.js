@@ -4,7 +4,7 @@ const signupView = require('./views/signup');
 const preSession = require('humble-session').pre;
 const t = require('i18next').t;
 
-module.exports = function(plugin, options, next) {
+module.exports = function(plugin, opts, next) {
   plugin.route({
     method: 'GET',
     path: '/signup',
@@ -19,7 +19,8 @@ module.exports = function(plugin, options, next) {
       },
     },
     handler(request, reply) {
-      if (request.auth.isAuthenticated) return reply.redirect('/');
+      if (request.auth.isAuthenticated)
+        return reply.redirect(opts.homepageUrl);
 
       reply.vtree(signupView({}));
     },
@@ -36,7 +37,7 @@ module.exports = function(plugin, options, next) {
 
       let user = req.payload;
 
-      // Add missing user fields
+      /* Add missing user fields */
       user.provider = 'local';
       user.displayName = user.firstName + ' ' + user.lastName;
       user.emailVerified = false;
@@ -60,8 +61,7 @@ module.exports = function(plugin, options, next) {
         }, function(err) {
           if (err) return reply(err).status(400);
 
-          //TODO: go to the page that the user wanted initially
-          return reply.redirect('/');
+          return reply.redirect(opts.homepageUrl);
         });
       });
     }

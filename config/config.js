@@ -18,6 +18,11 @@ let config = convict({
       default: 'SiteGate',
       env: 'APP_TITLE'
     },
+    homepageUrl: {
+      doc: 'The URL of the Apps homepage',
+      default: '/',
+      env: 'APP_HOMEPAGE_URL',
+    },
   },
   mainJS: {
     doc: 'The URL of the main JS of the website',
@@ -67,18 +72,6 @@ let config = convict({
       doc: 'Session is secure (cookie saved only on HTTPS)',
       default: false,
       env: 'SESSION_SECURE'
-    }
-  },
-  sitegateClient: {
-    domain: {
-      format: 'url',
-      default: 'http://sitegatedev.com:3001'
-    },
-    privateHomepage: {
-      default: '/'
-    },
-    publicHomepage: {
-      default: '/'
     }
   },
   provider: {

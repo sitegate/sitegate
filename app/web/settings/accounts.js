@@ -11,11 +11,7 @@ exports.register = function(plugin, options, next) {
       pre: [preUser],
       handler: function(req, reply) {
         reply.vtree(accountsView({
-          user: req.pre.user/*,
-          title: i18n.t('settings.socialConnections'),
-          homepageUrl: config.get('sitegateClient.domain') +
-            config.get('sitegateClient.privateHomepage'),
-          }*/
+          user: req.pre.user,
         }));
       }
     }

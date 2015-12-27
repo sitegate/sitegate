@@ -2,7 +2,7 @@
 
 const signinView = require('./views/signin');
 
-exports.register = function(plugin, options, next) {
+exports.register = function(plugin, opts, next) {
   plugin.route({
     method: 'GET',
     path: '/signin',
@@ -17,7 +17,8 @@ exports.register = function(plugin, options, next) {
       },
     },
     handler(request, reply) {
-      if (request.auth.isAuthenticated) return reply.redirect('/');
+      if (request.auth.isAuthenticated)
+        return reply.redirect(opts.homepageUrl);
 
       reply.vtree(signinView({}));
     }
@@ -49,7 +50,7 @@ exports.register = function(plugin, options, next) {
           if (req.query.next)
             return reply.redirect(decodeURIComponent(req.query.next));
 
-          reply.redirect('/');
+          reply.redirect(opts.homepageUrl);
         });
       });
     }

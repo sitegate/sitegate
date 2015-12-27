@@ -51,8 +51,18 @@ server.register([
   { register: require('./app/plugins/oauth2') },
   { register: require('hapi-vtree') },
   { register: require('inert') },
-  { register: require('./app/web/signin') },
-  { register: require('./app/web/signup') },
+  {
+    register: require('./app/web/signin'),
+    options: {
+      homepageUrl: config.get('app.homepageUrl'),
+    },
+  },
+  {
+    register: require('./app/web/signup'),
+    options: {
+      homepageUrl: config.get('app.homepageUrl'),
+    },
+  },
   { register: require('./app/web/reset-password') },
   { register: require('./app/web/home') },
   { register: require('./app/web/public') },
