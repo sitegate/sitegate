@@ -26,7 +26,7 @@
     "hapi-auth-bearer-token": "^4.0.0",
     "hapi-auth-form": "^0.1.2",
     "hapi-vtree": "^0.1.0",
-    "humble-auth": "^0.2.0",
+    "humble-auth": "^0.2.1",
     "humble-flash": "^0.1.0",
     "humble-oauth2orize": "^0.1.1",
     "humble-session": "^0.1.0",

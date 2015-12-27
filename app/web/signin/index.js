@@ -58,6 +58,13 @@ exports.register = function(plugin, options, next) {
   plugin.route({
     method: ['GET', 'POST', 'DELETE'],
     path: '/signout',
+    config: {
+      plugins: {
+        'humble-auth': {
+          appendNext: false,
+        },
+      },
+    },
     handler(req, reply) {
       reply.logout(function(err) {
         if (err) return reply(err);
