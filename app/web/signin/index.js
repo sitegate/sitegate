@@ -46,6 +46,9 @@ exports.register = function(plugin, options, next) {
         }, function(err) {
           if (err) return reply(err);
 
+          if (req.query.next)
+            return reply.redirect(decodeURIComponent(req.query.next));
+
           reply.redirect('/');
         });
       });

@@ -18,7 +18,8 @@ exports.register = function(server, opts, next) {
   }
 
   server.auth.strategy('default', 'session', true, {
-    redirectTo: '/signin'
+    redirectTo: '/signin',
+    appendNext: true,
   });
 
   //Added a separate file for just routes.
