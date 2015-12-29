@@ -1,21 +1,17 @@
 'use strict';
 
-var routes = require('./routes');
+const routes = require('./routes');
+const R = require('ramda');
 
 exports.register = function(server, opts, next) {
-  opts = opts || {};
+  let bellOpts = {
+    forceHttps: opts.forceHttps,
+  };
 
-  if (opts.facebook) {
-    server.auth.strategy('facebook', 'bell', opts.facebook);
-  }
-
-  if (opts.google) {
-    server.auth.strategy('google', 'bell', opts.google);
-  }
-
-  if (opts.twitter) {
-    server.auth.strategy('twitter', 'bell', opts.twitter);
-  }
+  ['facebook', 'google', 'twitter'].forEach(function(provider) {
+    if (!opts[provider]) return;
+    server.auth.strategy(provider, 'bell', R.merge(bellOpts, opts[provider]));
+  });
 
   server.auth.strategy('default', 'session', true, {
     redirectTo: '/signin',
