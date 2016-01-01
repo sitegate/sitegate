@@ -22,7 +22,7 @@
     "brototype": "0.0.5",
     "convict": "^1.0.1",
     "glue": "^3.0.0",
-    "hapi": "^11.1.3",
+    "hapi": "^11.1.4",
     "hapi-auth-basic": "^4.1.0",
     "hapi-auth-bearer-token": "^4.0.0",
     "hapi-auth-form": "^0.1.2",
