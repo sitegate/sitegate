@@ -1,8 +1,8 @@
 'use strict';
 
-var h = require('virtual-dom/h');
-var vtag = require('vtag')(h);
-var config = require('../../config/config');
+const h = require('virtual-dom/h');
+const vtag = require('vtag')(h);
+const config = require('../../config/config');
 
 function livereloadTag() {
   if (!process.env.LR_PORT) return '';
@@ -10,7 +10,7 @@ function livereloadTag() {
 }
 
 module.exports = function(vm, partials) {
-  var title = (vm.title ? vm.title + ' | ' : '') + config.get('app.title');
+  let title = (vm.title ? vm.title + ' | ' : '') + config.get('app.title');
 
   return h('html', { lang: 'en' }, [
     h('head', [
@@ -21,14 +21,14 @@ module.exports = function(vm, partials) {
       vtag.css('//oss.maxcdn.com/semantic-ui/2.1.3/semantic.min.css'),
       livereloadTag(),
       vtag.js(config.get('mainJS')),
-      vtag.js.inline('window.stylesBundler && stylesBundler.load();')
+      vtag.js.inline('window.stylesBundler && stylesBundler.load();'),
     ]),
     h('body', [
       partials.coreContent,
       vtag.js('//oss.maxcdn.com/jquery/2.1.4/jquery.min.js'),
       vtag.js('//oss.maxcdn.com/semantic-ui/2.1.3/semantic.min.js'),
       //vtag.js('//cdn.foso.me/bundle/sitegate-assets(dist/js/shared/validation-config).js'),
-      vtag.js.inline('window.bottomBundler && bottomBundler.load(true);')
-    ])
+      vtag.js.inline('window.bottomBundler && bottomBundler.load(true);'),
+    ]),
   ]);
 };

@@ -2,7 +2,7 @@
 
 module.exports = {
   assign: 'user',
-  method: function(req, reply) {
+  method(req, reply) {
     let userService = req.server.plugins.user;
 
     if (!req.auth || !req.auth.credentials || !req.auth.credentials.id) {

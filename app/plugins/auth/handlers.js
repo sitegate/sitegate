@@ -1,10 +1,20 @@
 'use strict';
 
-var async = require('async');
-var bro = require('brototype');
+const async = require('async');
 
 function getProfile(account) {
-  var profile = account.profile;
+  let profile = account.profile;
+  if (account.provider === 'github') {
+    return {
+      displayName: profile.displayName,
+      username: profile.username,
+      email: profile.email,
+      provider: account.provider,
+      providerIdentifierField: 'id',
+      providerData: profile.raw,
+    };
+  }
+
   if (account.provider === 'facebook') {
     return {
       firstName: profile.name.first,
@@ -14,7 +24,7 @@ function getProfile(account) {
       username: profile.username,
       provider: account.provider,
       providerIdentifierField: 'id',
-      providerData: profile.raw
+      providerData: profile.raw,
     };
   }
   if (account.provider === 'twitter') {
@@ -35,10 +45,10 @@ exports.sessionManagement = function(req, reply) {
 
   async.waterfall([
     function(cb) {
-      var loggedUser = req.pre.session && req.pre.session.user &&
+      let loggedUser = req.pre.session && req.pre.session.user &&
         req.pre.session.user.id ? { id: req.pre.session.user.id } : null;
 
-      var providerUserProfile = getProfile(req.auth.credentials);
+      let providerUserProfile = getProfile(req.auth.credentials);
 
       userService.saveOAuthUserProfile({
         loggedUser: loggedUser,
@@ -51,12 +61,7 @@ exports.sessionManagement = function(req, reply) {
       return;
     }
 
-    var sid = bro(req).iCanHaz('auth.credentials.session.sid');
-    if (!sid) {
-      sid = Math.random();
-    }
-
-    req.login({
+    reply.login({
       id: user.id,
     }, function(err) {
       if (err) {

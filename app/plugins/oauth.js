@@ -1,6 +1,6 @@
 'use strict';
 
-var oauth = require('../clients/oauth');
+const oauth = require('../clients/oauth');
 
 exports.register = function(server, opts, next) {
   server.expose(oauth);

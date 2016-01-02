@@ -1,6 +1,6 @@
 'use strict';
 
-var user = require('../clients/user');
+const user = require('../clients/user');
 
 exports.register = function(server, opts, next) {
   server.expose(user);

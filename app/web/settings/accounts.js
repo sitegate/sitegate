@@ -9,7 +9,7 @@ exports.register = function(plugin, options, next) {
     path: '/settings/accounts',
     config: {
       pre: [preUser],
-      handler: function(req, reply) {
+      handler(req, reply) {
         reply.vtree(accountsView({
           user: req.pre.user,
         }));

@@ -7,7 +7,7 @@
   "validateLineBreaks": "LF",
   "validateIndentation": 2,
 
-  "disallowKeywords": ["with"],
+  "disallowKeywords": ["with", "else"],
   "disallowSpacesInsideObjectBrackets": null,
   "disallowImplicitTypeConversion": ["string"],
 
@@ -24,5 +24,25 @@
 
   "requireTrailingComma": {
     "ignoreSingleLine": true
-  }
+  },
+
+  "disallowYodaConditions": true,
+
+  "requireFunctionDeclarations": true,
+
+  "disallowNestedTernaries": true,
+
+  "disallowOperatorBeforeLineBreak": ["."],
+
+  "disallowParenthesesAroundArrowParam": true,
+
+  "disallowVar": true,
+
+  "maximumNumberOfLines": 100,
+
+  "requireAnonymousFunctions": {
+    "allExcept": ["declarations"]
+  },
+
+  "requireEarlyReturn": true
 }

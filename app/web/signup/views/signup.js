@@ -1,12 +1,12 @@
 'use strict';
 
-var h = require('virtual-dom/h');
-var vtag = require('vtag')(h);
-var publicLayout = require('../../../views/public-layout');
-var t = require('i18next').t;
-var config = require('../../../../config/config');
-var messageBlock = require('../../../views/partials/message-block');
-var socialSignin = require('../../../views/partials/social-signin');
+const h = require('virtual-dom/h');
+const vtag = require('vtag')(h);
+const publicLayout = require('../../../views/public-layout');
+const t = require('i18next').t;
+const config = require('../../../../config/config');
+const messageBlock = require('../../../views/partials/message-block');
+const socialSignin = require('../../../views/partials/social-signin');
 
 module.exports = function(vm) {
   return publicLayout(vm, {
@@ -18,9 +18,9 @@ module.exports = function(vm) {
           h('.sub.header', [
             t('account.alreadyHaveAccount'),
             ' | ',
-            h('a', { href: '/signin' }, t('account.signInNow'))
-          ])
-        ])
+            h('a', { href: '/signin' }, t('account.signInNow')),
+          ]),
+        ]),
       ]),
       h('.signin.options.ui.two.column.middle.aligned.relaxed.fitted.stackable.grid', [
         h('.column', [
@@ -33,9 +33,9 @@ module.exports = function(vm) {
                   type: 'text',
                   placeholder: t('account.username'),
                   name: 'username',
-                  value: vm.username
+                  value: vm.username,
                 }),
-                h('i.user.icon')
+                h('i.user.icon'),
               ])
             ),
             h('.field',
@@ -44,9 +44,9 @@ module.exports = function(vm) {
                   type: 'text',
                   placeholder: t('account.email'),
                   name: 'email',
-                  value: vm.email
+                  value: vm.email,
                 }),
-                h('i.mail.icon')
+                h('i.mail.icon'),
               ])
             ),
             h('.field',
@@ -55,22 +55,22 @@ module.exports = function(vm) {
                   type: 'password',
                   placeholder: t('account.password.password'),
                   name: 'password',
-                  value: vm.password
+                  value: vm.password,
                 }),
-                h('i.lock.icon')
+                h('i.lock.icon'),
               ])
             ),
             h('button.fluid.ui.big.primary.submit.button',
               { type: 'submit'}, t('account.createAccount')
-            )
-          ])
+            ),
+          ]),
         ]),
         h('.ui.vertical.divider', t('account.or')),
         h('.center.aligned.column.social.signin.container', [
           h('h2', t('account.usingSocialAccount')),
-          socialSignin()
-        ])
-      ])
-    ]
+          socialSignin(),
+        ]),
+      ]),
+    ],
   });
 };

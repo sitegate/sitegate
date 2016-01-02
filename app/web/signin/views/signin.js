@@ -18,9 +18,9 @@ module.exports = function(vm) {
           h('.sub.header', [
             t('account.dontHaveAccount'),
             ' | ',
-            h('a', { href: '/signup' }, t('account.signUpNow'))
-          ])
-        ])
+            h('a', { href: '/signup' }, t('account.signUpNow')),
+          ]),
+        ]),
       ]),
       h('.signin.options.ui.two.column.middle.aligned.relaxed.fitted.stackable.grid', [
         h('.column', [

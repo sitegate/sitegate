@@ -1,8 +1,8 @@
 'use strict';
 
-var h = require('virtual-dom/h');
-var layout = require('./layout');
-var R = require('ramda');
+const h = require('virtual-dom/h');
+const layout = require('./layout');
+const R = require('ramda');
 
 module.exports = function(vm, partials) {
   return layout(vm, R.merge(partials, {

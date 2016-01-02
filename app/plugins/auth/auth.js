@@ -1,16 +1,29 @@
 'use strict';
 
-const routes = require('./routes');
 const R = require('ramda');
+const handlers = require('./handlers');
+const preSession = require('humble-session').pre;
 
 exports.register = function(server, opts, next) {
   let bellOpts = {
     forceHttps: opts.forceHttps,
+    isSecure: opts.isSecure,
   };
 
-  ['facebook', 'google', 'twitter'].forEach(function(provider) {
+  ['facebook', 'google', 'twitter', 'github'].forEach(function(provider) {
     if (!opts[provider]) return;
+
     server.auth.strategy(provider, 'bell', R.merge(bellOpts, opts[provider]));
+
+    server.route({
+      path: '/auth/' + provider,
+      method: 'GET',
+      config: {
+        auth: provider,
+        pre: [preSession],
+        handler: handlers.sessionManagement,
+      },
+    });
   });
 
   server.auth.strategy('default', 'session', true, {
@@ -18,11 +31,21 @@ exports.register = function(server, opts, next) {
     appendNext: true,
   });
 
-  //Added a separate file for just routes.
-  routes.forEach(function(route) {
-    if (!route.config || !route.config.auth || opts[route.config.auth]) {
-      server.route(route);
-    }
+  server.route({
+    path: '/auth/{strategy}/disconnect',
+    method: 'GET',
+    handler(req, reply) {
+      let userService = req.server.plugins.user;
+
+      userService.disconnectProvider({
+        userId: req.auth.credentials.id,
+        strategy: req.params.strategy,
+      }, function(err) {
+        if (err) return reply(err);
+
+        return reply.redirect('/settings/accounts');
+      });
+    },
   });
   next();
 };

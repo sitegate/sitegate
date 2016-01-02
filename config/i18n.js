@@ -1,7 +1,7 @@
 'use strict';
 
-var i18n = require('i18next');
-var path = require('path');
+const i18n = require('i18next');
+const path = require('path');
 
 // Registering i18n
 i18n.init({

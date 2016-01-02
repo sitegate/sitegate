@@ -27,15 +27,14 @@ provider:
   linkedin:
     provider: linkedin
     password: j0f43bslregf
-    clientID: APP_ID
+    clientId: APP_ID
     clientSecret: APP_SECRET
     callbackURL: http://localhost:3000/auth/linkedin/callback
   github:
     provider: github
     password: j0f43bslregf
-    clientID: APP_ID
-    clientSecret: APP_SECRET
-    callbackURL: http://localhost:3000/auth/github/callback
+    clientId: c4f9bdc5e1db4b2ac6d2
+    clientSecret: 42650e389750c1aff846daf26dd049a3e627a695
 userService:
   mongodb:
     address: localhost
