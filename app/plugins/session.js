@@ -11,11 +11,11 @@ exports.register = function(server, opts, next) {
     },
     set: function(sid, sessionDoc, cb) {
       session.set(sid, sessionDoc, cb);
-    }
+    },
   });
   next();
 };
 
 exports.register.attributes = {
-  name: 'session'
+  name: 'session',
 };

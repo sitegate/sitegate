@@ -21,7 +21,7 @@ exports.register = function(plugin, opts, next) {
         return reply.redirect(opts.homepageUrl);
 
       reply.vtree(signinView({}));
-    }
+    },
   });
 
   plugin.route({
@@ -36,14 +36,14 @@ exports.register = function(plugin, opts, next) {
 
       userService.authenticate({
         usernameOrEmail: req.payload.username,
-        password: req.payload.password
+        password: req.payload.password,
       }, function(err, user) {
         if (err) return reply(err);
 
         reply.setSession({
           user: {
-            id: user.id
-          }
+            id: user.id,
+          },
         }, function(err) {
           if (err) return reply(err);
 
@@ -53,7 +53,7 @@ exports.register = function(plugin, opts, next) {
           reply.redirect(opts.homepageUrl);
         });
       });
-    }
+    },
   });
 
   plugin.route({
@@ -79,5 +79,5 @@ exports.register = function(plugin, opts, next) {
 };
 
 exports.register.attributes = {
-  name: 'web/signin'
+  name: 'web/signin',
 };

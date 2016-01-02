@@ -42,9 +42,9 @@ exports.sessionManagement = function(req, reply) {
 
       userService.saveOAuthUserProfile({
         loggedUser: loggedUser,
-        providerUserProfile: providerUserProfile
+        providerUserProfile: providerUserProfile,
       }, cb);
-    }
+    },
   ], function(err, user) {
     if (err) {
       console.log(err);
@@ -57,7 +57,7 @@ exports.sessionManagement = function(req, reply) {
     }
 
     req.login({
-      id: user.id
+      id: user.id,
     }, function(err) {
       if (err) {
         console.log(err);

@@ -12,7 +12,7 @@ $('#appDelete').click(function() {
       success() {
         window.location.href = window.location.origin +
           '/settings/applications';
-      }
+      },
     });
   }
 });

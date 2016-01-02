@@ -1,8 +1,8 @@
 'use strict';
 
-var R = require('ramda');
-var Boom = require('boom');
-var preSession = require('humble-session').pre;
+const R = require('ramda');
+const Boom = require('boom');
+const preSession = require('humble-session').pre;
 
 exports.register = function(plugin, options, next) {
   plugin.route({
@@ -28,13 +28,13 @@ exports.register = function(plugin, options, next) {
             reply.redirect('/settings/profile');
           });
         });
-      }
-    }
+      },
+    },
   });
 
   next();
 };
 
 exports.register.attributes = {
-  name: 'web/email'
+  name: 'web/email',
 };

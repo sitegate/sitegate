@@ -9,35 +9,35 @@ $('.ui.form').form({
       rules: [
         {
           type: 'empty',
-          prompt: tfn('app.validation.nameRequired')
-        }
-     ]
+          prompt: tfn('app.validation.nameRequired'),
+        },
+      ],
     },
     homepageUrl: {
       identifier: 'homepageUrl',
       rules: [
         {
           type: 'empty',
-          prompt: tfn('app.validation.homepageUrl.required')
+          prompt: tfn('app.validation.homepageUrl.required'),
         },
         {
           type: 'url',
-          prompt: tfn('app.validation.homepageUrl.url')
-        }
-     ]
+          prompt: tfn('app.validation.homepageUrl.url'),
+        },
+      ],
     },
     authCallbackUrl: {
       identifier: 'authCallbackUrl',
       rules: [
         {
           type: 'empty',
-          prompt: tfn('app.validation.authCallbackUrl.required')
+          prompt: tfn('app.validation.authCallbackUrl.required'),
         },
         {
           type: 'url',
-          prompt: tfn('app.validation.authCallbackUrl.url')
-        }
-     ]
-    }
-  }
+          prompt: tfn('app.validation.authCallbackUrl.url'),
+        },
+      ],
+    },
+  },
 });

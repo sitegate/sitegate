@@ -11,7 +11,7 @@ $('.revoke.button').click(function() {
       url: '/settings/applications/revoke/' + $this.data('client-id'),
       success() {
         $this.parents('.item').remove();
-      }
+      },
     });
   }
 });
@@ -23,7 +23,7 @@ $('.revoke-all.button').click(function() {
       url: '/settings/applications/revoke-all',
       success() {
         $('.trusted.clients').remove();
-      }
+      },
     });
   }
 });

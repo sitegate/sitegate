@@ -13,8 +13,8 @@ gulp.task('build', function(cb) {
       src: path.resolve(__dirname, '../'),
       dest: path.resolve(__dirname, '../dist'),
       ignore: [
-        './dist/**'
-      ]
+        './dist/**',
+      ],
     })
     .then(() => foso.bundle())
     .then(cb)

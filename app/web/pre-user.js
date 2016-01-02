@@ -3,7 +3,7 @@
 module.exports = {
   assign: 'user',
   method: function(req, reply) {
-    var userService = req.server.plugins.user;
+    let userService = req.server.plugins.user;
 
     if (!req.auth || !req.auth.credentials || !req.auth.credentials.id) {
       return reply('session not defined').takeover();
@@ -15,5 +15,5 @@ module.exports = {
       }
       reply(user);
     });
-  }
+  },
 };

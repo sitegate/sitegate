@@ -12,7 +12,7 @@ $('.revoke.button').click(function() {
       success: function() {
         window.location.href = window.location.origin +
           '/settings/applications';
-      }
+      },
     });
   }
 });

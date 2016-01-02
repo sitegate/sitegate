@@ -12,10 +12,10 @@ exports.register = function(plugin, options, next) {
       pre: [preUser],
       handler: function(req, reply) {
         reply.vtree(passwordView({
-          hasPassword: typeof req.pre.user.hash !== 'undefined'
+          hasPassword: typeof req.pre.user.hash !== 'undefined',
         }));
-      }
-    }
+      },
+    },
   });
 
   plugin.route({
@@ -25,8 +25,8 @@ exports.register = function(plugin, options, next) {
       validate: {
         payload: {
           newPassword: Joi.string().min(1),
-          verifyPassword: Joi.equal(Joi.ref('newPassword'))
-        }
+          verifyPassword: Joi.equal(Joi.ref('newPassword')),
+        },
       },
       handler: function(req, reply) {
         var userService = req.server.plugins.user;
@@ -35,13 +35,13 @@ exports.register = function(plugin, options, next) {
         userService.changePassword({
           userId: req.user.id,
           currentPassword: req.payload.currentPassword,
-          newPassword: req.payload.newPassword
+          newPassword: req.payload.newPassword,
         }, function(err, user) {
           if (err) {
             return renderPasswordPage(req, res, {
               messages: {
-                error: req.i18n.t('account.error.' + err.type || 'unknown')
-              }
+                error: req.i18n.t('account.error.' + err.type || 'unknown'),
+              },
             });
           }
 
@@ -53,13 +53,13 @@ exports.register = function(plugin, options, next) {
             }
             return renderPasswordPage(req, res, {
               messages: {
-                success: req.i18n.t('settings.passwordChangedSuccessfully')
-              }
+                success: req.i18n.t('settings.passwordChangedSuccessfully'),
+              },
             });
           });
         });
-      }
-    }
+      },
+    },
   });
 
   next();

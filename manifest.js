@@ -12,7 +12,7 @@ const manifest = {
   connections: [
     {
       port: config.get('port'),
-    }
+    },
   ],
   registrations: [
     // registering microservices
@@ -58,7 +58,7 @@ const manifest = {
         options: {
           homepageUrl: config.get('app.homepageUrl'),
         },
-      }
+      },
     },
     {
       plugin: {
@@ -77,7 +77,7 @@ const manifest = {
     { plugin: './app/web/settings/password' },
     { plugin: './app/web/application' },
     { plugin: './app/web/user-info' },
-  ]
+  ],
 };
 
 module.exports = manifest;

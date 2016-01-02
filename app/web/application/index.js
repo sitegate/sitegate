@@ -13,7 +13,7 @@ exports.register = function(plugin, options, next) {
     method: 'GET',
     path: '/settings/applications',
     config: {
-      pre: [preSession]
+      pre: [preSession],
     },
     handler: function(request, reply) {
       var clientService = request.server.plugins.client;
@@ -23,7 +23,7 @@ exports.register = function(plugin, options, next) {
       clientService.query({
         creatorId: userId,
         count: 20,
-        fields: ['name']
+        fields: ['name'],
       }, function(err, userClients) {
         if (err) {
           //
@@ -33,11 +33,11 @@ exports.register = function(plugin, options, next) {
           reply.vtree(applicationsView({
             title: t('app.apps'),
             trustedClients: clients,
-            clients: userClients
+            clients: userClients,
           }));
         });
       });
-    }
+    },
   });
 
   plugin.route({
@@ -45,14 +45,14 @@ exports.register = function(plugin, options, next) {
     path: '/settings/applications/new',
     handler: function(request, reply) {
       reply.vtree(newAppView({}));
-    }
+    },
   });
 
   plugin.route({
     method: 'POST',
     path: '/settings/applications/new',
     config: {
-      pre: [preSession]
+      pre: [preSession],
     },
     handler: function(req, reply) {
       var clientService = req.server.plugins.client;
@@ -62,7 +62,7 @@ exports.register = function(plugin, options, next) {
         description: req.payload.description,
         homepageUrl: req.payload.homepageUrl,
         authCallbackUrl: req.payload.authCallbackUrl,
-        userId: req.pre.session.user.id
+        userId: req.pre.session.user.id,
       }, function(err, client) {
         if (err) {
           return reply(err);
@@ -70,14 +70,14 @@ exports.register = function(plugin, options, next) {
 
         return reply.redirect('/settings/applications/' + client.id);
       });
-    }
+    },
   });
 
   plugin.route({
     method: 'GET',
     path: '/settings/applications/{id}',
     config: {
-      pre: [preSession]
+      pre: [preSession],
     },
     handler: function(req, reply) {
       var clientService = req.server.plugins.client;
@@ -93,7 +93,7 @@ exports.register = function(plugin, options, next) {
 
         return reply.vtree(editAppView(client));
       });
-    }
+    },
   });
 
   plugin.route({
@@ -109,14 +109,14 @@ exports.register = function(plugin, options, next) {
 
         return reply.vtree(appView(client));
       });
-    }
+    },
   });
 
   plugin.route({
     method: 'POST',
     path: '/settings/applications/{id}',
     config: {
-      pre: [preSession]
+      pre: [preSession],
     },
     handler: function(req, reply) {
       var clientService = req.server.plugins.client;
@@ -125,11 +125,11 @@ exports.register = function(plugin, options, next) {
         name: req.payload.name,
         description: req.payload.description,
         homepageUrl: req.payload.homepageUrl,
-        authCallbackUrl: req.payload.authCallbackUrl
+        authCallbackUrl: req.payload.authCallbackUrl,
       }, {
         allow: {
-          userId: req.pre.session.user.id
-        }
+          userId: req.pre.session.user.id,
+        },
       }, function(err, client) {
         if (err) {
           return reply(err);
@@ -137,14 +137,14 @@ exports.register = function(plugin, options, next) {
 
         return reply.redirect('/settings/applications');
       });
-    }
+    },
   });
 
   plugin.route({
     method: 'DELETE',
     path: '/settings/applications/{id}',
     config: {
-      pre: [preSession]
+      pre: [preSession],
     },
     handler: function(req, reply) {
       var clientService = req.server.plugins.client;
@@ -169,7 +169,7 @@ exports.register = function(plugin, options, next) {
           return reply('Success');
         });
       });
-    }
+    },
   });
 
   plugin.route({
@@ -196,7 +196,7 @@ exports.register = function(plugin, options, next) {
       let userService = req.server.plugins.user;
 
       userService.revokeAllClientsAccess({
-        userId: req.auth.credentials.id
+        userId: req.auth.credentials.id,
       }, function(err) {
         if (err) return reply(Boom.wrap(err));
 
@@ -209,5 +209,5 @@ exports.register = function(plugin, options, next) {
 };
 
 exports.register.attributes = {
-  name: 'web/application'
+  name: 'web/application',
 };

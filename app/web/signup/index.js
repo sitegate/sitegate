@@ -30,7 +30,7 @@ module.exports = function(plugin, opts, next) {
     method: 'POST',
     path: '/signup',
     config: {
-      auth: false
+      auth: false,
     },
     handler(req, reply) {
       let userService = req.server.plugins.user;
@@ -49,27 +49,27 @@ module.exports = function(plugin, opts, next) {
             password: req.payload.password,
             email: req.payload.email,
             messages: {
-              error: t('account.error.' + (err.type || 'unknown'))
-            }
+              error: t('account.error.' + (err.type || 'unknown')),
+            },
           }));
         }
 
         reply.setSession({
           user: {
-            id: user.id
-          }
+            id: user.id,
+          },
         }, function(err) {
           if (err) return reply(err).status(400);
 
           return reply.redirect(opts.homepageUrl);
         });
       });
-    }
+    },
   });
 
   next();
 };
 
 module.exports.attributes = {
-  name: 'web/signup'
+  name: 'web/signup',
 };

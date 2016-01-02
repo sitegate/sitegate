@@ -10,13 +10,13 @@ let config = convict({
     doc: 'The applicaton environment.',
     format: ['production', 'development', 'test'],
     default: 'development',
-    env: 'NODE_ENV'
+    env: 'NODE_ENV',
   },
   app: {
     title: {
       doc: 'The title of the App.',
       default: 'SiteGate',
-      env: 'APP_TITLE'
+      env: 'APP_TITLE',
     },
     homepageUrl: {
       doc: 'The URL of the Apps homepage',
@@ -28,51 +28,51 @@ let config = convict({
     doc: 'The URL of the main JS of the website',
     format: 'url',
     default: 'http://localhost:9595/bundle/sitegate-assets(dist/index).js',
-    env: 'MAIN_JS'
+    env: 'MAIN_JS',
   },
   amqp: {
     login: {
       doc: 'AMQP login.',
-      default: 'guest'
+      default: 'guest',
     },
     password: {
       doc: 'AMQP password.',
-      default: 'guest'
+      default: 'guest',
     },
     address: {
       doc: 'AMQP address.',
       default: 'localhost',
-      env: 'RABBITMQ_PORT_5672_TCP_ADDR'
+      env: 'RABBITMQ_PORT_5672_TCP_ADDR',
     },
     port: {
       doc: 'AMQP port.',
       format: 'port',
       default: '5672',
-      env: 'RABBITMQ_PORT_5672_TCP_PORT'
-    }
+      env: 'RABBITMQ_PORT_5672_TCP_PORT',
+    },
   },
   port: {
     doc: 'The port to bind',
     format: 'port',
     default: 3000,
-    env: 'PORT'
+    env: 'PORT',
   },
   session: {
     secret: {
       doc: 'Session secret.',
       default: 'siteGateApp',
-      env: 'SESSION_SECRET'
+      env: 'SESSION_SECRET',
     },
     collection: {
       doc: 'Session collection',
       default: 'sessions',
-      env: 'SESSION_COLLECTION'
+      env: 'SESSION_COLLECTION',
     },
     secure: {
       doc: 'Session is secure (cookie saved only on HTTPS)',
       default: false,
-      env: 'SESSION_SECURE'
-    }
+      env: 'SESSION_SECURE',
+    },
   },
   provider: {
     facebook: {
@@ -81,13 +81,13 @@ let config = convict({
       clientId: {
         doc: 'Facebook App ID.',
         default: '',
-        env: 'FACEBOOK_ID'
+        env: 'FACEBOOK_ID',
       },
       clientSecret: {
         doc: 'Facebook App secret.',
         default: '',
-        env: 'FACEBOOK_SECRET'
-      }
+        env: 'FACEBOOK_SECRET',
+      },
     },
     twitter: {
       default: null,
@@ -95,13 +95,13 @@ let config = convict({
       clientId: {
         doc: 'Twitter App ID.',
         default: '',
-        env: 'TWITTER_KEY'
+        env: 'TWITTER_KEY',
       },
       clientSecret: {
         doc: 'Twitter App secret',
         default: '',
-        env: 'TWITTER_SECRET'
-      }
+        env: 'TWITTER_SECRET',
+      },
     },
     google: {
       default: null,
@@ -109,19 +109,19 @@ let config = convict({
       clientId: {
         doc: 'Google App ID.',
         default: '',
-        env: 'GOOGLE_ID'
+        env: 'GOOGLE_ID',
       },
       clientSecret: {
         doc: 'Google App secret',
         default: '',
-        env: 'GOOGLE_SECRET'
+        env: 'GOOGLE_SECRET',
       },
       location: {
         doc: 'Google callback URL.',
         format: 'url',
         default: 'https://account.sitegatedev.com:3000/auth/google/callback',
-        env: 'GOOGLE_CALLBACK'
-      }
+        env: 'GOOGLE_CALLBACK',
+      },
     },
     linkedin: {
       default: null,
@@ -129,19 +129,19 @@ let config = convict({
       clientID: {
         doc: 'Linkedin App ID.',
         default: 'APP_ID',
-        env: 'LINKEDIN_ID'
+        env: 'LINKEDIN_ID',
       },
       clientSecret: {
         doc: 'Linkedin App secret',
         default: 'APP_SECRET',
-        env: 'LINKEDIN_SECRET'
+        env: 'LINKEDIN_SECRET',
       },
       callbackURL: {
         doc: 'Linkedin callback URL.',
         format: 'url',
         default: 'https://account.sitegatedev.com:3000/auth/linkedin/callback',
-        env: 'LINKEDIN_CALLBACK'
-      }
+        env: 'LINKEDIN_CALLBACK',
+      },
     },
     github: {
       default: null,
@@ -149,126 +149,126 @@ let config = convict({
       clientID: {
         doc: 'GitHub App ID.',
         default: 'APP_ID',
-        env: 'GITHUB_ID'
+        env: 'GITHUB_ID',
       },
       clientSecret: {
         doc: 'GitHub App secret',
         default: 'APP_SECRET',
-        env: 'GITHUB_SECRET'
+        env: 'GITHUB_SECRET',
       },
       callbackURL: {
         doc: 'GitHub callback URL.',
         format: 'url',
         default: 'https://account.sitegatedev.com:3000/auth/github/callback',
-        env: 'GITHUB_CALLBACK'
-      }
-    }
+        env: 'GITHUB_CALLBACK',
+      },
+    },
   },
   userService: {
     mongodb: {
       address: {
         doc: 'MongoDB address.',
         default: 'localhost',
-        env: 'MONGO_PORT_27017_TCP_ADDR'
+        env: 'MONGO_PORT_27017_TCP_ADDR',
       },
       port: {
         doc: 'MongoDB port.',
         format: 'port',
         default: '27017',
-        env: 'MONGO_PORT_27017_TCP_PORT'
+        env: 'MONGO_PORT_27017_TCP_PORT',
       },
       name: {
         doc: 'MongoDB DB name.',
-        default: 'sitegate-user-dev'
-      }
-    }
+        default: 'sitegate-user-dev',
+      },
+    },
   },
   clientService: {
     mongodb: {
       address: {
         doc: 'MongoDB address.',
         default: 'localhost',
-        env: 'CLIENT_MONGO_PORT_27017_TCP_ADDR'
+        env: 'CLIENT_MONGO_PORT_27017_TCP_ADDR',
       },
       port: {
         doc: 'MongoDB port.',
         format: 'port',
         default: '27017',
-        env: 'CLIENT_MONGO_PORT_27017_TCP_PORT'
+        env: 'CLIENT_MONGO_PORT_27017_TCP_PORT',
       },
       name: {
         doc: 'MongoDB DB name.',
-        default: 'sitegate-user-dev'
-      }
-    }
+        default: 'sitegate-user-dev',
+      },
+    },
   },
   oauthService: {
     mongodb: {
       address: {
         doc: 'MongoDB address.',
         default: 'localhost',
-        env: 'OAUTH_MONGO_PORT_27017_TCP_ADDR'
+        env: 'OAUTH_MONGO_PORT_27017_TCP_ADDR',
       },
       port: {
         doc: 'MongoDB port.',
         format: 'port',
         default: '27017',
-        env: 'OAUTH_MONGO_PORT_27017_TCP_PORT'
+        env: 'OAUTH_MONGO_PORT_27017_TCP_PORT',
       },
       name: {
         doc: 'MongoDB DB name.',
-        default: 'sitegate-user-dev'
-      }
-    }
+        default: 'sitegate-user-dev',
+      },
+    },
   },
   sessionService: {
     mongodb: {
       address: {
         doc: 'MongoDB address.',
         default: 'localhost',
-        env: 'SESSION_MONGO_PORT_27017_TCP_ADDR'
+        env: 'SESSION_MONGO_PORT_27017_TCP_ADDR',
       },
       port: {
         doc: 'MongoDB port.',
         format: 'port',
         default: '27017',
-        env: 'SESSION_MONGO_PORT_27017_TCP_PORT'
+        env: 'SESSION_MONGO_PORT_27017_TCP_PORT',
       },
       name: {
         doc: 'MongoDB DB name.',
-        default: 'sitegate-user-dev'
-      }
-    }
+        default: 'sitegate-user-dev',
+      },
+    },
   },
   mailerService: {
     mailer: {
       from: {
         default: '',
-        env: 'MAILER_FROM'
+        env: 'MAILER_FROM',
       },
       options: {
         service: {
           default: '',
-          env: 'MAILER_SERVICE_PROVIDER'
+          env: 'MAILER_SERVICE_PROVIDER',
         },
         auth: {
           user: {
             default: '',
-            env: 'MAILER_EMAIL_ID'
+            env: 'MAILER_EMAIL_ID',
           },
           pass: {
             default: '',
-            env: 'MAILER_PASSWORD'
+            env: 'MAILER_PASSWORD',
           },
           api_key: {
             default: '',
-            env: 'MAILER_API_KEY'
+            env: 'MAILER_API_KEY',
           },
           domain: {
             default: '',
-            env: 'MAILER_DOMAIN'
-          }
-        }
+            env: 'MAILER_DOMAIN',
+          },
+        },
       },
     },
     app: {
@@ -331,7 +331,7 @@ config.load({
     config.get('sessionService.mongodb.address'),
     config.get('sessionService.mongodb.port'),
     config.get('sessionService.mongodb.name')
-  )
+  ),
 });
 
 // perform validation

@@ -13,13 +13,13 @@ exports.register = function(plugin, options, next) {
         reply.vtree(accountsView({
           user: req.pre.user,
         }));
-      }
-    }
+      },
+    },
   });
 
   next();
 };
 
 exports.register.attributes = {
-  name: 'web/settings/accounts'
+  name: 'web/settings/accounts',
 };

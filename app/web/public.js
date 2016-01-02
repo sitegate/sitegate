@@ -5,19 +5,19 @@ exports.register = function(plugin, options, next) {
     method: 'GET',
     path: '/{param*}',
     config: {
-      auth: false
+      auth: false,
     },
     handler: {
       directory: {
         path: 'public',
-        listing: true
-      }
-    }
+        listing: true,
+      },
+    },
   });
 
   next();
 };
 
 exports.register.attributes = {
-  name: 'public'
+  name: 'public',
 };

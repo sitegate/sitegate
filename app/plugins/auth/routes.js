@@ -10,24 +10,24 @@ module.exports = [{
   config: {
     auth: 'facebook',
     pre: [preSession],
-    handler: handlers.sessionManagement
-  }
+    handler: handlers.sessionManagement,
+  },
 }, {
   path: '/auth/google',
   method: 'GET',
   config: {
     auth: 'google',
     pre: [preSession],
-    handler: handlers.sessionManagement
-  }
+    handler: handlers.sessionManagement,
+  },
 }, {
   path: '/auth/twitter',
   method: 'GET',
   config: {
     auth: 'twitter',
     pre: [preSession],
-    handler: handlers.sessionManagement
-  }
+    handler: handlers.sessionManagement,
+  },
 }, {
   path: '/auth/{strategy}/disconnect',
   method: 'GET',
@@ -36,7 +36,7 @@ module.exports = [{
 
     userService.disconnectProvider({
       userId: req.auth.credentials.id,
-      strategy: req.params.strategy
+      strategy: req.params.strategy,
     }, function(err) {
       if (err) {
         return reply(err);
@@ -44,7 +44,7 @@ module.exports = [{
 
       return reply.redirect('/settings/accounts');
     });
-  }
+  },
 }/*, {
   path: '/signout',
   method: 'GET',

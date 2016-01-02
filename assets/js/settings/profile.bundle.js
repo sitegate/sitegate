@@ -10,36 +10,36 @@ $('.ui.form').form({
       rules: [
         {
           type: 'empty',
-          prompt: tfn('accountValidation.username.required')
+          prompt: tfn('accountValidation.username.required'),
         },
         {
           type: 'length[5]',
-          prompt: tfn('accountValidation.username.minLength')
+          prompt: tfn('accountValidation.username.minLength'),
         },
         {
           type: 'maxLength[20]',
-          prompt: tfn('accountValidation.username.maxLength')
+          prompt: tfn('accountValidation.username.maxLength'),
         },
         {
           type: username.rule,
-          prompt: tfn('accountValidation.username.allowedChars')
-        }
-     ]
+          prompt: tfn('accountValidation.username.allowedChars'),
+        },
+      ],
     },
     email: {
       identifier: 'user.email',
       rules: [
         {
           type: 'empty',
-          prompt: tfn('accountValidation.email.required')
+          prompt: tfn('accountValidation.email.required'),
         },
         {
           type: 'email',
-          prompt: tfn('accountValidation.email.valid')
-        }
-     ]
-    }
-  }
+          prompt: tfn('accountValidation.email.valid'),
+        },
+      ],
+    },
+  },
 });
 
 $('#resend-email').click(function() {
@@ -51,6 +51,6 @@ $('#resend-email').click(function() {
     },
     error() {
       alert('error');
-    }
+    },
   });
 });

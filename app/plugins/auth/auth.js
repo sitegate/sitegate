@@ -28,5 +28,5 @@ exports.register = function(server, opts, next) {
 };
 
 exports.register.attributes = {
-  name: 'auth'
+  name: 'auth',
 };

@@ -11,7 +11,7 @@ module.exports = function(server, opts, next) {
       reply({
         id: req.auth.credentials.id,
         username: req.auth.credentials.username,
-        email: req.auth.credentials.email
+        email: req.auth.credentials.email,
       });
     },
   });
@@ -20,5 +20,5 @@ module.exports = function(server, opts, next) {
 };
 
 module.exports.attributes = {
-  name: 'web/user-info'
+  name: 'web/user-info',
 };

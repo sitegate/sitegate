@@ -9,18 +9,18 @@ $('.ui.form').form({
       rules: [
         {
           type: 'empty',
-          prompt: tfn('accountValidation.usernameOrEmail.required')
-        }
-     ]
+          prompt: tfn('accountValidation.usernameOrEmail.required'),
+        },
+      ],
     },
     password: {
       identifier: 'password',
       rules: [
         {
           type: 'empty',
-          prompt: tfn('accountValidation.password.required')
-        }
-     ]
-    }
-  }
+          prompt: tfn('accountValidation.password.required'),
+        },
+      ],
+    },
+  },
 });

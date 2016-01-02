@@ -9,35 +9,35 @@ $('.ui.form').form({
       rules: [
         {
           type: 'empty',
-          prompt: tfn('settings.currentPassword.required')
-        }
-     ]
+          prompt: tfn('settings.currentPassword.required'),
+        },
+      ],
     },
     newPassword: {
       identifier: 'newPassword',
       rules: [
         {
           type: 'empty',
-          prompt: tfn('settings.newPassword.required')
+          prompt: tfn('settings.newPassword.required'),
         },
         {
           type: 'length[6]',
-          prompt: tfn('settings.newPassword.minLength')
-        }
-     ]
+          prompt: tfn('settings.newPassword.minLength'),
+        },
+      ],
     },
     verifyPassword: {
       identifier: 'verifyPassword',
       rules: [
         {
           type: 'empty',
-          prompt: tfn('settings.verifyPassword.required')
+          prompt: tfn('settings.verifyPassword.required'),
         },
         {
           type: 'match[newPassword]',
-          prompt: tfn('settings.verifyPassword.matchNewPassword')
-        }
-     ]
-    }
-  }
+          prompt: tfn('settings.verifyPassword.matchNewPassword'),
+        },
+      ],
+    },
+  },
 });

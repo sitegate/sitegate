@@ -20,7 +20,7 @@ module.exports = function(server, opts, next) {
 
         cb(null, true, userOrClient);
       });
-    }
+    },
   });
 
   function authenticateClient(clientPublicId, secret, cb) {
@@ -40,7 +40,7 @@ module.exports = function(server, opts, next) {
   server.auth.strategy('basic-client', 'basic', {
     validateFunc: function(request, clientPublicId, secret, cb) {
       authenticateClient(clientPublicId, secret, cb);
-    }
+    },
   });
 
   server.auth.strategy('form-client', 'form', {
@@ -54,7 +54,7 @@ module.exports = function(server, opts, next) {
     return cb(null, {
       id: client.id,
       publicId: client.publicId,
-      secret: client.secret
+      secret: client.secret,
     });
   });
 
@@ -68,7 +68,7 @@ module.exports = function(server, opts, next) {
       oauthService.createCode({
         clientId: client.id,
         redirectUri: redirectUri,
-        userId: user.id
+        userId: user.id,
       }, cb);
     }));
 
@@ -79,7 +79,7 @@ module.exports = function(server, opts, next) {
       oauthService.exchange({
         clientId: client.id,
         code: code,
-        redirectUri: redirectUri
+        redirectUri: redirectUri,
       }, cb);
     }));
 
@@ -97,7 +97,7 @@ module.exports = function(server, opts, next) {
         reply.setSession(req.pre.session, function() {
           oauthService.isTrusted({
             clientId: xreq.oauth2.client.id,
-            userId: userId
+            userId: userId,
           }, function(err, isTrusted) {
             if (err) {
               console.log(err);
@@ -108,10 +108,10 @@ module.exports = function(server, opts, next) {
               req.oauth2 = xreq.oauth2;
               req.payload = req.payload || {};
               oauth2orize.decision(req, reply, {
-                loadTransaction: false
+                loadTransaction: false,
               }, function(req, cb) {
                 cb(null, {
-                  allow: true
+                  allow: true,
                 });
               });
               return;
@@ -119,7 +119,7 @@ module.exports = function(server, opts, next) {
             return reply.vtree(dialogView({
               transactionID: xreq.oauth2.transactionID,
               user: req.auth.credentials,
-              client: xreq.oauth2.client
+              client: xreq.oauth2.client,
             }));
           });
         });
@@ -129,7 +129,7 @@ module.exports = function(server, opts, next) {
           return cb(null, client, redirectUri);
         });
       });
-    }
+    },
   });
 
   /* User decision endpoint */
@@ -148,11 +148,11 @@ module.exports = function(server, opts, next) {
 
       userService.trustClient({
         userId: req.auth.credentials.id,
-        clientId: req.payload.clientId
+        clientId: req.payload.clientId,
       }, function() {
         oauth2orize.decision(req, reply);
       });
-    }
+    },
   });
 
   /* Application client token exchange endpoint */
@@ -164,7 +164,7 @@ module.exports = function(server, opts, next) {
         strategies: [
           'basic-client',
           'form-client',
-        ]
+        ],
       },
     },
     handler: function(req, reply) {
@@ -181,5 +181,5 @@ module.exports.attributes = {
     'ms/oauth',
     'user',
     'client',
-  ]
+  ],
 };

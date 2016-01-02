@@ -9,13 +9,13 @@ $('.ui.form').form({
       rules: [
         {
           type: 'empty',
-          prompt: tfn('accountValidation.email.required')
+          prompt: tfn('accountValidation.email.required'),
         },
         {
           type: 'email',
-          prompt: tfn('accountValidation.email.valid')
-        }
-     ]
-    }
-  }
+          prompt: tfn('accountValidation.email.valid'),
+        },
+      ],
+    },
+  },
 });

@@ -8,5 +8,5 @@ exports.register = function(server, opts, next) {
 };
 
 exports.register.attributes = {
-  name: 'ms/oauth'
+  name: 'ms/oauth',
 };

@@ -7,9 +7,9 @@ i18n.init({
   fallbackLng: 'en',
   ns: {
     namespaces: ['translation'],
-    defaultNs: 'translation'
+    defaultNs: 'translation',
   },
-  resGetPath: '/locales/__lng__/__ns__.json'
+  resGetPath: '/locales/__lng__/__ns__.json',
 });
 
 export default function(resourceName) {

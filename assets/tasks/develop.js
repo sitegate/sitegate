@@ -15,11 +15,11 @@ gulp.task('develop', function(cb) {
     src: path.resolve(__dirname, '../'),
     dest: path.resolve(__dirname, '../dist'),
     ignore: [
-      './dist/**'
+      './dist/**',
     ],
     watch: true,
     serve: false,
-    livereload: true
+    livereload: true,
   };
 
   foso
@@ -27,7 +27,7 @@ gulp.task('develop', function(cb) {
     .then(() => foso.bundle())
     .then(function() {
       let server = new Server({
-        src: path.resolve(__dirname, '../')
+        src: path.resolve(__dirname, '../'),
       });
       return server.start();
     })

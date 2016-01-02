@@ -11,49 +11,49 @@ $('.ui.form').form({
       rules: [
         {
           type: 'empty',
-          prompt: tfn('accountValidation.username.required')
+          prompt: tfn('accountValidation.username.required'),
         },
         {
           type: 'length[5]',
-          prompt: tfn('accountValidation.username.minLength')
+          prompt: tfn('accountValidation.username.minLength'),
         },
         {
           type: 'maxLength[20]',
-          prompt: tfn('accountValidation.username.maxLength')
+          prompt: tfn('accountValidation.username.maxLength'),
         },
         {
           type: username.rule,
-          prompt: tfn('accountValidation.username.allowedChars')
-        }
-     ]
+          prompt: tfn('accountValidation.username.allowedChars'),
+        },
+      ],
     },
     password: {
       identifier: 'password',
       rules: [
         {
           type: 'empty',
-          prompt: tfn('accountValidation.password.required')
+          prompt: tfn('accountValidation.password.required'),
         },
         {
           type: 'length[6]',
-          prompt: tfn('accountValidation.password.minLength')
-        }
-     ]
+          prompt: tfn('accountValidation.password.minLength'),
+        },
+      ],
     },
     email: {
       identifier: 'email',
       rules: [
         {
           type: 'empty',
-          prompt: tfn('accountValidation.email.required')
+          prompt: tfn('accountValidation.email.required'),
         },
         {
           type: 'email',
-          prompt: tfn('accountValidation.email.valid')
-        }
-     ]
-    }
-  }
+          prompt: tfn('accountValidation.email.valid'),
+        },
+      ],
+    },
+  },
 });
 
 let $lock = $('.lock.icon');

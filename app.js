@@ -10,7 +10,6 @@ process.on('unhandledRejection', function(reason, p) {
 });
 
 const config = require('./config/config');
-const Hapi = require('hapi');
 const Glue = require('glue');
 const manifest = require('./manifest');
 require('./config/i18n');

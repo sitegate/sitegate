@@ -10,7 +10,7 @@ gulp.task('develop', function() {
   process.env.LR_PORT = '7171';
 
   livereload.listen({
-    port: process.env.LR_PORT
+    port: process.env.LR_PORT,
   });
 
   nodemon({
@@ -18,15 +18,15 @@ gulp.task('develop', function() {
     ext: 'js jade',
     ignore: [
       '**/node_modules/**',
-      'assets/*'
-    ]
+      'assets/*',
+    ],
   }).on('restart', function() {
     setTimeout(() => livereload.changed('app.js'), 500);
   });
 });
 
 gulp.task('default', [
-  'develop'
+  'develop',
 ]);
 
 hub(['assets/gulpfile.js', 'gulpfile.js']);

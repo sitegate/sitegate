@@ -8,5 +8,5 @@ i18n.init({
   fallbackLng: 'en',
   ignoreRoutes: ['images/', 'public/', 'css/', 'js/'],
   debug: true,
-  resGetPath: path.resolve(__dirname, '..') + '/locales/__lng__/__ns__.json'
+  resGetPath: path.resolve(__dirname, '..') + '/locales/__lng__/__ns__.json',
 });

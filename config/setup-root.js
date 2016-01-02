@@ -12,7 +12,7 @@ User.getByUsername(rootUsername, function(err, user) {
       emailVerified: true,
       password: rootPassword,
       provider: 'local',
-      role: 'admin'
+      role: 'admin',
     };
     User.register(rootUser);
   }
