@@ -1,6 +1,7 @@
 {
   "name": "sitegate",
   "version": "0.0.1",
+  "description": "An authentication and account management website",
   "author": {
     "name": "Zoltan Kochan",
     "email": "zoltan.kochan@gmail.com",
@@ -14,7 +15,7 @@
     "type": "git",
     "url": "git://github.com/sitegate/sitegate.git"
   },
-  "licencse": "MIT",
+  "license": "MIT",
   "dependencies": {
     "async": "^1.4.2",
     "bell": "^6.0.0",
