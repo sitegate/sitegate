@@ -10,16 +10,14 @@ exports.register = function(server, opts, next) {
     isSecure: opts.isSecure,
   };
 
-  ['facebook', 'google', 'twitter', 'github'].forEach(function(provider) {
-    if (!opts[provider]) return;
-
-    server.auth.strategy(provider, 'bell', R.merge(bellOpts, opts[provider]));
+  R.values(opts.provider).forEach(function(provider) {
+    server.auth.strategy(provider.provider, 'bell', R.merge(bellOpts, provider));
 
     server.route({
-      path: '/auth/' + provider,
+      path: '/auth/' + provider.provider,
       method: 'GET',
       config: {
-        auth: provider,
+        auth: provider.provider,
         pre: [preSession],
         handler: handlers.sessionManagement,
       },

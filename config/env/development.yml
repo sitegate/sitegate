@@ -29,7 +29,6 @@ provider:
     password: j0f43bslregf
     clientId: APP_ID
     clientSecret: APP_SECRET
-    callbackURL: http://localhost:3000/auth/linkedin/callback
   github:
     provider: github
     password: j0f43bslregf

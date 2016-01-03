@@ -75,6 +75,8 @@ let config = convict({
     },
   },
   provider: {
+    default: null,
+    format: '*',
     facebook: {
       default: null,
       format: '*',

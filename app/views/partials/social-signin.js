@@ -2,6 +2,8 @@
 
 const h = require('virtual-dom/h');
 const t = require('i18next').t;
+const R = require('ramda');
+const config = require('../../../config/config');
 
 function socialButton(type) {
   return h('a.fluid.ui.big.basic.button', {
@@ -13,5 +15,6 @@ function socialButton(type) {
 }
 
 module.exports = function() {
-  return ['facebook', 'twitter', 'google', 'github'].map(socialButton);
+  return R.values(config.get('provider'))
+    .map(provider => socialButton(provider.provider));
 };

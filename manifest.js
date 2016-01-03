@@ -41,10 +41,7 @@ const manifest = {
       plugin: {
         register: './app/plugins/auth/auth',
         options: {
-          facebook: config.get('provider.facebook'),
-          google: config.get('provider.google'),
-          twitter: config.get('provider.twitter'),
-          github: config.get('provider.github'),
+          provider: config.get('provider'),
           session: config.get('session'),
           isSecure: config.get('session.secure'),
         },
