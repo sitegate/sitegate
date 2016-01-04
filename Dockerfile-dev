@@ -1,0 +1,20 @@
+FROM node:5.2.0-onbuild
+
+MAINTAINER Zoltan Kochan, zoltan.kochan@gmail.com
+
+WORKDIR /src
+
+# Install packages
+COPY package.json /src/package.json
+COPY assets/package.json /src/assets/package.json
+RUN npm i -g gulp && npm i && cd assets/ && npm i
+
+# Make everything available for start
+COPY . /src
+
+# Port 3000 for server
+# Port 7171 for server livereload
+# Port 9595 for foso-cdn
+# Port 2769 for foso-cdn livereload
+EXPOSE 3000 7171 9595 2769
+CMD ["gulp"]

@@ -1,18 +1,20 @@
 sitegate:
   build: .
+  dockerfile: Dockerfile-dev
   links:
     - db:mongo
-    - amqp:rabbitmq
+    - db:client_mongo
+    - db:oauth_mongo
+    - db:session_mongo
   volumes:
     - .:/src
   ports:
     - 3000:3000
-    - 35729:35729
+    - 7171:7171
+    - 9595:9595
+    - 2769:2769
   environment:
     NODE_ENV: development
-    DEBUG: bograch
 
 db:
   image: mongo
-amqp:
-  image: rabbitmq

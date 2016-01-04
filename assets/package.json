@@ -7,6 +7,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepublish": "gulp build"
   },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/sitegate/sitegate.git"
+  },
   "author": "Zoltan Kochan",
   "license": "MIT",
   "devDependencies": {
@@ -14,7 +18,7 @@
     "fosify-js": "^1.0.3",
     "fosify-sass": "^1.0.0",
     "foso": "^1.0.3",
-    "foso-cdn": "0.0.4",
+    "foso-cdn": "^0.1.1",
     "gulp": "^3.9.0",
     "require-dir": "^0.3.0"
   },

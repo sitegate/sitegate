@@ -9,7 +9,9 @@
   },
   "scripts": {
     "start": "node app",
-    "develop": "gulp"
+    "develop": "gulp",
+    "docker:build": "docker-compose build",
+    "docker:run": "docker-compose up"
   },
   "repository": {
     "type": "git",

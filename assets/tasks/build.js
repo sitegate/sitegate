@@ -7,7 +7,7 @@ const sass = require('fosify-sass');
 const path = require('path');
 
 gulp.task('build', function(cb) {
-  var foso = new Foso();
+  let foso = new Foso();
   foso
     .register([js, sass], {
       src: path.resolve(__dirname, '../'),
