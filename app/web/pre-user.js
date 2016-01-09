@@ -3,7 +3,7 @@
 module.exports = {
   assign: 'user',
   method(req, reply) {
-    let userService = req.server.plugins.user;
+    let userService = req.server.plugins['jimbo-client'].user
 
     if (!req.auth || !req.auth.credentials || !req.auth.credentials.id) {
       return reply('session not defined').takeover();

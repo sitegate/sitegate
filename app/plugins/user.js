@@ -1,12 +1,18 @@
-'use strict';
-
-const user = require('../clients/user');
-
+'use strict'
 exports.register = function(server, opts, next) {
-  server.expose(user);
-  next();
-};
+  if (!opts.amqpURL)
+    return next(new Error('amqpURL is required'))
+
+  server.client({
+    name: 'user',
+    channel: 'sitegate-user',
+    url: opts.amqpURL,
+    methods: [],
+  })
+
+  next()
+}
 
 exports.register.attributes = {
   name: 'user',
-};
+}

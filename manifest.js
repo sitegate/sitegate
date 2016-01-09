@@ -1,6 +1,5 @@
-'use strict';
-
-const config = require('./config/config');
+'use strict'
+const config = require('./config/config')
 
 const manifest = {
   server: {
@@ -15,6 +14,7 @@ const manifest = {
     },
   ],
   registrations: [
+    { plugin: 'jimbo-client' },
     // registering microservices
     { plugin: './app/plugins/client' },
     { plugin: './app/plugins/user' },

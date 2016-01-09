@@ -11,7 +11,7 @@ exports.register = function(plugin, options, next) {
     config: {
       pre: [preSession],
       handler: function(req, reply) {
-        var userService = req.server.plugins.user;
+        let userService = req.server.plugins['jimbo-client'].user
 
         userService.verifyEmailByToken(req.params.token, function(err, user) {
           if (err) {

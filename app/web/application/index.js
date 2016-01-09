@@ -1,5 +1,4 @@
-'use strict';
-
+'use strict'
 const applicationsView = require('./views/applications');
 const editAppView = require('./views/applications-edit');
 const newAppView = require('./views/applications-new');
@@ -16,9 +15,9 @@ exports.register = function(plugin, options, next) {
       pre: [preSession],
     },
     handler: function(request, reply) {
-      var clientService = request.server.plugins.client;
-      var userService = request.server.plugins.user;
-      var userId = request.pre.session.user.id;
+      let clientService = request.server.plugins['jimbo-client'].client;
+      let userService = request.server.plugins['jimbo-client'].user;
+      let userId = request.pre.session.user.id;
 
       clientService.query({
         creatorId: userId,
@@ -55,7 +54,7 @@ exports.register = function(plugin, options, next) {
       pre: [preSession],
     },
     handler: function(req, reply) {
-      var clientService = req.server.plugins.client;
+      let clientService = req.server.plugins['jimbo-client'].client
 
       clientService.create({
         name: req.payload.name,
@@ -80,7 +79,7 @@ exports.register = function(plugin, options, next) {
       pre: [preSession],
     },
     handler: function(req, reply) {
-      var clientService = req.server.plugins.client;
+      let clientService = req.server.plugins['jimbo-client'].client
 
       clientService.getById(req.params.id, function(err, client) {
         if (err) {
@@ -100,7 +99,7 @@ exports.register = function(plugin, options, next) {
     method: 'GET',
     path: '/settings/connections/{id}',
     handler: function(req, reply) {
-      let clientService = req.server.plugins.client;
+      let clientService = req.server.plugins['jimbo-client'].client
 
       clientService.getById(req.params.id, function(err, client) {
         if (err) {
@@ -119,7 +118,7 @@ exports.register = function(plugin, options, next) {
       pre: [preSession],
     },
     handler: function(req, reply) {
-      var clientService = req.server.plugins.client;
+      let clientService = req.server.plugins['jimbo-client'].client
 
       clientService.update(req.params.id, {
         name: req.payload.name,
@@ -147,7 +146,7 @@ exports.register = function(plugin, options, next) {
       pre: [preSession],
     },
     handler: function(req, reply) {
-      var clientService = req.server.plugins.client;
+      let clientService = req.server.plugins['jimbo-client'].client
 
       clientService.getById(req.params.id, function(err, client) {
         if (err) {
@@ -176,7 +175,7 @@ exports.register = function(plugin, options, next) {
     method: 'POST',
     path: '/settings/applications/revoke/{id}',
     handler: function(req, reply) {
-      let userService = req.server.plugins.user;
+      let userService = req.server.plugins['jimbo-client'].user
 
       userService.revokeClientAccess({
         userId: req.auth.credentials.id,
@@ -193,7 +192,7 @@ exports.register = function(plugin, options, next) {
     method: 'POST',
     path: '/settings/applications/revoke-all',
     handler: function(req, reply) {
-      let userService = req.server.plugins.user;
+      let userService = req.server.plugins['jimbo-client'].user
 
       userService.revokeAllClientsAccess({
         userId: req.auth.credentials.id,

@@ -27,7 +27,7 @@ exports.register = function(plugin, options, next) {
       auth: false,
     },
     handler: function(req, reply) {
-      let userService = req.server.plugins.user;
+      let userService = req.server.plugins['jimbo-client'].user
 
       userService.requestPasswordChangeByEmail(req.payload.email, function(err, info) {
         if (err) {
@@ -56,7 +56,7 @@ exports.register = function(plugin, options, next) {
       auth: false,
     },
     handler: function(req, reply) {
-      let userService = req.server.plugins.user;
+      let userService = req.server.plugins['jimbo-client'].user
 
       userService.validateResetToken(req.params.token, function(err) {
         if (err) {
@@ -81,7 +81,7 @@ exports.register = function(plugin, options, next) {
     },
     handler: function(req, reply) {
       let passwordDetails = req.payload;
-      let userService = req.service.plugins.user;
+      let userService = req.service.plugins['jimbo-client'].user
 
       if (passwordDetails.newPassword !== passwordDetails.repeatPassword) {
         return reply.vtree(newPasswordView({

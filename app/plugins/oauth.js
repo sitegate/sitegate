@@ -1,9 +1,15 @@
-'use strict';
-
-const oauth = require('../clients/oauth');
-
+'use strict'
 exports.register = function(server, opts, next) {
-  server.expose(oauth);
+  if (!opts.amqpURL)
+    return next(new Error('amqpURL is required'))
+
+  server.client({
+    name: 'oauth',
+    channel: 'sitegate-oauth',
+    url: opts.amqpURL,
+    methods: [],
+  })
+
   next();
 };
 

@@ -33,7 +33,7 @@ module.exports = function(plugin, opts, next) {
       auth: false,
     },
     handler(req, reply) {
-      let userService = req.server.plugins.user;
+      let userService = req.server.plugins['jimbo-client'].user;
 
       let user = req.payload;
 
