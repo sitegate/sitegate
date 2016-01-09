@@ -31,8 +31,8 @@ exports.register = function(plugin, opts, next) {
       auth: false,
     },
     handler(req, reply) {
-      let userService = req.server.plugins.user;
-      let sessionService = req.server.plugins.session;
+      let userService = req.server.plugins['jimbo-client'].user;
+      let sessionService = req.server.plugins['jimbo-client'].session;
 
       userService.authenticate({
         usernameOrEmail: req.payload.username,

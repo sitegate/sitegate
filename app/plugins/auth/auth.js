@@ -33,7 +33,7 @@ exports.register = function(server, opts, next) {
     path: '/auth/{strategy}/disconnect',
     method: 'GET',
     handler(req, reply) {
-      let userService = req.server.plugins.user;
+      let userService = req.server.plugins['jimbo-client'].user
 
       userService.disconnectProvider({
         userId: req.auth.credentials.id,

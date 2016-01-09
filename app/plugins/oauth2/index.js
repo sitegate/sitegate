@@ -7,8 +7,8 @@ const sessionPre = require('humble-session').pre;
 module.exports = function(server, opts, next) {
   let oauth2orize = server.plugins['humble-oauth2orize'];
   let oauthService = server.plugins['ms/oauth'];
-  let userService = server.plugins.user;
-  let clientService = server.plugins.client;
+  let userService = server.plugins['jimbo-client'].user;
+  let clientService = server.plugins['jimbo-client'].client;
 
   server.auth.strategy('bearer', 'bearer-access-token', {
     allowQueryToken: false,
@@ -144,7 +144,7 @@ module.exports = function(server, opts, next) {
         return oauth2orize.decision(req, reply);
       }
 
-      let userService = req.server.plugins.user;
+      let userService = req.server.plugins['jimbo-client'].user
 
       userService.trustClient({
         userId: req.auth.credentials.id,

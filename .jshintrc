@@ -18,7 +18,9 @@
   "quotmark": "single",
   "maxlen": 80,
   "trailing": true,
+  "expr": true,
   "curly": false,
+  "asi": true,
   "globals": {
     "jasmine": true,
     "ApplicationConfiguration": true
@@ -34,7 +36,6 @@
     "after",
     "afterEach",
     "it",
-    "inject",
-    "expect"
+    "inject"
    ]
 }

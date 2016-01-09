@@ -41,7 +41,7 @@ function getProfile(account) {
 
 //Handler functions used by the routes.
 exports.sessionManagement = function(req, reply) {
-  var userService = req.server.plugins.user;
+  let userService = req.server.plugins['jimbo-client'].user
 
   async.waterfall([
     function(cb) {

@@ -17,7 +17,7 @@
     "test/data/**"
   ],
 
-  "requirePaddingNewLinesAfterUseStrict": true,
+  "disallowPaddingNewLinesAfterUseStrict": true,
   "requireCurlyBraces": [
     "do"
   ],
@@ -44,5 +44,7 @@
     "allExcept": ["declarations"]
   },
 
-  "requireEarlyReturn": true
+  "requireEarlyReturn": true,
+
+  "requireSemicolons": false
 }

@@ -1,18 +1,15 @@
-'use strict';
-
-const session = require('../clients/session');
-
+'use strict'
 exports.register = function(server, opts, next) {
-  server.expose({
-    get(sid, cb) {
-      session.get(sid, function(err, sessionDoc) {
-        cb(err, sessionDoc);
-      });
-    },
-    set(sid, sessionDoc, cb) {
-      session.set(sid, sessionDoc, cb);
-    },
-  });
+  if (!opts.amqpURL)
+    return next(new Error('amqpURL is required'))
+
+  server.client({
+    name: 'session',
+    channel: 'sitegate-session',
+    url: opts.amqpURL,
+    methods: [],
+  })
+
   next();
 };
 

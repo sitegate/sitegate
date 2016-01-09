@@ -40,9 +40,9 @@ exports.register = function(plugin, options, next) {
     path: '/settings/profile',
     config: {
       handler: function(req, reply) {
-        var userService = req.server.plugins.user;
+        let userService = req.server.plugins['jimbo-client'].user
 
-        var userToReturn = req.payload.user;
+        let userToReturn = req.payload.user
         userService.update(req.auth.credentials.userId, {
           username: req.payload.user.username,
           email: req.payload.user.email,
@@ -75,7 +75,7 @@ exports.register = function(plugin, options, next) {
       pre: [preSession],
     },
     handler: function(req, reply) {
-      var userService = req.server.plugins.user;
+      let userService = req.server.plugins['jimbo-client'].user
 
       userService.sendVerificationEmail(req.pre.session.user.id, function(err) {
         if (err) {
