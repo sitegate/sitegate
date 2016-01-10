@@ -7,7 +7,15 @@ exports.register = function(server, opts, next) {
     name: 'client',
     channel: 'sitegate-client',
     url: opts.amqpURL,
-    methods: [],
+    methods: [
+      'create',
+      'getById',
+      'getById',
+      'getByPublicId',
+      'query',
+      'remove',
+      'update',
+    ],
   })
 
   next()

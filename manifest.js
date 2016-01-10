@@ -16,10 +16,38 @@ const manifest = {
   registrations: [
     { plugin: 'jimbo-client' },
     // registering microservices
-    { plugin: './app/plugins/client' },
-    { plugin: './app/plugins/user' },
-    { plugin: './app/plugins/session' },
-    { plugin: './app/plugins/oauth' },
+    {
+      plugin: {
+        register: './app/plugins/client',
+        options: {
+          amqpURL: config.get('amqpURI'),
+        },
+      },
+    },
+    {
+      plugin: {
+        register: './app/plugins/user',
+        options: {
+          amqpURL: config.get('amqpURI'),
+        },
+      },
+    },
+    {
+      plugin: {
+        register: './app/plugins/session',
+        options: {
+          amqpURL: config.get('amqpURI'),
+        },
+      },
+    },
+    {
+      plugin: {
+        register: './app/plugins/oauth',
+        options: {
+          amqpURL: config.get('amqpURI'),
+        },
+      },
+    },
     {
       plugin: {
         register: 'humble-session',

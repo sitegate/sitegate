@@ -7,7 +7,27 @@ exports.register = function(server, opts, next) {
     name: 'user',
     channel: 'sitegate-user',
     url: opts.amqpURL,
-    methods: [],
+    methods: [
+      'authenticate',
+      'changePassword',
+      'changePasswordUsingToken',
+      'disconnectProvider',
+      'getById',
+      'getByUsername',
+      'getTrustedClients',
+      'query',
+      'register',
+      'requestPasswordChangeByEmail',
+      'revokeAllClientsAccess',
+      'revokeClientAccess',
+      'saveOAuthUserProfile',
+      'sendVerificationEmail',
+      'trustClient',
+      'trustsClient',
+      'update',
+      'validateResetToken',
+      'verifyEmailByToken',
+    ],
   })
 
   next()

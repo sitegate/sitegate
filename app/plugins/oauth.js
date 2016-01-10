@@ -7,7 +7,12 @@ exports.register = function(server, opts, next) {
     name: 'oauth',
     channel: 'sitegate-oauth',
     url: opts.amqpURL,
-    methods: [],
+    methods: [
+      'authToken',
+      'createCode',
+      'exchange',
+      'isTrusted',
+    ],
   })
 
   next();
