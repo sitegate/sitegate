@@ -1,4 +1,4 @@
-'use strict';
+/*'use strict';
 
 var User = require('../app/clients/user');
 var rootUsername = 'root';
@@ -16,4 +16,4 @@ User.getByUsername(rootUsername, function(err, user) {
     };
     User.register(rootUser);
   }
-});
+});*/

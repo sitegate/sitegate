@@ -7,7 +7,12 @@ exports.register = function(server, opts, next) {
     name: 'session',
     channel: 'sitegate-session',
     url: opts.amqpURL,
-    methods: [],
+    methods: [
+      'destroy',
+      'destroyByUserId',
+      'get',
+      'set',
+    ],
   })
 
   next();

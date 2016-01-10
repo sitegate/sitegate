@@ -303,7 +303,7 @@ config.load(configFile);
 
 // Adding the calculated values
 config.load({
-  amqpUrl: util.format(
+  amqpURI: util.format(
     'amqp://%s:%s@%s:%s',
     config.get('amqp.login'),
     config.get('amqp.password'),
