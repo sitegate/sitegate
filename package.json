@@ -38,7 +38,7 @@
     "humble-session": "^0.1.0",
     "i18next": "^1.10.4",
     "inert": "^3.1.0",
-    "jimbo-client": "0.0.0",
+    "jimbo-client": "0.0.1",
     "joi": "^7.0.1",
     "ramda": "^0.19.0",
     "uva-amqp": "^0.4.0",

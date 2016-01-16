@@ -1,6 +1,5 @@
-'use strict';
-
-const signinView = require('./views/signin');
+'use strict'
+const signinView = require('./views/signin')
 
 exports.register = function(plugin, opts, next) {
   plugin.route({
@@ -18,9 +17,9 @@ exports.register = function(plugin, opts, next) {
     },
     handler(request, reply) {
       if (request.auth.isAuthenticated)
-        return reply.redirect(opts.homepageUrl);
+        return reply.redirect(opts.homepageUrl)
 
-      reply.vtree(signinView({}));
+      reply.vtree(signinView({}))
     },
   });
 
@@ -31,30 +30,30 @@ exports.register = function(plugin, opts, next) {
       auth: false,
     },
     handler(req, reply) {
-      let userService = req.server.plugins['jimbo-client'].user;
-      let sessionService = req.server.plugins['jimbo-client'].session;
+      let userService = req.server.plugins['jimbo-client'].user
+      let sessionService = req.server.plugins['jimbo-client'].session
 
       userService.authenticate({
         usernameOrEmail: req.payload.username,
         password: req.payload.password,
       }, function(err, user) {
-        if (err) return reply(err);
+        if (err) return reply(err)
 
         reply.setSession({
           user: {
             id: user.id,
           },
         }, function(err) {
-          if (err) return reply(err);
+          if (err) return reply(err)
 
           if (req.query.next)
-            return reply.redirect(decodeURIComponent(req.query.next));
+            return reply.redirect(decodeURIComponent(req.query.next))
 
-          reply.redirect(opts.homepageUrl);
-        });
-      });
+          reply.redirect(opts.homepageUrl)
+        })
+      })
     },
-  });
+  })
 
   plugin.route({
     method: ['GET', 'POST', 'DELETE'],
@@ -68,16 +67,16 @@ exports.register = function(plugin, opts, next) {
     },
     handler(req, reply) {
       reply.logout(function(err) {
-        if (err) return reply(err);
+        if (err) return reply(err)
 
-        reply.redirect('/signin');
-      });
+        reply.redirect('/signin')
+      })
     },
-  });
+  })
 
-  next();
-};
+  next()
+}
 
 exports.register.attributes = {
   name: 'web/signin',
-};
+}
