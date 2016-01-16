@@ -2,6 +2,9 @@
 const passwordView = require('./views/password')
 const joi = require('joi')
 const preUser = require('../pre-user')
+const preSession = require('humble-session').pre
+const boom = require('boom')
+const i18n = require('i18next')
 
 exports.register = function(plugin, options, next) {
   plugin.route({
@@ -9,7 +12,7 @@ exports.register = function(plugin, options, next) {
     path: '/settings/password',
     config: {
       pre: [preUser],
-      handler: function(req, reply) {
+      handler(req, reply) {
         reply.vtree(passwordView({
           hasPassword: typeof req.pre.user.hash !== 'undefined',
         }))
@@ -21,7 +24,7 @@ exports.register = function(plugin, options, next) {
     method: 'POST',
     path: '/settings/password',
     config: {
-      pre: [preUser],
+      pre: [preUser, preSession],
       validate: {
         payload: {
           currentPassword: joi.string(),
@@ -29,7 +32,7 @@ exports.register = function(plugin, options, next) {
           verifyPassword: joi.equal(joi.ref('newPassword')),
         },
       },
-      handler: function(req, reply) {
+      handler(req, reply) {
         let userService = req.server.plugins['jimbo-client'].user
         let sessionService = req.server.plugins['jimbo-client'].session
 
@@ -39,25 +42,24 @@ exports.register = function(plugin, options, next) {
           newPassword: req.payload.newPassword,
         }, function(err, user) {
           if (err) {
-            return renderPasswordPage(req, res, {
+            return reply({
               messages: {
-                error: req.i18n.t('account.error.' + err.type || 'unknown'),
+                error: i18n.t('account.error.' + err.type || 'unknown'),
               },
             })
           }
 
           sessionService.destroyByUserId({
-            usedId: user.id,
-            exceptId: req.sessionID,
+            userId: user.id,
+            exceptId: req.pre.session.sid,
           })
 
-          req.login(user, function(err) {
-            if (err) {
-              return res.status(400).send(err)
-            }
-            return renderPasswordPage(req, res, {
+          reply.login(user, function(err) {
+            if (err) return reply(boom.wrap(err))
+
+            return reply({
               messages: {
-                success: req.i18n.t('settings.passwordChangedSuccessfully'),
+                success: i18n.t('settings.passwordChangedSuccessfully'),
               },
             })
           })
