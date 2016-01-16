@@ -105,6 +105,6 @@ const manifest = {
     { plugin: './app/web/application' },
     { plugin: './app/web/user-info' },
   ],
-};
+}
 
-module.exports = manifest;
+module.exports = manifest

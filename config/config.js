@@ -1,9 +1,8 @@
-'use strict';
-
-const util = require('util');
-const fs = require('fs');
-const yamlOrJSON = require('yaml-or-json');
-const convict = require('convict');
+'use strict'
+const util = require('util')
+const fs = require('fs')
+const yamlOrJSON = require('yaml-or-json')
+const convict = require('convict')
 
 let config = convict({
   env: {
@@ -287,19 +286,19 @@ let config = convict({
       },
     },
   },
-});
+})
 
 // load environment dependent configuration
-let env = config.get('env');
-let filePath = __dirname + '/env/' + env;
-let configFile;
+let env = config.get('env')
+let filePath = __dirname + '/env/' + env
+let configFile
 try {
-  configFile = yamlOrJSON(filePath) || {};
+  configFile = yamlOrJSON(filePath) || {}
 } catch (err) {
-  configFile = {};
+  configFile = {}
 }
 
-config.load(configFile);
+config.load(configFile)
 
 // Adding the calculated values
 config.load({
@@ -334,9 +333,9 @@ config.load({
     config.get('sessionService.mongodb.port'),
     config.get('sessionService.mongodb.name')
   ),
-});
+})
 
 // perform validation
-config.validate();
+config.validate()
 
-module.exports = config;
+module.exports = config

@@ -23,7 +23,7 @@ module.exports = function(plugin, opts, next) {
 
       reply.vtree(signupView({}))
     },
-  });
+  })
 
   plugin.route({
     method: 'POST',
@@ -37,7 +37,7 @@ module.exports = function(plugin, opts, next) {
       let user = req.payload
 
       /* Add missing user fields */
-      user.provider = 'local';
+      user.provider = 'local'
       user.displayName = user.firstName + ' ' + user.lastName
       user.emailVerified = false
 

@@ -1,7 +1,6 @@
-'use strict';
-
-const accountsView = require('./views/accounts');
-const preUser = require('../pre-user');
+'use strict'
+const accountsView = require('./views/accounts')
+const preUser = require('../pre-user')
 
 exports.register = function(plugin, options, next) {
   plugin.route({
@@ -12,14 +11,14 @@ exports.register = function(plugin, options, next) {
       handler(req, reply) {
         reply.vtree(accountsView({
           user: req.pre.user,
-        }));
+        }))
       },
     },
-  });
+  })
 
-  next();
-};
+  next()
+}
 
 exports.register.attributes = {
   name: 'web/settings/accounts',
-};
+}

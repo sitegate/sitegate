@@ -1,11 +1,11 @@
 'use strict'
-const applicationsView = require('./views/applications');
-const editAppView = require('./views/applications-edit');
-const newAppView = require('./views/applications-new');
-const appView = require('./views/applications-view');
-const preSession = require('humble-session').pre;
-const t = require('i18next').t;
-const Boom = require('boom');
+const applicationsView = require('./views/applications')
+const editAppView = require('./views/applications-edit')
+const newAppView = require('./views/applications-new')
+const appView = require('./views/applications-view')
+const preSession = require('humble-session').pre
+const t = require('i18next').t
+const Boom = require('boom')
 
 exports.register = function(plugin, options, next) {
   plugin.route({
@@ -14,38 +14,38 @@ exports.register = function(plugin, options, next) {
     config: {
       pre: [preSession],
     },
-    handler: function(request, reply) {
-      let clientService = request.server.plugins['jimbo-client'].client;
-      let userService = request.server.plugins['jimbo-client'].user;
-      let userId = request.pre.session.user.id;
+    handler(request, reply) {
+      let clientService = request.server.plugins['jimbo-client'].client
+      let userService = request.server.plugins['jimbo-client'].user
+      let userId = request.pre.session.user.id
 
       clientService.query({
         creatorId: userId,
         count: 20,
         fields: ['name'],
       }, function(err, userClients) {
-        if (err) {
-          //
-        }
+        if (err) return reply(Boom.wrap(err))
 
-        userService.getTrustedClients(userId, function(err, clients) {
+        userService.getTrustedClients({userId}, function(err, clients) {
+          if (err) return reply(Boom.wrap(err))
+
           reply.vtree(applicationsView({
             title: t('app.apps'),
             trustedClients: clients,
             clients: userClients,
-          }));
-        });
-      });
+          }))
+        })
+      })
     },
-  });
+  })
 
   plugin.route({
     method: 'GET',
     path: '/settings/applications/new',
-    handler: function(request, reply) {
-      reply.vtree(newAppView({}));
+    handler(request, reply) {
+      reply.vtree(newAppView({}))
     },
-  });
+  })
 
   plugin.route({
     method: 'POST',
@@ -53,7 +53,7 @@ exports.register = function(plugin, options, next) {
     config: {
       pre: [preSession],
     },
-    handler: function(req, reply) {
+    handler(req, reply) {
       let clientService = req.server.plugins['jimbo-client'].client
 
       clientService.create({
@@ -63,14 +63,12 @@ exports.register = function(plugin, options, next) {
         authCallbackUrl: req.payload.authCallbackUrl,
         userId: req.pre.session.user.id,
       }, function(err, client) {
-        if (err) {
-          return reply(err);
-        }
+        if (err) return reply(Boom.wrap(err))
 
-        return reply.redirect('/settings/applications/' + client.id);
-      });
+        return reply.redirect('/settings/applications/' + client.id)
+      })
     },
-  });
+  })
 
   plugin.route({
     method: 'GET',
@@ -78,38 +76,33 @@ exports.register = function(plugin, options, next) {
     config: {
       pre: [preSession],
     },
-    handler: function(req, reply) {
+    handler(req, reply) {
       let clientService = req.server.plugins['jimbo-client'].client
 
       clientService.getById(req.params.id, function(err, client) {
-        if (err) {
-          return reply(err);
-        }
+        if (err) return reply(Boom.wrap(err))
 
-        if (client.userId !== req.pre.session.user.id) {
-          return reply('You cannot view an app that was created by another user');
-        }
+        if (client.userId !== req.pre.session.user.id)
+          return reply('You cannot view an app that was created by another user')
 
-        return reply.vtree(editAppView(client));
-      });
+        return reply.vtree(editAppView(client))
+      })
     },
-  });
+  })
 
   plugin.route({
     method: 'GET',
     path: '/settings/connections/{id}',
-    handler: function(req, reply) {
+    handler(req, reply) {
       let clientService = req.server.plugins['jimbo-client'].client
 
       clientService.getById(req.params.id, function(err, client) {
-        if (err) {
-          return reply(err);
-        }
+        if (err) return reply(Boom.wrap(err))
 
-        return reply.vtree(appView(client));
-      });
+        return reply.vtree(appView(client))
+      })
     },
-  });
+  })
 
   plugin.route({
     method: 'POST',
@@ -117,7 +110,7 @@ exports.register = function(plugin, options, next) {
     config: {
       pre: [preSession],
     },
-    handler: function(req, reply) {
+    handler(req, reply) {
       let clientService = req.server.plugins['jimbo-client'].client
 
       clientService.update(req.params.id, {
@@ -130,14 +123,12 @@ exports.register = function(plugin, options, next) {
           userId: req.pre.session.user.id,
         },
       }, function(err, client) {
-        if (err) {
-          return reply(err);
-        }
+        if (err) return reply(Boom.wrap(err))
 
-        return reply.redirect('/settings/applications');
-      });
+        return reply.redirect('/settings/applications')
+      })
     },
-  });
+  })
 
   plugin.route({
     method: 'DELETE',
@@ -145,68 +136,63 @@ exports.register = function(plugin, options, next) {
     config: {
       pre: [preSession],
     },
-    handler: function(req, reply) {
+    handler(req, reply) {
       let clientService = req.server.plugins['jimbo-client'].client
 
       clientService.getById(req.params.id, function(err, client) {
-        if (err) {
-          return reply(Boom.wrap(err));
-        }
+        if (err) return reply(Boom.wrap(err))
 
-        if (!client) {
-          return reply(Boom.notFound('client not found'));
-        }
+        if (!client) return reply(Boom.notFound('client not found'))
 
         if (client.userId !== req.pre.session.user.id) {
-          return reply(Boom.badRequest('Only the creator can remove a client'));
+          return reply(Boom.badRequest('Only the creator can remove a client'))
         }
 
         clientService.remove(req.params.id, function(err) {
-          if (err) {
-            return reply(Boom.wrap(err));
-          }
-          return reply('Success');
-        });
-      });
+          if (err) return reply(Boom.wrap(err))
+
+          return reply('Success')
+        })
+      })
     },
-  });
+  })
 
   plugin.route({
     method: 'POST',
     path: '/settings/applications/revoke/{id}',
-    handler: function(req, reply) {
+    handler(req, reply) {
       let userService = req.server.plugins['jimbo-client'].user
 
       userService.revokeClientAccess({
         userId: req.auth.credentials.id,
         clientId: req.params.id,
       }, function(err) {
-        if (err) return reply(Boom.wrap(err));
+        if (err) return reply(Boom.wrap(err))
 
-        reply('Success');
-      });
+        reply('Success')
+      })
     },
-  });
+  })
 
   plugin.route({
     method: 'POST',
     path: '/settings/applications/revoke-all',
-    handler: function(req, reply) {
+    handler(req, reply) {
       let userService = req.server.plugins['jimbo-client'].user
 
       userService.revokeAllClientsAccess({
         userId: req.auth.credentials.id,
       }, function(err) {
-        if (err) return reply(Boom.wrap(err));
+        if (err) return reply(Boom.wrap(err))
 
-        reply('Success');
-      });
+        reply('Success')
+      })
     },
-  });
+  })
 
-  next();
-};
+  next()
+}
 
 exports.register.attributes = {
   name: 'web/application',
-};
+}

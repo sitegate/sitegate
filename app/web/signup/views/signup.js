@@ -1,12 +1,11 @@
-'use strict';
-
-const h = require('virtual-dom/h');
-const vtag = require('vtag')(h);
-const publicLayout = require('../../../views/public-layout');
-const t = require('i18next').t;
-const config = require('../../../../config/config');
-const messageBlock = require('../../../views/partials/message-block');
-const socialSignin = require('../../../views/partials/social-signin');
+'use strict'
+const h = require('virtual-dom/h')
+const vtag = require('vtag')(h)
+const publicLayout = require('../../../views/public-layout')
+const t = require('i18next').t
+const config = require('../../../../config/config')
+const messageBlock = require('../../../views/partials/message-block')
+const socialSignin = require('../../../views/partials/social-signin')
 
 module.exports = function(vm) {
   return publicLayout(vm, {
@@ -72,5 +71,5 @@ module.exports = function(vm) {
         ]),
       ]),
     ],
-  });
-};
+  })
+}

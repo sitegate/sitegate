@@ -1,14 +1,13 @@
-'use strict';
-
-const uid = require('../../helpers/uid');
-const dialogView = require('./views/dialog');
-const sessionPre = require('humble-session').pre;
+'use strict'
+const uid = require('../../helpers/uid')
+const dialogView = require('./views/dialog')
+const sessionPre = require('humble-session').pre
 
 module.exports = function(server, opts, next) {
-  let oauth2orize = server.plugins['humble-oauth2orize'];
-  let oauthService = server.plugins['ms/oauth'];
-  let userService = server.plugins['jimbo-client'].user;
-  let clientService = server.plugins['jimbo-client'].client;
+  let oauth2orize = server.plugins['humble-oauth2orize']
+  let oauthService = server.plugins['ms/oauth']
+  let userService = server.plugins['jimbo-client'].user
+  let clientService = server.plugins['jimbo-client'].client
 
   server.auth.strategy('bearer', 'bearer-access-token', {
     allowQueryToken: false,
@@ -16,38 +15,38 @@ module.exports = function(server, opts, next) {
     accessTokenName: 'Bearer',
     validateFunc: function(token, cb) {
       oauthService.authToken(token, function(err, userOrClient, info) {
-        if (err) return cb(null, false, { token: token });
+        if (err) return cb(null, false, { token: token })
 
-        cb(null, true, userOrClient);
-      });
+        cb(null, true, userOrClient)
+      })
     },
-  });
+  })
 
   function authenticateClient(clientPublicId, secret, cb) {
     clientService.getByPublicId(clientPublicId, function(err, client) {
-      if (err) return cb(err);
+      if (err) return cb(err)
 
       // No client found with that id or bad password
       if (!client || client.secret !== secret) {
-        return cb(null, false);
+        return cb(null, false)
       }
 
       // Success
-      return cb(null, true, client);
-    });
+      return cb(null, true, client)
+    })
   }
 
   server.auth.strategy('basic-client', 'basic', {
     validateFunc: function(request, clientPublicId, secret, cb) {
-      authenticateClient(clientPublicId, secret, cb);
+      authenticateClient(clientPublicId, secret, cb)
     },
-  });
+  })
 
   server.auth.strategy('form-client', 'form', {
     usernameField: 'client_id',
     passwordField: 'client_secret',
     validateFunc: authenticateClient,
-  });
+  })
 
   /* Register serialialization function */
   oauth2orize.serializeClient(function(client, cb) {
@@ -55,11 +54,11 @@ module.exports = function(server, opts, next) {
       id: client.id,
       publicId: client.publicId,
       secret: client.secret,
-    });
-  });
+    })
+  })
 
   /* Register deserialization function */
-  oauth2orize.deserializeClient((client, cb) => cb(null, client));
+  oauth2orize.deserializeClient((client, cb) => cb(null, client))
 
   /* Register authorization code grant type */
   oauth2orize.grant(oauth2orize
@@ -69,8 +68,8 @@ module.exports = function(server, opts, next) {
         clientId: client.id,
         redirectUri: redirectUri,
         userId: user.id,
-      }, cb);
-    }));
+      }, cb)
+    }))
 
   /* Exchange authorization codes for access tokens */
   oauth2orize.exchange(oauth2orize
@@ -80,8 +79,8 @@ module.exports = function(server, opts, next) {
         clientId: client.id,
         code: code,
         redirectUri: redirectUri,
-      }, cb);
-    }));
+      }, cb)
+    }))
 
   /* User authorization endpoint */
   server.route({
@@ -92,7 +91,7 @@ module.exports = function(server, opts, next) {
       pre: [sessionPre],
     },
     handler: function(req, reply) {
-      let userId = req.auth.credentials.id;
+      let userId = req.auth.credentials.id
       oauth2orize.authorize(req, reply, function(xreq, xres) {
         reply.setSession(req.pre.session, function() {
           oauthService.isTrusted({
@@ -100,37 +99,37 @@ module.exports = function(server, opts, next) {
             userId: userId,
           }, function(err, isTrusted) {
             if (err) {
-              console.log(err);
-              return;
+              console.log(err)
+              return
             }
 
             if (isTrusted) {
-              req.oauth2 = xreq.oauth2;
-              req.payload = req.payload || {};
+              req.oauth2 = xreq.oauth2
+              req.payload = req.payload || {}
               oauth2orize.decision(req, reply, {
                 loadTransaction: false,
               }, function(req, cb) {
                 cb(null, {
                   allow: true,
-                });
-              });
-              return;
+                })
+              })
+              return
             }
             return reply.vtree(dialogView({
               transactionID: xreq.oauth2.transactionID,
               user: req.auth.credentials,
               client: xreq.oauth2.client,
-            }));
-          });
-        });
+            }))
+          })
+        })
       }, function(clientId, redirectUri, cb) {
         clientService.getByPublicId(clientId, function(err, client) {
-          if (err) return cb(err);
-          return cb(null, client, redirectUri);
-        });
-      });
+          if (err) return cb(err)
+          return cb(null, client, redirectUri)
+        })
+      })
     },
-  });
+  })
 
   /* User decision endpoint */
   server.route({
@@ -141,7 +140,7 @@ module.exports = function(server, opts, next) {
     },
     handler: function(req, reply) {
       if (req.payload.cancel) {
-        return oauth2orize.decision(req, reply);
+        return oauth2orize.decision(req, reply)
       }
 
       let userService = req.server.plugins['jimbo-client'].user
@@ -150,10 +149,10 @@ module.exports = function(server, opts, next) {
         userId: req.auth.credentials.id,
         clientId: req.payload.clientId,
       }, function() {
-        oauth2orize.decision(req, reply);
-      });
+        oauth2orize.decision(req, reply)
+      })
     },
-  });
+  })
 
   /* Application client token exchange endpoint */
   server.route({
@@ -168,12 +167,12 @@ module.exports = function(server, opts, next) {
       },
     },
     handler: function(req, reply) {
-      oauth2orize.token(req, reply);
+      oauth2orize.token(req, reply)
     },
-  });
+  })
 
-  next();
-};
+  next()
+}
 
 module.exports.attributes = {
   name: 'plugins/oauth2',
@@ -182,4 +181,4 @@ module.exports.attributes = {
     'user',
     'client',
   ],
-};
+}

@@ -1,9 +1,8 @@
-'use strict';
-
-var h = require('virtual-dom/h');
-var settingsLayout = require('../../../views/settings-layout');
-var t = require('i18next').t;
-var vtag = require('vtag')(h);
+'use strict'
+const h = require('virtual-dom/h')
+const settingsLayout = require('../../../views/settings-layout')
+const t = require('i18next').t
+const vtag = require('vtag')(h)
 
 module.exports = function(vm) {
   return settingsLayout(vm, {
@@ -11,25 +10,25 @@ module.exports = function(vm) {
       h('.ui.tertiary.attached.segment',
         h('.ui.breadcrumb', [
           h('a.section', {
-            href: '/settings/applications'
+            href: '/settings/applications',
           }, t('app.apps')),
           h('i.right.chevron.icon.divider'),
-          h('.active.section', vm.name)
+          h('.active.section', vm.name),
         ])
       ),
       h('form.ui.attached.segment', [
         h('h2', vm.name),
         h('a', {
-          href: vm.homepageUrl
+          href: vm.homepageUrl,
         }, vm.homepageUrl),
         h('p', vm.description),
         h('button.ui.red.inverted.revoke.button', {
           attributes: {
-            'data-client-id': vm.id
-          }
-        }, t('app.revoke'))
-      ])
+            'data-client-id': vm.id,
+          },
+        }, t('app.revoke')),
+      ]),
     ],
-    scripts: vtag.js('/dist/js/settings/applications-view.js')
-  });
-};
+    scripts: vtag.js('/dist/js/settings/applications-view.js'),
+  })
+}

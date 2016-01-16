@@ -1,19 +1,18 @@
-'use strict';
-
-var h = require('virtual-dom/h');
-var vtag = require('vtag')(h);
-var publicLayout = require('../../../views/public-layout');
-var t = require('i18next').t;
+'use strict'
+const h = require('virtual-dom/h')
+const vtag = require('vtag')(h)
+const publicLayout = require('../../../views/public-layout')
+const t = require('i18next').t
 
 module.exports = function(vm) {
   return publicLayout(vm, {
     scripts: [
-      vtag.js('/dist/js/password/new.js')
+      vtag.js('/dist/js/password/new.js'),
     ],
     content: [
       h('h1#sign-header.ui.icon.center.aligned.header', [
         h('i.lock.icon'),
-        h('.content', t('account.password.reset'))
+        h('.content', t('account.password.reset')),
       ]),
       h('form.ui.form', { method: 'post'}, [
         h('.field', [
@@ -22,10 +21,10 @@ module.exports = function(vm) {
             h('input', {
               type: 'password',
               name: 'newPassword',
-              autocomplete: 'off'
+              autocomplete: 'off',
             }),
-            h('i.lock.icon')
-          ])
+            h('i.lock.icon'),
+          ]),
         ]),
         h('.field', [
           h('label', t('account.password.repeat')),
@@ -33,15 +32,15 @@ module.exports = function(vm) {
             h('input', {
               type: 'password',
               name: 'repeatPassword',
-              autocomplete: 'off'
+              autocomplete: 'off',
             }),
-            h('i.lock.icon')
-          ])
+            h('i.lock.icon'),
+          ]),
         ]),
         h('button.ui.blue.submit.button',
-          { type: 'submit'}, t('account.password.reset')
-        )
-      ])
-    ]
-  });
-};
+          { tye: 'submit'}, t('account.password.reset')
+        ),
+      ]),
+    ],
+  })
+}

@@ -1,20 +1,19 @@
-'use strict';
-
-const profileView = require('./views/profile');
-const errorHandler = require('../../error-handler');
-const preUser = require('../pre-user');
-const Boom = require('boom');
-const preSession = require('humble-session').pre;
-const humbleFlash = require('humble-flash');
+'use strict'
+const profileView = require('./views/profile')
+const errorHandler = require('../../error-handler')
+const preUser = require('../pre-user')
+const Boom = require('boom')
+const preSession = require('humble-session').pre
+const humbleFlash = require('humble-flash')
 
 exports.register = function(plugin, options, next) {
   plugin.route({
     method: 'GET',
     path: '/settings',
-    handler: function(req, reply) {
-      reply.redirect('/settings/profile');
+    handler(req, reply) {
+      reply.redirect('/settings/profile')
     },
-  });
+  })
 
   plugin.route({
     method: 'GET',
@@ -25,21 +24,21 @@ exports.register = function(plugin, options, next) {
         humbleFlash.createPreHandler('profileSuccessMessages'),
       ],
     },
-    handler: function(req, reply) {
+    handler(req, reply) {
       reply.vtree(profileView({
         user: req.pre.user,
         messages: {
           success: req.pre.profileSuccessMessages,
         },
-      }));
+      }))
     },
-  });
+  })
 
   plugin.route({
     method: 'POST',
     path: '/settings/profile',
     config: {
-      handler: function(req, reply) {
+      handler(req, reply) {
         let userService = req.server.plugins['jimbo-client'].user
 
         let userToReturn = req.payload.user
@@ -53,7 +52,7 @@ exports.register = function(plugin, options, next) {
               messages: {
                 error: errorHandler.getErrorMessage(err),
               },
-            }));
+            }))
           }
           return reply.vtree(profileView({
             user: userToReturn,
@@ -61,11 +60,11 @@ exports.register = function(plugin, options, next) {
               success: 'Profile was updated' + (info.emailHasBeenUpdated ?
                 'Verification email was sent' : ''),
             },
-          }));
-        });
+          }))
+        })
       },
     },
-  });
+  })
 
   plugin.route({
     method: 'POST',
@@ -74,24 +73,24 @@ exports.register = function(plugin, options, next) {
       auth: 'default',
       pre: [preSession],
     },
-    handler: function(req, reply) {
+    handler(req, reply) {
       let userService = req.server.plugins['jimbo-client'].user
 
       userService.sendVerificationEmail(req.pre.session.user.id, function(err) {
         if (err) {
-          return reply(Boom.wrap(err));
+          return reply(Boom.wrap(err))
         }
 
         return reply({
           message: 'Verification has been sent out',
-        });
-      });
+        })
+      })
     },
-  });
+  })
 
-  next();
-};
+  next()
+}
 
 exports.register.attributes = {
   name: 'web/settings/profile',
-};
+}

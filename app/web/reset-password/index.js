@@ -1,12 +1,11 @@
-'use strict';
-
-const R = require('ramda');
-const errorHandler = require('../../error-handler');
-const resetPasswordView = require('./views/reset-password');
-const newPasswordView = require('./views/new');
-const preSession = require('humble-session').pre;
-const t = require('i18next').t;
-const Boom = require('boom');
+'use strict'
+const R = require('ramda')
+const errorHandler = require('../../error-handler')
+const resetPasswordView = require('./views/reset-password')
+const newPasswordView = require('./views/new')
+const preSession = require('humble-session').pre
+const t = require('i18next').t
+const Boom = require('boom')
 
 exports.register = function(plugin, options, next) {
   plugin.route({
@@ -15,10 +14,10 @@ exports.register = function(plugin, options, next) {
     config: {
       auth: false,
     },
-    handler: function(request, reply) {
-      reply.vtree(resetPasswordView({}));
+    handler(request, reply) {
+      reply.vtree(resetPasswordView({}))
     },
-  });
+  })
 
   plugin.route({
     method: 'POST',
@@ -26,7 +25,7 @@ exports.register = function(plugin, options, next) {
     config: {
       auth: false,
     },
-    handler: function(req, reply) {
+    handler(req, reply) {
       let userService = req.server.plugins['jimbo-client'].user
 
       userService.requestPasswordChangeByEmail(req.payload.email, function(err, info) {
@@ -35,7 +34,7 @@ exports.register = function(plugin, options, next) {
             messages: {
               error: errorHandler.getErrorMessage(err),
             },
-          }));
+          }))
         }
 
         return reply.vtree(resetPasswordView({
@@ -44,10 +43,10 @@ exports.register = function(plugin, options, next) {
               email: req.payload.email,
             }),
           },
-        }));
-      });
+        }))
+      })
     },
-  });
+  })
 
   plugin.route({
     method: 'GET',
@@ -55,7 +54,7 @@ exports.register = function(plugin, options, next) {
     config: {
       auth: false,
     },
-    handler: function(req, reply) {
+    handler(req, reply) {
       let userService = req.server.plugins['jimbo-client'].user
 
       userService.validateResetToken(req.params.token, function(err) {
@@ -64,13 +63,13 @@ exports.register = function(plugin, options, next) {
             messages: {
               error: t('account.password.invalidResetToken'),
             },
-          }));
+          }))
         }
 
-        reply.vtree(newPasswordView({}));
-      });
+        reply.vtree(newPasswordView({}))
+      })
     },
-  });
+  })
 
   plugin.route({
     method: 'POST',
@@ -79,8 +78,8 @@ exports.register = function(plugin, options, next) {
       pre: [preSession],
       auth: false,
     },
-    handler: function(req, reply) {
-      let passwordDetails = req.payload;
+    handler(req, reply) {
+      let passwordDetails = req.payload
       let userService = req.service.plugins['jimbo-client'].user
 
       if (passwordDetails.newPassword !== passwordDetails.repeatPassword) {
@@ -88,7 +87,7 @@ exports.register = function(plugin, options, next) {
           messages: {
             error: t('account.password.passwordsDoNotMatch'),
           },
-        }));
+        }))
       }
 
       userService.changePasswordUsingToken({
@@ -100,24 +99,24 @@ exports.register = function(plugin, options, next) {
             messages: {
               error: t('account.password.invalidResetToken'),
             },
-          });
+          })
         }
 
-        req.pre.session.user = R.pick(['id'], user);
+        req.pre.session.user = R.pick(['id'], user)
         reply.setSession(req.pre.session, function(err) {
           if (err) {
-            return reply(Boom.create(400, 'Couldn\'t log in', err));
+            return reply(Boom.create(400, 'Couldn\'t log in', err))
           }
 
-          reply.redirect('/');
-        });
-      });
+          reply.redirect('/')
+        })
+      })
     },
-  });
+  })
 
-  next();
-};
+  next()
+}
 
 exports.register.attributes = {
   name: 'web/reset-password',
-};
+}
