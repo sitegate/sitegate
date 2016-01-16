@@ -1,8 +1,7 @@
-'use strict';
-
-const signupView = require('./views/signup');
-const preSession = require('humble-session').pre;
-const t = require('i18next').t;
+'use strict'
+const signupView = require('./views/signup')
+const preSession = require('humble-session').pre
+const t = require('i18next').t
 
 module.exports = function(plugin, opts, next) {
   plugin.route({
@@ -20,9 +19,9 @@ module.exports = function(plugin, opts, next) {
     },
     handler(request, reply) {
       if (request.auth.isAuthenticated)
-        return reply.redirect(opts.homepageUrl);
+        return reply.redirect(opts.homepageUrl)
 
-      reply.vtree(signupView({}));
+      reply.vtree(signupView({}))
     },
   });
 
@@ -33,14 +32,14 @@ module.exports = function(plugin, opts, next) {
       auth: false,
     },
     handler(req, reply) {
-      let userService = req.server.plugins['jimbo-client'].user;
+      let userService = req.server.plugins['jimbo-client'].user
 
-      let user = req.payload;
+      let user = req.payload
 
       /* Add missing user fields */
       user.provider = 'local';
-      user.displayName = user.firstName + ' ' + user.lastName;
-      user.emailVerified = false;
+      user.displayName = user.firstName + ' ' + user.lastName
+      user.emailVerified = false
 
       userService.register(user, function(err, user) {
         if (err) {
@@ -51,25 +50,25 @@ module.exports = function(plugin, opts, next) {
             messages: {
               error: t('account.error.' + (err.type || 'unknown')),
             },
-          }));
+          }))
         }
 
         reply.setSession({
           user: {
             id: user.id,
           },
-        }, function(err) {
-          if (err) return reply(err).status(400);
+        }, err => {
+          if (err) return reply(err).status(400)
 
-          return reply.redirect(opts.homepageUrl);
-        });
-      });
+          return reply.redirect(opts.homepageUrl)
+        })
+      })
     },
-  });
+  })
 
-  next();
-};
+  next()
+}
 
 module.exports.attributes = {
   name: 'web/signup',
-};
+}

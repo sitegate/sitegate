@@ -9,7 +9,7 @@ module.exports = {
       return reply('session not defined').takeover();
     }
 
-    userService.getById(req.auth.credentials.id, function(err, user) {
+    userService.getById({id: req.auth.credentials.id}, function(err, user) {
       if (err) {
         return reply('user not found').takeover();
       }

@@ -15,6 +15,19 @@ exports.register = function(server, opts, next) {
     ],
   })
 
+  let sessionService = server.plugins['jimbo-client'].session
+  server.expose({
+    set: (sid, session, cb) => {
+      sessionService.set({
+        sid,
+        session,
+      }, cb)
+    },
+    get: (sid, cb) => {
+      sessionService.get({sid}, cb)
+    },
+  })
+
   next();
 };
 
