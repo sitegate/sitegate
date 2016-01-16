@@ -1,5 +1,4 @@
-'use strict';
-
+'use strict'
 exports.register = function(plugin, options, next) {
   plugin.route({
     method: 'GET',
@@ -13,11 +12,11 @@ exports.register = function(plugin, options, next) {
         listing: true,
       },
     },
-  });
+  })
 
-  next();
-};
+  next()
+}
 
 exports.register.attributes = {
   name: 'public',
-};
+}

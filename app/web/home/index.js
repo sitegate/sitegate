@@ -1,6 +1,5 @@
-'use strict';
-
-const homepageView = require('./views/home');
+'use strict'
+const homepageView = require('./views/home')
 
 exports.register = function(plugin, options, next) {
   plugin.route({
@@ -8,14 +7,14 @@ exports.register = function(plugin, options, next) {
     path: '/',
     config: {
       handler: function(request, reply) {
-        reply.vtree(homepageView({}));
+        reply.vtree(homepageView({}))
       },
     },
-  });
+  })
 
-  next();
-};
+  next()
+}
 
 exports.register.attributes = {
   name: 'web/home',
-};
+}

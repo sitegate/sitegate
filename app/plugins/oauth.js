@@ -15,9 +15,9 @@ exports.register = function(server, opts, next) {
     ],
   })
 
-  next();
-};
+  next()
+}
 
 exports.register.attributes = {
   name: 'ms/oauth',
-};
+}

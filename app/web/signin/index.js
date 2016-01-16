@@ -21,7 +21,7 @@ exports.register = function(plugin, opts, next) {
 
       reply.vtree(signinView({}))
     },
-  });
+  })
 
   plugin.route({
     method: 'POST',

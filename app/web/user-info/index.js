@@ -1,5 +1,4 @@
-'use strict';
-
+'use strict'
 module.exports = function(server, opts, next) {
   server.route({
     method: 'GET',
@@ -12,13 +11,13 @@ module.exports = function(server, opts, next) {
         id: req.auth.credentials.id,
         username: req.auth.credentials.username,
         email: req.auth.credentials.email,
-      });
+      })
     },
-  });
+  })
 
-  next();
-};
+  next()
+}
 
 module.exports.attributes = {
   name: 'web/user-info',
-};
+}

@@ -1,9 +1,8 @@
-'use strict';
-
-const h = require('virtual-dom/h');
-const vtag = require('vtag')(h);
-const publicLayout = require('../../../views/public-layout');
-const t = require('i18next').t;
+'use strict'
+const h = require('virtual-dom/h')
+const vtag = require('vtag')(h)
+const publicLayout = require('../../../views/public-layout')
+const t = require('i18next').t
 
 module.exports = function(vm) {
   return publicLayout(vm, {
@@ -50,5 +49,5 @@ module.exports = function(vm) {
         ])
       ),
     ],
-  });
-};
+  })
+}

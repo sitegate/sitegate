@@ -1,11 +1,10 @@
-'use strict';
-
-const h = require('virtual-dom/h');
-const settingsLayout = require('../../../views/settings-layout');
-const t = require('i18next').t;
-const vtag = require('vtag')(h);
-const messageBlock = require('../../../views/partials/message-block');
-const R = require('ramda');
+'use strict'
+const h = require('virtual-dom/h')
+const settingsLayout = require('../../../views/settings-layout')
+const t = require('i18next').t
+const vtag = require('vtag')(h)
+const messageBlock = require('../../../views/partials/message-block')
+const R = require('ramda')
 
 function password(name) {
   return h('.ui.left.icon.input', [
@@ -15,7 +14,7 @@ function password(name) {
       autocomplete: 'off',
     }),
     h('i.lock.icon'),
-  ]);
+  ])
 }
 
 module.exports = function(vm) {
@@ -42,5 +41,5 @@ module.exports = function(vm) {
         type: 'submit',
       }, t('common.saveChanges')),
     ])),
-  });
-};
+  })
+}

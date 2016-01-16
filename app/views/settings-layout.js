@@ -1,14 +1,13 @@
-'use strict';
-
-const h = require('virtual-dom/h');
-const privateLayout = require('./private-layout');
-const R = require('ramda');
-const t = require('i18next').t;
+'use strict'
+const h = require('virtual-dom/h')
+const privateLayout = require('./private-layout')
+const R = require('ramda')
+const t = require('i18next').t
 
 function link(targetUrl, text) {
   return h('a.item', {
     href: targetUrl,
-  }, text);
+  }, text)
 }
 
 module.exports = function(vm, partials) {
@@ -24,5 +23,5 @@ module.exports = function(vm, partials) {
       ),
       h('.twelve.wide.column', partials.settingsContent),
     ]),
-  }));
-};
+  }))
+}

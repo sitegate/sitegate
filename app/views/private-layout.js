@@ -1,10 +1,9 @@
-'use strict';
-
-const h = require('virtual-dom/h');
-const layout = require('./layout');
-const R = require('ramda');
-const t = require('i18next').t;
-const config = require('../../config/config');
+'use strict'
+const h = require('virtual-dom/h')
+const layout = require('./layout')
+const R = require('ramda')
+const t = require('i18next').t
+const config = require('../../config/config')
 
 module.exports = function(vm, partials) {
   return layout(vm, R.merge(partials, {
@@ -27,5 +26,5 @@ module.exports = function(vm, partials) {
       ),
       h('.main.container', partials.content),
     ],
-  }));
-};
+  }))
+}

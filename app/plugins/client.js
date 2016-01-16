@@ -19,8 +19,8 @@ exports.register = function(server, opts, next) {
   })
 
   next()
-};
+}
 
 exports.register.attributes = {
   name: 'client',
-};
+}
