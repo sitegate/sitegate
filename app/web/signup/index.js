@@ -1,72 +1,57 @@
 'use strict'
 const signupView = require('./views/signup')
-const preSession = require('humble-session').pre
 const t = require('i18next').t
 
-module.exports = function(plugin, opts, next) {
-  plugin.route({
+module.exports = (server, opts) => {
+  server.route({
     method: 'GET',
     path: '/signup',
     config: {
-      auth: {
-        mode: 'try',
-      },
-      plugins: {
-        'humble-auth': {
-          redirectTo: false,
-        },
-      },
+      auth: false,
     },
-    handler(request, reply) {
-      if (request.auth.isAuthenticated)
-        return reply.redirect(opts.homepageUrl)
+    handler (req, res) {
+      if (req.isAuthenticated()) return res.redirect(opts.homepageUrl)
 
-      reply.vtree(signupView({}))
+      res.vtree(signupView({}))
     },
   })
 
-  plugin.route({
+  server.route({
     method: 'POST',
     path: '/signup',
     config: {
       auth: false,
     },
-    handler(req, reply) {
-      let userService = req.server.plugins['jimbo-client'].user
+    handler (req, res) {
+      const userService = server.plugins.jimboClient.user
 
-      let user = req.payload
+      const user = req.body
 
       /* Add missing user fields */
       user.provider = 'local'
       user.displayName = user.firstName + ' ' + user.lastName
       user.emailVerified = false
 
-      userService.register(user, function(err, user) {
+      userService.register(user, (err, user) => {
         if (err) {
-          return reply.vtree(signupView({
-            username: req.payload.username,
-            password: req.payload.password,
-            email: req.payload.email,
+          return res.vtree(signupView({
+            username: req.body.username,
+            password: req.body.password,
+            email: req.body.email,
             messages: {
               error: t('account.error.' + (err.type || 'unknown')),
             },
           }))
         }
 
-        reply.setSession({
-          user: {
-            id: user.id,
-          },
-        }, err => {
-          if (err) return reply(err).status(400)
+        req.login(user, err => {
+          if (err) return res.status(400).send(err)
 
-          return reply.redirect(opts.homepageUrl)
+          return res.redirect(opts.homepageUrl)
         })
       })
     },
   })
-
-  next()
 }
 
 module.exports.attributes = {

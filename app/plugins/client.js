@@ -1,12 +1,11 @@
 'use strict'
-exports.register = function(server, opts, next) {
-  if (!opts.amqpURL)
-    return next(new Error('amqpURL is required'))
+exports.register = (server, opts) => {
+  if (!opts.amqpURL) throw new Error('amqpURL is required')
 
-  server.client({
+  return server.client({
     name: 'client',
     channel: 'sitegate-client',
-    url: opts.amqpURL,
+    amqpURL: opts.amqpURL,
     methods: [
       'create',
       'getById',
@@ -17,10 +16,9 @@ exports.register = function(server, opts, next) {
       'update',
     ],
   })
-
-  next()
 }
 
 exports.register.attributes = {
   name: 'client',
+  dependencies: ['jimbo-client'],
 }

@@ -1,15 +1,13 @@
-'use strict';
+'use strict'
+const gulp = require('gulp')
+const Foso = require('foso')
+const js = require('fosify-js')
+const sass = require('fosify-sass')
+const path = require('path')
+const Server = require('foso-cdn').Server
 
-const gulp = require('gulp');
-const Foso = require('foso');
-const js = require('fosify-js');
-const sass = require('fosify-sass');
-const path = require('path');
-const fs = require('fs');
-const Server = require('foso-cdn').Server;
-
-gulp.task('develop', function(cb) {
-  let foso = new Foso();
+gulp.task('develop', cb => {
+  const foso = new Foso()
 
   let options = {
     src: path.resolve(__dirname, '../'),
@@ -20,17 +18,17 @@ gulp.task('develop', function(cb) {
     watch: true,
     serve: false,
     livereload: true,
-  };
+  }
 
   foso
     .register([js, sass], options)
     .then(() => foso.bundle())
-    .then(function() {
-      let server = new Server({
+    .then(() => {
+      const server = new Server({
         src: path.resolve(__dirname, '../'),
-      });
-      return server.start();
+      })
+      return server.start()
     })
     .then(cb)
-    .catch(cb);
-});
+    .catch(cb)
+})

@@ -1,6 +1,5 @@
 'use strict'
 const util = require('util')
-const fs = require('fs')
 const yamlOrJSON = require('yaml-or-json')
 const convict = require('convict')
 

@@ -1,13 +1,12 @@
-'use strict';
+'use strict'
+const gulp = require('gulp')
+const Foso = require('foso')
+const js = require('fosify-js')
+const sass = require('fosify-sass')
+const path = require('path')
 
-const gulp = require('gulp');
-const Foso = require('foso');
-const js = require('fosify-js');
-const sass = require('fosify-sass');
-const path = require('path');
-
-gulp.task('build', function(cb) {
-  let foso = new Foso();
+gulp.task('build', (cb) => {
+  const foso = new Foso()
   foso
     .register([js, sass], {
       src: path.resolve(__dirname, '../'),
@@ -18,5 +17,5 @@ gulp.task('build', function(cb) {
     })
     .then(() => foso.bundle())
     .then(cb)
-    .catch(cb);
-});
+    .catch(cb)
+})

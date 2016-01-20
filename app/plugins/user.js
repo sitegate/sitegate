@@ -1,12 +1,11 @@
 'use strict'
-exports.register = function(server, opts, next) {
-  if (!opts.amqpURL)
-    return next(new Error('amqpURL is required'))
+exports.register = (server, opts) => {
+  if (!opts.amqpURL) throw new Error('amqpURL is required')
 
-  server.client({
+  return server.client({
     name: 'user',
     channel: 'sitegate-user',
-    url: opts.amqpURL,
+    amqpURL: opts.amqpURL,
     methods: [
       'authenticate',
       'changePassword',
@@ -29,8 +28,6 @@ exports.register = function(server, opts, next) {
       'verifyEmailByToken',
     ],
   })
-
-  next()
 }
 
 exports.register.attributes = {

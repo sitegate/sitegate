@@ -1,28 +1,37 @@
 'use strict'
 const h = require('virtual-dom/h')
+const hh = require('hyperscript-helpers')(h)
 const vtag = require('vtag')(h)
 const config = require('../../config/config')
 
-function livereloadTag() {
+const html = hh.html
+const head = hh.head
+const body = hh.body
+const meta = hh.meta
+const title = hh.title
+const link = hh.link
+
+function livereloadTag () {
   if (!process.env.LR_PORT) return ''
   return vtag.js('http://localhost:' + process.env.LR_PORT + '/livereload.js')
 }
 
-module.exports = function(vm, partials) {
-  let title = (vm.title ? vm.title + ' | ' : '') + config.get('app.title')
+module.exports = function (vm, partials) {
+  const titleContent = (vm.title ? vm.title + ' | ' : '') +
+    config.get('app.title')
 
-  return h('html', { lang: 'en' }, [
-    h('head', [
+  return html({ lang: 'en' }, [
+    head([
       vtag.meta.charset('UTF-8'),
-      h('meta', { name: 'viewport', content: 'width=device-width' }),
-      h('title', title),
-      h('link', { type: 'text/plain', rel: 'author', href: '/humans.txt' }),
+      meta({ name: 'viewport', content: 'width=device-width' }),
+      title([titleContent]),
+      link({ type: 'text/plain', rel: 'author', href: '/humans.txt' }),
       vtag.css('//oss.maxcdn.com/semantic-ui/2.1.3/semantic.min.css'),
       livereloadTag(),
       vtag.js(config.get('mainJS')),
       vtag.js.inline('window.stylesBundler && stylesBundler.load()'),
     ]),
-    h('body', [
+    body([
       partials.coreContent,
       vtag.js('//oss.maxcdn.com/jquery/2.1.4/jquery.min.js'),
       vtag.js('//oss.maxcdn.com/semantic-ui/2.1.3/semantic.min.js'),

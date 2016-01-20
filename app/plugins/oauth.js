@@ -1,12 +1,11 @@
 'use strict'
-exports.register = function(server, opts, next) {
-  if (!opts.amqpURL)
-    return next(new Error('amqpURL is required'))
+exports.register = (server, opts) => {
+  if (!opts.amqpURL) throw new Error('amqpURL is required')
 
-  server.client({
+  return server.client({
     name: 'oauth',
     channel: 'sitegate-oauth',
-    url: opts.amqpURL,
+    amqpURL: opts.amqpURL,
     methods: [
       'authToken',
       'createCode',
@@ -14,8 +13,6 @@ exports.register = function(server, opts, next) {
       'isTrusted',
     ],
   })
-
-  next()
 }
 
 exports.register.attributes = {

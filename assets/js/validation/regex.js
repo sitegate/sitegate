@@ -1,9 +1,8 @@
-'use strict';
-
+'use strict'
 function regexValidation(value, pattern) {
-  var regexp = new RegExp(pattern);
-  return regexp.test(value);
+  let regexp = new RegExp(pattern)
+  return regexp.test(value)
 }
-regexValidation.rule = 'regex';
+regexValidation.rule = 'regex'
 
-export default $.fn.form.settings.rules[regexValidation.rule] = regexValidation;
+export default $.fn.form.settings.rules[regexValidation.rule] = regexValidation

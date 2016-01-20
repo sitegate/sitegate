@@ -1,80 +1,87 @@
 'use strict'
 const h = require('virtual-dom/h')
+const hh = require('hyperscript-helpers')(h)
 const settingsLayout = require('../../../views/settings-layout')
 const t = require('i18next').t
 const vtag = require('vtag')(h)
 const messageBlock = require('../../../views/partials/message-block')
 
-module.exports = function(vm) {
+const div = hh.div
+const a = hh.a
+const i = hh.i
+const dl = hh.dl
+const dt = hh.dt
+const dd = hh.dd
+const form = hh.form
+const label = hh.label
+const input = hh.input
+const textarea = hh.textarea
+const button = hh.button
+
+module.exports = vm => {
   return settingsLayout(vm, {
     settingsContent: [
-      h('.ui.tertiary.attached.segment',
-        h('.ui.breadcrumb', [
-          h('a.section', {
-            href: '/settings/applications',
-          }, t('app.apps')),
-          h('i.right.chevron.icon.divider'),
-          h('.active.section', vm.name),
-        ])
-      ),
-      h('.ui.attached.segment',
-        h('dl', [
-          h('dt', 'Client ID'),
-          h('dd', vm.publicId),
-          h('dt', 'Client Secret'),
-          h('dd', vm.secret),
-        ])
-      ),
-      h('form.ui.attached.segment.form', {
-        method: 'post',
-      }, [
+      div('.ui.tertiary.attached.segment', [
+        div('.ui.breadcrumb', [
+          a('.section', {href: '/settings/applications'}, [t('app.apps')]),
+          i('.right.chevron.icon.divider'),
+          div('.active.section', vm.name),
+        ]),
+      ]),
+      div('.ui.attached.segment', [
+        dl([
+          dt(['Client ID']),
+          dd([vm.publicId]),
+          dt(['Client Secret']),
+          dd([vm.secret]),
+        ]),
+      ]),
+      form('.ui.attached.segment.form', { method: 'post' }, [
         messageBlock(vm.messages),
-        h('.field', [
-          h('label', {
-            'for': 'appName',
-          }, t('app.name')),
-          h('input#appName', {
+        div('.field', [
+          label({ attributes: { for: 'appName' } }, [t('app.name')]),
+          input('#appName', {
             type: 'text',
             name: 'name',
             value: vm.name,
           }),
         ]),
-        h('.field', [
-          h('label', {
-            'for': 'appHomepageUrl',
-          }, t('app.homepageUrl')),
-          h('input#appHomepageUrl', {
+        div('.field', [
+          label({ attributes: { for: 'appHomepageUrl' } },
+            [t('app.homepageUrl')]
+          ),
+          input('#appHomepageUrl', {
             type: 'text',
             name: 'homepageUrl',
             value: vm.homepageUrl,
           }),
         ]),
-        h('.field', [
-          h('label', {
-            'for': 'appDescription',
-          }, t('app.description')),
-          h('textarea#appDescription', {
+        div('.field', [
+          label({ attributes: { for: 'appDescription' } },
+            [t('app.description')]
+          ),
+          textarea('#appDescription', {
             type: 'text',
             name: 'description',
-          }, vm.description),
+          }, [vm.description]),
         ]),
-        h('.field', [
-          h('label', {
-            'for': 'appAuthCallbackUrl',
-          }, t('app.authCallbackUrl')),
-          h('input#appAuthCallbackUrl', {
+        div('.field', [
+          label({ attributes: { for: 'appAuthCallbackUrl' } },
+            [t('app.authCallbackUrl')]
+          ),
+          input('#appAuthCallbackUrl', {
             type: 'text',
             name: 'authCallbackUrl',
             value: vm.authCallbackUrl,
           }),
         ]),
-        h('button.ui.primary.button', t('app.update')),
-        h('button#appDelete.ui.red.basic.button', {
+        button('.ui.primary.button', [t('app.update')]),
+        button('#appDelete.ui.red.basic.button', {
           type: 'button',
           attributes: {
             'data-client-id': vm.id,
           },
-        }, t('app.delete')),
+        }, [t('app.delete')]),
       ]),
     ],
     scripts: [

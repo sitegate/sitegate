@@ -1,59 +1,65 @@
 'use strict'
 const h = require('virtual-dom/h')
+const hh = require('hyperscript-helpers')(h)
 const settingsLayout = require('../../../views/settings-layout')
-const R = require('ramda')
 const t = require('i18next').t
-const vtag = require('vtag')(h)
 const messageBlock = require('../../../views/partials/message-block')
 
-function verificationButton(emailVerified) {
+const div = hh.div
+const i = hh.i
+const form = hh.form
+const label = hh.label
+const input = hh.input
+const button = hh.button
+
+function verificationButton (emailVerified) {
   if (emailVerified) {
-    return h('.ui.corner.label', h('i.checkmark.icon'))
+    return div('.ui.corner.label', [i('.checkmark.icon')])
   }
-  return h('#resend-email.ui.animated.fade.red.button', [
-    h('.visible.content', [
-      h('i.warning.circle.icon'),
+  return div('#resend-email.ui.animated.fade.red.button', [
+    div('.visible.content', [
+      i('.warning.circle.icon'),
       'Not verified',
     ]),
-    h('.hidden.content', [
-      h('i.send.icon'),
+    div('.hidden.content', [
+      i('i.send.icon'),
       'Resend email',
     ]),
   ])
 }
 
-module.exports = function(vm) {
+module.exports = vm => {
   return settingsLayout(vm, {
-    settingsContent: h('form.ui.segment.form', { method: 'post' }, [
+    settingsContent: form('.ui.segment.form', { method: 'post' }, [
       messageBlock(vm.messages),
-      h('.field', [
-        h('label', t('account.username')),
-        h('.ui.left.icon.input', [
-          h('input', {
+      div('.field', [
+        label([t('account.username')]),
+        div('.ui.left.icon.input', [
+          input({
             type: 'text',
             placeholder: t('account.username'),
-            name: 'user.username',
+            name: 'username',
             value: vm.user.username,
           }),
-          h('i.user.icon'),
+          i('.user.icon'),
         ]),
       ]),
-      h('.field', [
-        h('label', t('account.email')),
-        h('.ui.left.icon.action.labeled.input', [
-          h('input', {
+      div('.field', [
+        label([t('account.email')]),
+        div('.ui.left.icon.action.labeled.input', [
+          input({
             type: 'text',
             placeholder: t('account.email'),
-            name: 'user.email',
+            name: 'email',
             value: vm.user.email,
           }),
-          h('i.mail.icon'),
+          i('.mail.icon'),
           verificationButton(vm.user.emailVerified),
         ]),
       ]),
-      h('button.ui.primary.submit.button', {
+      button('.ui.primary.submit.button', {
         type: 'submit',
-      }, t('common.saveChanges')),
+      }, [t('common.saveChanges')]),
     ]),
   })
 }

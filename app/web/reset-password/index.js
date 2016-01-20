@@ -1,46 +1,43 @@
 'use strict'
-const R = require('ramda')
 const errorHandler = require('../../error-handler')
 const resetPasswordView = require('./views/reset-password')
 const newPasswordView = require('./views/new')
-const preSession = require('humble-session').pre
 const t = require('i18next').t
-const Boom = require('boom')
 
-exports.register = function(plugin, options, next) {
-  plugin.route({
+exports.register = (server, options) => {
+  const userService = server.plugins.jimboClient.user
+
+  server.route({
     method: 'GET',
     path: '/reset-password',
     config: {
       auth: false,
     },
-    handler(request, reply) {
-      reply.vtree(resetPasswordView({}))
+    handler (req, res) {
+      res.vtree(resetPasswordView({}))
     },
   })
 
-  plugin.route({
+  server.route({
     method: 'POST',
     path: '/reset-password',
     config: {
       auth: false,
     },
-    handler(req, reply) {
-      let userService = req.server.plugins['jimbo-client'].user
-
-      userService.requestPasswordChangeByEmail(req.payload.email, function(err, info) {
+    handler (req, res) {
+      userService.requestPasswordChangeByEmail({ email: req.body.email }, (err, info) => {
         if (err) {
-          return reply.vtree(resetPasswordView({
+          return res.vtree(resetPasswordView({
             messages: {
               error: errorHandler.getErrorMessage(err),
             },
           }))
         }
 
-        return reply.vtree(resetPasswordView({
+        return res.vtree(resetPasswordView({
           messages: {
             success: t('account.password.emailSent', {
-              email: req.payload.email,
+              email: req.body.email,
             }),
           },
         }))
@@ -48,42 +45,38 @@ exports.register = function(plugin, options, next) {
     },
   })
 
-  plugin.route({
+  server.route({
     method: 'GET',
-    path: '/reset/{token}',
+    path: '/reset/:token',
     config: {
       auth: false,
     },
-    handler(req, reply) {
-      let userService = req.server.plugins['jimbo-client'].user
-
-      userService.validateResetToken(req.params.token, function(err) {
+    handler (req, res) {
+      userService.validateResetToken({ token: req.params.token }, err => {
         if (err) {
-          return reply.vtree(resetPasswordView({
+          return res.vtree(resetPasswordView({
             messages: {
               error: t('account.password.invalidResetToken'),
             },
           }))
         }
 
-        reply.vtree(newPasswordView({}))
+        res.vtree(newPasswordView({}))
       })
     },
   })
 
-  plugin.route({
+  server.route({
     method: 'POST',
-    path: '/reset/{token}',
+    path: '/reset/:token',
     config: {
-      pre: [preSession],
       auth: false,
     },
-    handler(req, reply) {
-      let passwordDetails = req.payload
-      let userService = req.service.plugins['jimbo-client'].user
+    handler (req, res) {
+      let passwordDetails = req.body
 
       if (passwordDetails.newPassword !== passwordDetails.repeatPassword) {
-        return reply.vtree(newPasswordView({
+        return res.vtree(newPasswordView({
           messages: {
             error: t('account.password.passwordsDoNotMatch'),
           },
@@ -93,28 +86,29 @@ exports.register = function(plugin, options, next) {
       userService.changePasswordUsingToken({
         token: req.params.token,
         newPassword: passwordDetails.newPassword,
-      }, function(err, user) {
+      }, (err, user) => {
         if (err || !user) {
-          return reply.vtree({
+          return res.vtree({
             messages: {
               error: t('account.password.invalidResetToken'),
             },
           })
         }
 
-        req.pre.session.user = R.pick(['id'], user)
-        reply.setSession(req.pre.session, function(err) {
+        req.login(user, err => {
           if (err) {
-            return reply(Boom.create(400, 'Couldn\'t log in', err))
+            return res.vtree(newPasswordView({
+              messages: {
+                error: err,
+              },
+            }))
           }
 
-          reply.redirect('/')
+          res.redirect('/')
         })
       })
     },
   })
-
-  next()
 }
 
 exports.register.attributes = {

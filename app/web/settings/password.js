@@ -1,74 +1,72 @@
 'use strict'
 const passwordView = require('./views/password')
 const joi = require('joi')
-const preUser = require('../pre-user')
-const preSession = require('humble-session').pre
 const boom = require('boom')
 const i18n = require('i18next')
 
-exports.register = function(plugin, options, next) {
-  plugin.route({
+exports.register = server => {
+  const userService = server.plugins.jimboClient.user
+  const sessionService = server.plugins.jimboClient.session
+
+  server.route({
     method: 'GET',
     path: '/settings/password',
     config: {
-      pre: [preUser],
-      handler(req, reply) {
-        reply.vtree(passwordView({
-          hasPassword: typeof req.pre.user.hash !== 'undefined',
-        }))
-      },
+      loadUser: true,
+    },
+    handler (req, res) {
+      res.vtree(passwordView({
+        hasPassword: typeof req.pre.user.hash !== 'undefined',
+      }))
     },
   })
 
-  plugin.route({
+  server.route({
     method: 'POST',
     path: '/settings/password',
     config: {
-      pre: [preUser, preSession],
       validate: {
-        payload: {
+        body: {
           currentPassword: joi.string(),
           newPassword: joi.string().min(1),
           verifyPassword: joi.equal(joi.ref('newPassword')),
         },
       },
-      handler(req, reply) {
-        let userService = req.server.plugins['jimbo-client'].user
-        let sessionService = req.server.plugins['jimbo-client'].session
+      loadUser: true,
+    },
+    handler (req, res) {
+      userService.changePassword({
+        userId: req.pre.user.id,
+        currentPassword: req.body.currentPassword,
+        newPassword: req.body.newPassword,
+      }, (err, user) => {
+        if (err) {
+          return res.vtree(passwordView({
+            hasPassword: typeof req.pre.user.hash !== 'undefined',
+            messages: {
+              error: i18n.t('account.error.' + err.type || 'unknown'),
+            },
+          }))
+        }
 
-        userService.changePassword({
-          userId: req.pre.user.id,
-          currentPassword: req.payload.currentPassword,
-          newPassword: req.payload.newPassword,
-        }, function(err, user) {
-          if (err) {
-            return reply({
-              messages: {
-                error: i18n.t('account.error.' + err.type || 'unknown'),
-              },
-            })
-          }
+        /*sessionService.destroyByUserId({
+          userId: user.id,
+          exceptId: req.pre.session.sid,
+        })*/
 
-          sessionService.destroyByUserId({
-            userId: user.id,
-            exceptId: req.pre.session.sid,
-          })
+        req.login(user, err => {
+          if (err) return res.send(boom.wrap(err))
 
-          reply.login(user, function(err) {
-            if (err) return reply(boom.wrap(err))
-
-            return reply({
-              messages: {
-                success: i18n.t('settings.passwordChangedSuccessfully'),
-              },
-            })
-          })
+          return res.vtree(passwordView({
+            hasPassword: typeof req.pre.user.hash !== 'undefined',
+            messages: {
+              success: i18n.t('settings.passwordChangedSuccessfully'),
+            },
+          }))
         })
-      },
+      })
     },
   })
-
-  next()
 }
 
 exports.register.attributes = {

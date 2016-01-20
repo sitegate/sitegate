@@ -1,41 +1,47 @@
 'use strict'
 const h = require('virtual-dom/h')
-const vtag = require('vtag')(h)
+const hh = require('hyperscript-helpers')(h)
 const publicLayout = require('../../../views/public-layout')
 const t = require('i18next').t
-const config = require('../../../../config/config')
 const messageBlock = require('../../../views/partials/message-block')
-const socialSignin = require('../../../views/partials/social-signin')
 
-module.exports = function(vm) {
+const div = hh.div
+const i = hh.i
+const h1 = hh.h1
+const input = hh.input
+const button = hh.button
+const a = hh.a
+const form = hh.form
+
+module.exports = vm => {
   return publicLayout(vm, {
     content: [
-      h('h1#sign-header.ui.icon.center.aligned.header', [
-        h('i.lock.icon'),
-        h('.content', t('account.password.reset')),
+      h1('#sign-header.ui.icon.center.aligned.header', [
+        i('.lock.icon'),
+        div('.content', [t('account.password.reset')]),
       ]),
-      h('form.ui.form', { method: 'post'}, [
+      form('.ui.form', { method: 'post'}, [
         messageBlock(vm.messages),
-        h('.field',
-          h('.ui.left.icon.input', [
-            h('input', {
+        div('.field', [
+          div('.ui.left.icon.input', [
+            input({
               type: 'text',
               placeholder: t('account.email'),
               name: 'email',
               value: vm.email,
             }),
-            h('i.mail.icon'),
-          ])
+            i('.mail.icon'),
+          ]),
+        ]),
+        button('.fluid.ui.big.primary.submit.button',
+          { type: 'submit'}, [t('account.password.reset')]
         ),
-        h('button.fluid.ui.big.primary.submit.button',
-          { type: 'submit'}, t('account.password.reset')
-        ),
-        h('.ui.divider'),
-        h('a', { href: '/signin'}, t('account.signIn')),
+        div('.ui.divider'),
+        a({ href: '/signin'}, [t('account.signIn')]),
         '  ',
         t('account.or').toLocaleLowerCase(),
         '  ',
-        h('a', { href: '/signup'}, t('account.signUp')),
+        a({ href: '/signup'}, [t('account.signUp')]),
       ]),
     ],
   })

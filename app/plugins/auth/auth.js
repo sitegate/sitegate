@@ -1,50 +1,47 @@
 'use strict'
 const R = require('ramda')
-const handlers = require('./handlers')
-const preSession = require('humble-session').pre
+const passport = require('passport')
 
-exports.register = function(server, opts, next) {
-  let bellOpts = {
-    forceHttps: opts.forceHttps,
-    isSecure: opts.isSecure,
-  }
+exports.register = function (server, opts) {
+  let userService = server.plugins.jimboClient.user
 
-  R.values(opts.provider).forEach(function(provider) {
-    server.auth.strategy(provider.provider, 'bell', R.merge(bellOpts, provider))
-
+  R.values(opts.provider).forEach(provider => {
     server.route({
-      path: '/auth/' + provider.provider,
       method: 'GET',
+      path: '/auth/:strategy/callback',
       config: {
-        auth: provider.provider,
-        pre: [preSession],
-        handler: handlers.sessionManagement,
+        auth: false,
+      },
+      handler (req, res, next) {
+        passport.authenticate(req.params.strategy, (err, user, redirectURL) => {
+          if (req.user) return res.redirect('/settings/accounts')
+
+          if (err || !user) return res.redirect('/signin')
+
+          req.login(user, err => {
+            if (err) return res.redirect('/signin')
+
+            return res.redirect('/')
+          })
+        })(req, res, next)
       },
     })
   })
 
-  server.auth.strategy('default', 'session', true, {
-    redirectTo: '/signin',
-    appendNext: true,
-  })
-
   server.route({
-    path: '/auth/{strategy}/disconnect',
+    path: '/auth/:strategy/disconnect',
     method: 'GET',
-    handler(req, reply) {
-      let userService = req.server.plugins['jimbo-client'].user
-
+    handler (req, res) {
       userService.disconnectProvider({
-        userId: req.auth.credentials.id,
+        userId: req.user.id,
         strategy: req.params.strategy,
-      }, function(err) {
-        if (err) return reply(err)
+      }, err => {
+        if (err) return res.send(err)
 
-        return reply.redirect('/settings/accounts')
+        return res.redirect('/settings/accounts')
       })
     },
   })
-  next()
 }
 
 exports.register.attributes = {

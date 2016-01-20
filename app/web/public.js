@@ -1,22 +1,15 @@
 'use strict'
-exports.register = function(plugin, options, next) {
-  plugin.route({
-    method: 'GET',
-    path: '/{param*}',
-    config: {
-      auth: false,
-    },
-    handler: {
-      directory: {
-        path: 'public',
-        listing: true,
-      },
-    },
-  })
+const path = require('path')
+const express = require('express')
 
-  next()
+module.exports = (plugin, options) => {
+  plugin.express.use(
+    '/',
+    express.static(path.resolve(__dirname, '../../public'))
+  )
 }
 
-exports.register.attributes = {
+module.exports.attributes = {
   name: 'public',
+  dependencies: ['hexi-default'],
 }

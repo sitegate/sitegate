@@ -4,7 +4,7 @@ const t = require('i18next').t
 const R = require('ramda')
 const config = require('../../../config/config')
 
-function socialButton(type) {
+function socialButton (type) {
   return h('a.fluid.ui.big.basic.button', {
     href: '/auth/' + type,
   }, [
@@ -13,7 +13,7 @@ function socialButton(type) {
   ])
 }
 
-module.exports = function() {
+module.exports = function () {
   return R.values(config.get('provider'))
     .map(provider => socialButton(provider.provider))
 }

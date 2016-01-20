@@ -1,39 +1,32 @@
 'use strict'
-const R = require('ramda')
-const Boom = require('boom')
-const preSession = require('humble-session').pre
+module.exports = (server, options) => {
+  let userService = server.plugins.jimboClient.user
 
-exports.register = function(plugin, options, next) {
-  plugin.route({
+  server.route({
     method: 'GET',
-    path: '/verify-email/{token}',
-    config: {
-      pre: [preSession],
-      handler(req, reply) {
-        let userService = req.server.plugins['jimbo-client'].user
+    path: '/verify-email/:token',
+    handler (req, res) {
+      userService.verifyEmailByToken({ token: req.params.token }, (err, user) => {
+        if (err) {
+          return res.status(400).send({
+            message: 'Email verification token is invalid or has expired.',
+          })
+        }
 
-        userService.verifyEmailByToken(req.params.token, function(err, user) {
+        req.login({ id: user.id }, err => {
           if (err) {
-            let msg = 'Email verification token is invalid or has expired.'
-            return reply(Boom.notFound(msg))
+            return res.status(400).send(err)
           }
 
-          reply.flash('profileSuccessMessages', 'You have successfully verified your email address')
-          reply.login(R.pick(['id'], user), function(err) {
-            if (err) {
-              return reply(Boom.create(400, 'Couldn\'t log in', err))
-            }
-
-            reply.redirect('/settings/profile')
-          })
+          req.flash('profileSuccessMessages',
+            'You have successfully verified your email address')
+          res.redirect('/settings/profile')
         })
-      },
+      })
     },
   })
-
-  next()
 }
 
-exports.register.attributes = {
+module.exports.attributes = {
   name: 'web/email',
 }

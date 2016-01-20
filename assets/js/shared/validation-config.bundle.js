@@ -1,3 +1,2 @@
-'use strict';
-
-$.fn.form.settings.inline = true;
+'use strict'
+$.fn.form.settings.inline = true

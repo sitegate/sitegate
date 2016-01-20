@@ -1,9 +1,8 @@
-'use strict';
-
-import t from '../shared/t';
+'use strict'
+import t from '../shared/t'
 
 $('#appDelete').click(function() {
-  let $this = $(this);
+  let $this = $(this)
 
   if (window.confirm(t('app.deleteConfirmation'))) {
     $.ajax({
@@ -11,8 +10,8 @@ $('#appDelete').click(function() {
       url: '/settings/applications/' + $this.data('client-id'),
       success() {
         window.location.href = window.location.origin +
-          '/settings/applications';
+          '/settings/applications'
       },
-    });
+    })
   }
-});
+})

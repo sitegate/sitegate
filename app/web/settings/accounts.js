@@ -1,24 +1,21 @@
 'use strict'
 const accountsView = require('./views/accounts')
-const preUser = require('../pre-user')
 
-exports.register = function(plugin, options, next) {
-  plugin.route({
+module.exports = server => {
+  server.route({
     method: 'GET',
     path: '/settings/accounts',
     config: {
-      pre: [preUser],
-      handler(req, reply) {
-        reply.vtree(accountsView({
-          user: req.pre.user,
-        }))
-      },
+      loadUser: true,
+    },
+    handler (req, res) {
+      res.vtree(accountsView({
+        user: req.pre.user,
+      }))
     },
   })
-
-  next()
 }
 
-exports.register.attributes = {
+module.exports.attributes = {
   name: 'web/settings/accounts',
 }

@@ -1,54 +1,69 @@
 'use strict'
 const h = require('virtual-dom/h')
+const hh = require('hyperscript-helpers')(h)
 const settingsLayout = require('../../../views/settings-layout')
 const t = require('i18next').t
-const vtag = require('vtag')(h)
 
-module.exports = function(vm) {
-  let hasTrustedClients = !!(vm.trustedClients && vm.trustedClients.length > 0)
+const h5 = hh.h5
+const a = hh.a
+const div = hh.div
+const i = hh.i
+const button = hh.button
+
+module.exports = vm => {
+  const hasTrustedClients =
+    !!(vm.trustedClients && vm.trustedClients.length > 0)
   return settingsLayout(vm, {
     settingsContent: [
-      h('h5.ui.top.attached.block.header.clearing.segment', [
+      h5('.ui.top.attached.block.header.clearing.segment', [
         t('app.devApps'),
-        h('a.ui.basic.small.right.floated.button', {
-          href: '/settings/applications/new',
-        }, t('app.registerNew')),
+        a('.ui.basic.small.right.floated.button',
+          {
+            href: '/settings/applications/new',
+          },
+          [t('app.registerNew')]
+        ),
       ]),
-      h('.ui.attached.segment',
-        !vm.clients || vm.clients.length === 0 ?
-        t('app.noApps') :
-        h('.ui.list', vm.clients.map(function(client) {
-          return h('a.item', {
-            href: '/settings/applications/' + client.id,
-          }, [
-            h('i.anchor.icon'),
-            client.name,
-          ])
-        }))
-      ),
-      h('h5.ui.top.attached.block.header', [
+      div('.ui.attached.segment', [
+        !vm.clients || vm.clients.length === 0
+          ? t('app.noApps')
+          : div('.ui.list', [
+              vm.clients.map(client =>
+                a('.item',
+                  {
+                    href: '/settings/applications/' + client.id,
+                  },
+                  [
+                    i('.anchor.icon'),
+                    client.name,
+                  ]
+                )
+              ),
+            ]),
+      ]),
+      h5('.ui.top.attached.block.header', [
         t('app.authorizedApps'),
         vm.hasTrustedClients ?
-          h('button.ui.basic.small.revoke-all.button', t('app.revokeAll')) :
+          button('.ui.basic.small.revoke-all.button', t('app.revokeAll')) :
           '',
       ]),
-      h('.ui.attached.segment',
+      div('.ui.attached.segment',
         !hasTrustedClients ? t('app.noTrustedApps') :
-        h('.ui.list.trusted.clients',
-          vm.trustedClients.map(function(client) {
-            return h('.item', [
-              h('.ui.right.floated.tiny.buttons', [
-                h('a.ui.tiny.button', {
+        div('.ui.list.trusted.clients',
+          vm.trustedClients.map(client => {
+            return div('.item', [
+              div('.ui.right.floated.tiny.buttons', [
+                a('.ui.tiny.button', {
                   href: '/settings/connections/' + client.id,
-                }, t('app.view')),
-                h('button.ui.tiny.red.inverted.revoke.button', {
+                }, [t('app.view')]),
+                button('.ui.tiny.red.inverted.revoke.button', {
                   attributes: {
                     'data-client-id': client.id.toString(),
                   },
-                }, t('app.revoke')),
+                }, [t('app.revoke')]),
               ]),
-              h('i.anchor.icon'),
-              h('.content.aligned', client.name),
+              i('.anchor.icon'),
+              div('.content.aligned', [client.name]),
             ])
           })
         )

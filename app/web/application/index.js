@@ -3,194 +3,164 @@ const applicationsView = require('./views/applications')
 const editAppView = require('./views/applications-edit')
 const newAppView = require('./views/applications-new')
 const appView = require('./views/applications-view')
-const preSession = require('humble-session').pre
 const t = require('i18next').t
-const Boom = require('boom')
 
-exports.register = function(plugin, options, next) {
-  plugin.route({
+exports.register = (server, options) => {
+  const clientService = server.plugins.jimboClient.client
+  const userService = server.plugins.jimboClient.user
+
+  server.route({
     method: 'GET',
     path: '/settings/applications',
-    config: {
-      pre: [preSession],
-    },
-    handler(request, reply) {
-      let clientService = request.server.plugins['jimbo-client'].client
-      let userService = request.server.plugins['jimbo-client'].user
-      let userId = request.pre.session.user.id
+    handler (req, res) {
+      let userClients
 
       clientService.query({
-        creatorId: userId,
+        creatorId: req.user.id,
         count: 20,
         fields: ['name'],
-      }, function(err, userClients) {
-        if (err) return reply(Boom.wrap(err))
-
-        userService.getTrustedClients({userId}, function(err, clients) {
-          if (err) return reply(Boom.wrap(err))
-
-          reply.vtree(applicationsView({
-            title: t('app.apps'),
-            trustedClients: clients,
-            clients: userClients,
-          }))
-        })
       })
+      .then(userClients$ => {
+        userClients = userClients$
+        return userService.getTrustedClients({userId: req.user.id})
+      })
+      .then(clients => {
+        res.vtree(applicationsView({
+          title: t('app.apps'),
+          trustedClients: clients,
+          clients: userClients,
+        }))
+      })
+      .catch(err => res.send(err))
     },
   })
 
-  plugin.route({
+  server.route({
     method: 'GET',
     path: '/settings/applications/new',
-    handler(request, reply) {
-      reply.vtree(newAppView({}))
+    handler (req, res) {
+      res.vtree(newAppView({}))
     },
   })
 
-  plugin.route({
+  server.route({
     method: 'POST',
     path: '/settings/applications/new',
-    config: {
-      pre: [preSession],
-    },
-    handler(req, reply) {
-      let clientService = req.server.plugins['jimbo-client'].client
-
+    handler (req, res) {
       clientService.create({
-        name: req.payload.name,
-        description: req.payload.description,
-        homepageUrl: req.payload.homepageUrl,
-        authCallbackUrl: req.payload.authCallbackUrl,
-        userId: req.pre.session.user.id,
-      }, function(err, client) {
-        if (err) return reply(Boom.wrap(err))
+        name: req.body.name,
+        description: req.body.description,
+        homepageUrl: req.body.homepageUrl,
+        authCallbackUrl: req.body.authCallbackUrl,
+        userId: req.user.id,
+      }, (err, client) => {
+        if (err) return res.send(err)
 
-        return reply.redirect('/settings/applications/' + client.id)
+        return res.redirect('/settings/applications/' + client.id)
       })
     },
   })
 
-  plugin.route({
+  server.route({
     method: 'GET',
-    path: '/settings/applications/{id}',
-    config: {
-      pre: [preSession],
-    },
-    handler(req, reply) {
-      let clientService = req.server.plugins['jimbo-client'].client
+    path: '/settings/applications/:id',
+    handler (req, res) {
+      clientService.getById({ id: req.params.id }, function(err, client) {
+        if (err) return res.send(err)
 
-      clientService.getById(req.params.id, function(err, client) {
-        if (err) return reply(Boom.wrap(err))
+        if (client.userId !== req.user.id)
+          return res.send('You cannot view an app that was created by another user')
 
-        if (client.userId !== req.pre.session.user.id)
-          return reply('You cannot view an app that was created by another user')
-
-        return reply.vtree(editAppView(client))
+        return res.vtree(editAppView(client))
       })
     },
   })
 
-  plugin.route({
+  server.route({
     method: 'GET',
-    path: '/settings/connections/{id}',
-    handler(req, reply) {
-      let clientService = req.server.plugins['jimbo-client'].client
+    path: '/settings/connections/:id',
+    handler (req, res) {
+      clientService.getById({ id: req.params.id }, (err, client) => {
+        if (err) return res.send(err)
 
-      clientService.getById(req.params.id, function(err, client) {
-        if (err) return reply(Boom.wrap(err))
-
-        return reply.vtree(appView(client))
+        return res.vtree(appView(client))
       })
     },
   })
 
-  plugin.route({
+  server.route({
     method: 'POST',
-    path: '/settings/applications/{id}',
-    config: {
-      pre: [preSession],
-    },
-    handler(req, reply) {
-      let clientService = req.server.plugins['jimbo-client'].client
-
-      clientService.update(req.params.id, {
-        name: req.payload.name,
-        description: req.payload.description,
-        homepageUrl: req.payload.homepageUrl,
-        authCallbackUrl: req.payload.authCallbackUrl,
-      }, {
-        allow: {
-          userId: req.pre.session.user.id,
+    path: '/settings/applications/:id',
+    handler (req, res) {
+      clientService.update({
+        id: req.params.id,
+        name: req.body.name,
+        description: req.body.description,
+        homepageUrl: req.body.homepageUrl,
+        authCallbackUrl: req.body.authCallbackUrl,
+        security: {
+          allow: {
+            userId: req.user.id,
+          },
         },
-      }, function(err, client) {
-        if (err) return reply(Boom.wrap(err))
+      }, (err, client) => {
+        if (err) return res.send(err)
 
-        return reply.redirect('/settings/applications')
+        return res.redirect('/settings/applications')
       })
     },
   })
 
-  plugin.route({
+  server.route({
     method: 'DELETE',
-    path: '/settings/applications/{id}',
-    config: {
-      pre: [preSession],
-    },
-    handler(req, reply) {
-      let clientService = req.server.plugins['jimbo-client'].client
+    path: '/settings/applications/:id',
+    handler (req, res) {
+      clientService.getById({ id: req.params.id }, (err, client) => {
+        if (err) return res.status(400).send(err)
 
-      clientService.getById(req.params.id, function(err, client) {
-        if (err) return reply(Boom.wrap(err))
+        if (!client) return res.status(400).send('client not found')
 
-        if (!client) return reply(Boom.notFound('client not found'))
-
-        if (client.userId !== req.pre.session.user.id) {
-          return reply(Boom.badRequest('Only the creator can remove a client'))
+        if (client.userId !== req.user.id) {
+          return res.status(400).send('Only the creator can remove a client')
         }
 
-        clientService.remove(req.params.id, function(err) {
-          if (err) return reply(Boom.wrap(err))
+        clientService.remove(req.params.id, err => {
+          if (err) return res.status(400).send(err)
 
-          return reply('Success')
+          return res.status(200).send('Success')
         })
       })
     },
   })
 
-  plugin.route({
+  server.route({
     method: 'POST',
-    path: '/settings/applications/revoke/{id}',
-    handler(req, reply) {
-      let userService = req.server.plugins['jimbo-client'].user
-
+    path: '/settings/applications/revoke/:id',
+    handler (req, res) {
       userService.revokeClientAccess({
-        userId: req.auth.credentials.id,
+        userId: req.user.id,
         clientId: req.params.id,
-      }, function(err) {
-        if (err) return reply(Boom.wrap(err))
+      }, err => {
+        if (err) return res.status(400).send(err)
 
-        reply('Success')
+        res.send('Success')
       })
     },
   })
 
-  plugin.route({
+  server.route({
     method: 'POST',
     path: '/settings/applications/revoke-all',
-    handler(req, reply) {
-      let userService = req.server.plugins['jimbo-client'].user
-
+    handler (req, res) {
       userService.revokeAllClientsAccess({
-        userId: req.auth.credentials.id,
-      }, function(err) {
-        if (err) return reply(Boom.wrap(err))
+        userId: req.user.id,
+      }, err => {
+        if (err) return res.status(400).send(err)
 
-        reply('Success')
+        res.send('Success')
       })
     },
   })
-
-  next()
 }
 
 exports.register.attributes = {

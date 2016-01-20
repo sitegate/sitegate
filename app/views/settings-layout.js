@@ -4,13 +4,13 @@ const privateLayout = require('./private-layout')
 const R = require('ramda')
 const t = require('i18next').t
 
-function link(targetUrl, text) {
+function link (targetUrl, text) {
   return h('a.item', {
     href: targetUrl,
   }, text)
 }
 
-module.exports = function(vm, partials) {
+module.exports = (vm, partials) => {
   return privateLayout(vm, R.merge(partials, {
     content: h('.ui.grid', [
       h('.four.wide.column',

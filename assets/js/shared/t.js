@@ -1,6 +1,5 @@
-'use strict';
-
-import i18n from 'i18next-client';
+'use strict'
+import i18n from 'i18next-client'
 
 i18n.init({
   lng: 'en',
@@ -10,12 +9,12 @@ i18n.init({
     defaultNs: 'translation',
   },
   resGetPath: '/locales/__lng__/__ns__.json',
-});
+})
 
 export default function(resourceName) {
-  return i18n.t(resourceName);
+  return i18n.t(resourceName)
 }
 
 export function tfn(resourceName) {
-  return () => i18n.t(resourceName);
+  return () => i18n.t(resourceName)
 }

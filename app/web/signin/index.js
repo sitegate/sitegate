@@ -1,61 +1,58 @@
 'use strict'
 const signinView = require('./views/signin')
+const joi = require('joi')
 
-exports.register = function(plugin, opts, next) {
-  plugin.route({
+module.exports = (server, opts) => {
+  if (!opts.homepageUrl) throw new Error('opts.homepageUrl is required')
+
+  let userService = server.plugins.jimboClient.user
+
+  server.route({
     method: 'GET',
-    path: '/signin',
-    config: {
-      auth: {
-        mode: 'try',
-      },
-      plugins: {
-        'humble-auth': {
-          redirectTo: false,
-        },
-      },
-    },
-    handler(request, reply) {
-      if (request.auth.isAuthenticated)
-        return reply.redirect(opts.homepageUrl)
-
-      reply.vtree(signinView({}))
-    },
-  })
-
-  plugin.route({
-    method: 'POST',
     path: '/signin',
     config: {
       auth: false,
     },
-    handler(req, reply) {
-      let userService = req.server.plugins['jimbo-client'].user
-      let sessionService = req.server.plugins['jimbo-client'].session
+    handler (req, res) {
+      if (req.isAuthenticated()) return res.redirect(opts.homepageUrl)
 
+      res.vtree(signinView({}))
+    },
+  })
+
+  server.route({
+    method: 'POST',
+    path: '/signin',
+    config: {
+      auth: false,
+      validate: {
+        body: {
+          username: joi.string().required(),
+          password: joi.string().required(),
+        },
+      },
+    },
+    handler (req, res) {
       userService.authenticate({
-        usernameOrEmail: req.payload.username,
-        password: req.payload.password,
-      }, function(err, user) {
-        if (err) return reply(err)
+        usernameOrEmail: req.body.username,
+        password: req.body.password,
+      }, (err, user) => {
+        if (err) return res.send(err)
 
-        reply.setSession({
-          user: {
-            id: user.id,
-          },
-        }, function(err) {
-          if (err) return reply(err)
+        req.login(user, err => {
+          if (err) return res.send(err)
 
-          if (req.query.next)
-            return reply.redirect(decodeURIComponent(req.query.next))
+          if (req.query.next) {
+            return res.redirect(decodeURIComponent(req.query.next))
+          }
 
-          reply.redirect(opts.homepageUrl)
+          res.redirect(opts.homepageUrl)
         })
       })
     },
   })
 
-  plugin.route({
+  server.route({
     method: ['GET', 'POST', 'DELETE'],
     path: '/signout',
     config: {
@@ -65,18 +62,14 @@ exports.register = function(plugin, opts, next) {
         },
       },
     },
-    handler(req, reply) {
-      reply.logout(function(err) {
-        if (err) return reply(err)
-
-        reply.redirect('/signin')
-      })
+    handler (req, res) {
+      req.logout()
+      res.redirect('/signin')
     },
   })
-
-  next()
 }
 
-exports.register.attributes = {
+module.exports.attributes = {
   name: 'web/signin',
+  dependencies: ['hexi-validate'],
 }

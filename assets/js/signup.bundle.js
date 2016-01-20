@@ -1,8 +1,7 @@
-'use strict';
-
-import {tfn} from './shared/t';
-import zxcvbn from 'zxcvbn';
-import username from './validation/username';
+'use strict'
+import {tfn} from './shared/t'
+import zxcvbn from 'zxcvbn'
+import username from './validation/username'
 
 $('.ui.form').form({
   fields: {
@@ -54,23 +53,23 @@ $('.ui.form').form({
       ],
     },
   },
-});
+})
 
-let $lock = $('.lock.icon');
+let $lock = $('.lock.icon')
 $('input[type="password"]').keyup(function() {
-  let $this = $(this);
-  let score = zxcvbn($this.val()).score;
-  let scoreName;
+  let $this = $(this)
+  let score = zxcvbn($this.val()).score
+  let scoreName
 
   if (score === 4) {
-    scoreName = 'strong';
+    scoreName = 'strong'
   } else if (score === 3) {
-    scoreName = 'good';
+    scoreName = 'good'
   } else {
-    scoreName = 'weak';
+    scoreName = 'weak'
   }
 
-  $lock.toggleClass('green', scoreName === 'strong');
-  $lock.toggleClass('yellow', scoreName === 'good');
-  $lock.toggleClass('red', scoreName === 'weak');
-});
+  $lock.toggleClass('green', scoreName === 'strong')
+  $lock.toggleClass('yellow', scoreName === 'good')
+  $lock.toggleClass('red', scoreName === 'weak')
+})

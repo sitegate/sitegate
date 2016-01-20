@@ -1,6 +1,5 @@
-'use strict';
-
-import {tfn} from './shared/t';
+'use strict'
+import {tfn} from './shared/t'
 
 $('.ui.form').form({
   fields: {
@@ -23,4 +22,4 @@ $('.ui.form').form({
       ],
     },
   },
-});
+})

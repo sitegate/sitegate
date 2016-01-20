@@ -10,20 +10,22 @@ session:
 provider:
   facebook:
     provider: facebook
-    password: j0f43bslregf
-    clientId: '391179464377243'
+    clientID: '391179464377243'
     clientSecret: edfafc7715060f8cb4c7212833a3c87a
+    callbackURL: "http://localhost:3000/auth/facebook/callback"
+    passReqToCallback: true
   twitter:
     provider: twitter
-    password: j0f43bslregf
-    clientId: j5UFdNnFLv6t24syOiDglfRIX
-    clientSecret: GZMmhyaUcsaQULXQknfmXCEh8KTG91UGBeQED19ASvhsaDO7Ba
+    consumerKey: j5UFdNnFLv6t24syOiDglfRIX
+    consumerSecret: GZMmhyaUcsaQULXQknfmXCEh8KTG91UGBeQED19ASvhsaDO7Ba
+    callbackURL: http://localhost:3000/auth/twitter/callback
+    passReqToCallback: true
   google:
     provider: google
-    password: j0f43bslregf
-    clientId: 295363747259-4f4o7483ce5q74a6v31n05s23ke37dii.apps.googleusercontent.com
+    clientID: 295363747259-4f4o7483ce5q74a6v31n05s23ke37dii.apps.googleusercontent.com
     clientSecret: rcBTWhsCnytAl6bXr3iTnjPs
-    location: https://account.sitegatedev.com:3000/auth/google/callback
+    callbackURL: https://account.sitegatedev.com:3000/auth/google/callback
+    passReqToCallback: true
   linkedin:
     provider: linkedin
     password: j0f43bslregf

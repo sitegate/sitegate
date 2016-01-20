@@ -1,20 +1,19 @@
-'use strict';
-
-import t from '../shared/t';
+'use strict'
+import t from '../shared/t'
 
 $('.revoke.button').click(function() {
-  let $this = $(this);
+  let $this = $(this)
 
   if (window.confirm(t('app.revokeConfirmation'))) {
     $.ajax({
       method: 'POST',
       url: '/settings/applications/revoke/' + $this.data('client-id'),
       success() {
-        $this.parents('.item').remove();
+        $this.parents('.item').remove()
       },
-    });
+    })
   }
-});
+})
 
 $('.revoke-all.button').click(function() {
   if (window.confirm(t('app.revokeAllConfirmation'))) {
@@ -22,8 +21,8 @@ $('.revoke-all.button').click(function() {
       method: 'POST',
       url: '/settings/applications/revoke-all',
       success() {
-        $('.trusted.clients').remove();
+        $('.trusted.clients').remove()
       },
-    });
+    })
   }
-});
+})

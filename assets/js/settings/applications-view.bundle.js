@@ -1,9 +1,8 @@
-'use strict';
-
-import t from '../shared/t';
+'use strict'
+import t from '../shared/t'
 
 $('.revoke.button').click(function() {
-  let $this = $(this);
+  let $this = $(this)
 
   if (window.confirm(t('app.revokeConfirmation'))) {
     $.ajax({
@@ -11,8 +10,8 @@ $('.revoke.button').click(function() {
       url: `/settings/applications/revoke/${$this.data('client-id')}`,
       success: function() {
         window.location.href = window.location.origin +
-          '/settings/applications';
+          '/settings/applications'
       },
-    });
+    })
   }
-});
+})

@@ -1,96 +1,87 @@
 'use strict'
 const profileView = require('./views/profile')
 const errorHandler = require('../../error-handler')
-const preUser = require('../pre-user')
 const Boom = require('boom')
-const preSession = require('humble-session').pre
-const humbleFlash = require('humble-flash')
+const joi = require('joi')
 
-exports.register = function(plugin, options, next) {
-  plugin.route({
+module.exports = (server, options) => {
+  const userService = server.plugins.jimboClient.user
+
+  server.route({
     method: 'GET',
     path: '/settings',
-    handler(req, reply) {
-      reply.redirect('/settings/profile')
+    handler (req, res) {
+      res.redirect('/settings/profile')
     },
   })
 
-  plugin.route({
+  server.route({
     method: 'GET',
     path: '/settings/profile',
     config: {
-      pre: [
-        preUser,
-        humbleFlash.createPreHandler('profileSuccessMessages'),
-      ],
+      loadUser: true,
     },
-    handler(req, reply) {
-      reply.vtree(profileView({
+    handler (req, res) {
+      res.vtree(profileView({
         user: req.pre.user,
         messages: {
-          success: req.pre.profileSuccessMessages,
+          success: req.flash('profileSuccessMessages'),
         },
       }))
     },
   })
 
-  plugin.route({
+  server.route({
     method: 'POST',
     path: '/settings/profile',
     config: {
-      handler(req, reply) {
-        let userService = req.server.plugins['jimbo-client'].user
-
-        let userToReturn = req.payload.user
-        userService.update(req.auth.credentials.userId, {
-          username: req.payload.user.username,
-          email: req.payload.user.email,
-        }, function(err, user, info) {
-          if (err) {
-            return reply.vtree(profileView({
-              user: userToReturn,
-              messages: {
-                error: errorHandler.getErrorMessage(err),
-              },
-            }))
-          }
-          return reply.vtree(profileView({
-            user: userToReturn,
+      validate: {
+        body: {
+          username: joi.string().required(),
+          email: joi.string().required(),
+        },
+      },
+    },
+    handler (req, res) {
+      userService
+        .update({
+          id: req.user.id,
+          username: req.body.username,
+          email: req.body.email,
+        })
+        .then(data => {
+          return res.vtree(profileView({
+            user: req.body,
             messages: {
-              success: 'Profile was updated' + (info.emailHasBeenUpdated ?
+              success: 'Profile was updated' + (data.emailHasBeenUpdated ?
                 'Verification email was sent' : ''),
             },
           }))
         })
-      },
+        .catch(err => {
+          return res.vtree(profileView({
+            user: req.body,
+            messages: {
+              error: errorHandler.getErrorMessage(err),
+            },
+          }))
+        })
     },
   })
 
-  plugin.route({
+  server.route({
     method: 'POST',
     path: '/resend-email-verification',
-    config: {
-      auth: 'default',
-      pre: [preSession],
-    },
-    handler(req, reply) {
-      let userService = req.server.plugins['jimbo-client'].user
-
-      userService.sendVerificationEmail(req.pre.session.user.id, function(err) {
-        if (err) {
-          return reply(Boom.wrap(err))
-        }
-
-        return reply({
+    handler (req, res) {
+      userService.sendVerificationEmail({ userId: req.user.id })
+        .then(() => res.send({
           message: 'Verification has been sent out',
-        })
-      })
+        }))
+        .catch(err => res.send(Boom.wrap(err)))
     },
   })
-
-  next()
 }
 
-exports.register.attributes = {
+module.exports.attributes = {
   name: 'web/settings/profile',
 }

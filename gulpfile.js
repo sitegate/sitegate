@@ -4,7 +4,7 @@ const nodemon = require('gulp-nodemon')
 const livereload = require('gulp-livereload')
 const hub = require('gulp-hub')
 
-gulp.task('develop', function() {
+gulp.task('develop', () => {
   process.env.NODE_ENV = 'development'
   process.env.LR_PORT = '7171'
 
@@ -19,7 +19,7 @@ gulp.task('develop', function() {
       '**/node_modules/**',
       'assets/*',
     ],
-  }).on('restart', function() {
+  }).on('restart', () => {
     setTimeout(() => livereload.changed('app.js'), 500)
   })
 })

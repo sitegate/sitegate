@@ -1,7 +1,6 @@
-'use strict';
-
-import {tfn} from '../shared/t';
-import username from '../validation/username';
+'use strict'
+import { tfn } from '../shared/t'
+import username from '../validation/username'
 
 $('.ui.form').form({
   fields: {
@@ -40,17 +39,17 @@ $('.ui.form').form({
       ],
     },
   },
-});
+})
 
 $('#resend-email').click(function() {
   $.ajax({
     url: '/resend-email-verification',
     method: 'POST',
     success() {
-      alert('success');
+      alert('success')
     },
     error() {
-      alert('error');
+      alert('error')
     },
-  });
-});
+  })
+})
