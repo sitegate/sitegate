@@ -1,4 +1,4 @@
-FROM node:5.2.0-onbuild
+FROM risingstack/alpine:3.3-v5.7.0-3.1.0
 
 MAINTAINER Zoltan Kochan, zoltan.kochan@gmail.com
 
