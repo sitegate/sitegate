@@ -2,6 +2,7 @@
 
 [![Dependency Status](https://david-dm.org/sitegate/sitegate.svg)](https://david-dm.org/sitegate/sitegate)
 [![Build Status](https://travis-ci.org/sitegate/sitegate.svg?branch=master)](https://travis-ci.org/sitegate/sitegate)
+[![Coverage Status](https://coveralls.io/repos/github/sitegate/sitegate/badge.svg?branch=master)](https://coveralls.io/github/sitegate/sitegate?branch=master)
 
 SiteGate is a **Node.js Express** website that handles the user sign in/up processes. SiteGate allows to create a user account either through registration with an email or using an OAuth provider like Facebook, Twitter, etc.
 
