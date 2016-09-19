@@ -56,7 +56,7 @@
   },
   "devDependencies": {
     "chai": "^3.4.1",
-    "coveralls": "^2.11.6",
+    "coveralls": "^2.11.14",
     "gulp": "^3.9.0",
     "gulp-hub": "^0.7.1",
     "gulp-livereload": "^3.8.1",
