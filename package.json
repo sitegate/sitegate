@@ -28,7 +28,7 @@
     "connect-redis": "^3.0.2",
     "convict": "1.0.1",
     "express": "^4.13.4",
-    "express-session": "^1.13.0",
+    "express-session": "^1.14.2",
     "hexi": "^0.8.1",
     "hexi-auth": "^0.1.1",
     "hexi-default": "^0.1.3",
