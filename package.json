@@ -55,7 +55,7 @@
     "yaml-or-json": "^0.1.0"
   },
   "devDependencies": {
-    "chai": "^3.4.1",
+    "chai": "^4.0.0",
     "coveralls": "^2.11.6",
     "gulp": "^3.9.0",
     "gulp-hub": "^0.7.1",
